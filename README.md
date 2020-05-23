@@ -1,6 +1,6 @@
 # 2020 - 1 cuatrimestre - PPS -- La Comanda
 
-## Grupo CoronaDely
+## Grupo CoronaDely :hamburger: :pizza: :green_salad:
 
 ### Integrantes :mortar_board:
 
