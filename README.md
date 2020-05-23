@@ -6,7 +6,7 @@
 
 * **Perfil alfa**: *Herrero Battista, Lionel Roberto*
 * **Perfil beta**: *Torrealba, Paola*
-* **Perfil gama**: *Muruchi Laura, Rosa Elena*
+* **Perfil gamma**: *Muruchi Laura, Rosa Elena*
 
 ## Responsabilidades :writing_hand:
 
