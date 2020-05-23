@@ -1,9 +1,18 @@
-<h1>2020 - 1 cuatrimestre - PPS -- La Comanda</h1>
+# 2020 - 1 cuatrimestre - PPS -- La Comanda
 
-Para registrar el <strong>grupo completo</strong> con todos sus integrantes: https://forms.gle/yaGSdKiuaoR4iMWJ9
+## Grupo CoronaDely
 
-<br>
+### Integrantes
 
-Grupos:<br>
-<h4>Máximo 3 integrantes</h4>
-<h4>Mínimo 2 integrantes</h4>
+* **Perfil alfa**: *Herrero Battista, Lionel Roberto*
+* **Perfil beta**: *Torrealba, Paola*
+* **Perfil gama**: *Muruchi Laura, Rosa Elena*
+
+## Responsabilidades
+
+* **Apellido**: Herrero Battista
+* **Nombre**: Lionel Roberto
+* **Módulos**: Fork, Crear Readme.md
+* **Fecha de inicio de la tarea**: 23/05/2020
+* **Fecha de finalización de la tarea**: 29/05/2020
+* **Branch**: [lherrerob](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/tree/lherrerob)
