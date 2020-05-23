@@ -15,18 +15,18 @@
     **Módulos**: Fork, Crear README.md, authenticación\
     **Fecha de inicio de la tarea**: 23/05/2020\
     **Fecha de finalización de la tarea**: 29/05/2020\
-    **Branch**: [lherrerob](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/tree/lherrerob)\
+    **Branch**: [lherrerob](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/tree/lherrerob)
 
 * **Apellido**: Torrealba\
     **Nombre**: Paola\
     **Módulos**: Login\
     **Fecha de inicio de la tarea**: 23/05/2020\
     **Fecha de finalización de la tarea**: 29/05/2020\
-    **Branch**: [ptorrealba](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/tree/ptorrealba)\
+    **Branch**: [ptorrealba](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/tree/ptorrealba)
 
 * **Apellido**: Muruchi Laura\
     **Nombre**: Rosa Elena\
     **Módulos**: icono, splashscreen\
     **Fecha de inicio de la tarea**: 23/05/2020\
     **Fecha de finalización de la tarea**: 29/05/2020\
-    **Branch**: -\
+    **Branch**: -
