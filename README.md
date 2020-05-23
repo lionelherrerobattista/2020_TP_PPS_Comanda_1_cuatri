@@ -12,7 +12,7 @@
 
 * **Apellido**: Herrero Battista\
     **Nombre**: Lionel Roberto\
-    **Módulos**: Fork, Crear README.md, authenticación\
+    **Módulos**: Fork, Crear README.md, autenticación\
     **Fecha de inicio de la tarea**: 23/05/2020\
     **Fecha de finalización de la tarea**: 29/05/2020\
     **Branch**: [lherrerob](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/tree/lherrerob)
