@@ -13,6 +13,10 @@ import { environment } from '../environments/environment';
 //Firebase
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestore } from "@angular/fire/firestore";
+import { FormsModule } from '@angular/forms'  
+import { ReactiveFormsModule} from '@angular/forms' 
+import { firebaseConfig } from 'src/environments/environment';
 
 
 @NgModule({
@@ -21,12 +25,15 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
+    FormsModule   ,
     AppRoutingModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
   ],
   providers: [
+    AngularFirestore,
     StatusBar,
+    SplashScreen, 
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
