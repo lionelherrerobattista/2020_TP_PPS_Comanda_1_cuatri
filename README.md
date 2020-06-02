@@ -10,7 +10,7 @@
 
 ## Responsabilidades :writing_hand:
 
-# Semana 1 (23/05/2020 al 30/05/2020)
+### Semana 1 (23/05/2020 al 30/05/2020)
 
 * **Apellido**: Herrero Battista\
     **Nombre**: Lionel Roberto\
