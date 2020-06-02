@@ -5,6 +5,11 @@ const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'home', loadChildren: './pages/home/home.module#HomePageModule' },
   { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
+  { path: 'registro', loadChildren: './pages/registro/registro.module#RegistroPageModule' },
+ // accesos admin
+  // { path: 'listado', loadChildren: './pages/listas/listas.module#ListasPageModule' },
+  { path: 'registro/:object', loadChildren: './pages/registro/registro.module#RegistroPageModule' },
+  // { path: 'modificar/:object/:id', loadChildren: './pages/modify/modify.module#ModifyPageModule' },
     // path: 'home',
     // loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   

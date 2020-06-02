@@ -20,7 +20,8 @@ export class HomePage implements OnInit {
     private userService: UsuarioService,
     private router: Router
   ) {
-      let usuario = this.authService.getCurrentUser();     
+      let usuario = this.authService.getCurrentUser(); 
+      console.log(usuario);    
       if (isNullOrUndefined(usuario)) {       
         this.router.navigateByUrl("/login");
       }

@@ -8,5 +8,5 @@ export class Usuario {
         foto:string;
         dni:number;
         cuil:number;
-        status:string;
+        estado:string;
     }

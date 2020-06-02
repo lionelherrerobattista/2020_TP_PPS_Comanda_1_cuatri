@@ -1,0 +1,26 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Routes, RouterModule } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
+import { RegistroPage } from './registro.page';
+import { UsuarioFormComponent } from 'src/app/componentes/usuario-form/usuario-form.component';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: RegistroPage
+  }
+];
+
+@NgModule({
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    RouterModule.forChild(routes)
+  ],
+  declarations: [RegistroPage, UsuarioFormComponent] //--> aca agrego los 
+  //componentes de los elementos que quiero dar de alta
+})
+export class RegistroPageModule {}
