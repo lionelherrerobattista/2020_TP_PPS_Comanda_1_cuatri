@@ -10,6 +10,8 @@
 
 ## Responsabilidades :writing_hand:
 
+## Semana 1 (23/05/2020 al 30/05/2020)
+
 * **Apellido**: Herrero Battista\
     **Nombre**: Lionel Roberto\
     **Módulos**: Fork, Crear README.md, autenticación\
@@ -29,4 +31,4 @@
     **Módulos**: icono, splashscreen\
     **Fecha de inicio de la tarea**: 23/05/2020\
     **Fecha de finalización de la tarea**: 29/05/2020\
-    **Branch**: -
+    **Branch**: [rmuruchi](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/tree/rmuruchi)
