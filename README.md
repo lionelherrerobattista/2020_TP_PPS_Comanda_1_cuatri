@@ -12,9 +12,18 @@
 
 ### Semana 1 (23/05/2020 al 30/05/2020)
 
-* **Apellido**: Herrero Battista\
+| | **Perfil Alfa** | **Perfil Beta** | **Perfil Gamma** |
+| --- | --- | --- | --- |
+| **Apellido** | Herrero Battista | Torrealba | Muruchi Laura |
+| **Nombre** | Lionel Roberto | Paola | Rosa Elena |
+| **Módulos** | `README.md` `Autenticación` | `Login` | `Icono` `Splashscreen` |
+| **Fecha de inicio de la tarea** | 23/05/2020 | 23/05/2020 | 23/05/2020 |
+| **Fecha de finalización de la tarea** | 29/05/2020 | 29/05/2020 | 29/05/2020 |
+| **Branch** | [lherrerob](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/tree/lherrerob) | [ptorrealba](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/tree/ptorrealba) | [rmuruchi](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/tree/rmuruchi) |
+
+<!-- * **Apellido**: Herrero Battista\
     **Nombre**: Lionel Roberto\
-    **Módulos**: Fork, Crear README.md, autenticación\
+    **Módulos**: README.md, autenticación\
     **Fecha de inicio de la tarea**: 23/05/2020\
     **Fecha de finalización de la tarea**: 29/05/2020\
     **Branch**: [lherrerob](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/tree/lherrerob)
@@ -31,4 +40,4 @@
     **Módulos**: icono, splashscreen\
     **Fecha de inicio de la tarea**: 23/05/2020\
     **Fecha de finalización de la tarea**: 29/05/2020\
-    **Branch**: [rmuruchi](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/tree/rmuruchi)
+    **Branch**: [rmuruchi](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/tree/rmuruchi) -->
