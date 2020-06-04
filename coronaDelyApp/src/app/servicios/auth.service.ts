@@ -16,14 +16,17 @@ export class AuthService {
 
   ///Login del usuario registrado con email y password
   logIn(email: string, password: string) {
-   
+   console.log("auth-login")
     return new Promise((resolve, rejected) => {
 
       this.AFauth.auth.signInWithEmailAndPassword(email, password)
-       .then(respuesta => {        
+       .then(respuesta => {  
+          console.log(respuesta);      
           resolve(respuesta);
-        }).catch(error => rejected(error));
+        }).catch(error => {console.log(error);});
     })
+
+  
     
   }
 
@@ -45,7 +48,7 @@ export class AuthService {
   }
 
   getCurrentUser() {
-    console.log("auth-getCurrentUser", this.AFauth.auth.currentUser)
+    console.log("auth-getCurrentUser", this.AFauth.auth.currentUser.getIdToken)
       return this.AFauth.auth.currentUser;
     
   }

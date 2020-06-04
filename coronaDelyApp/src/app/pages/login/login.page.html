@@ -4,7 +4,7 @@
       <span class="tab">Iniciar Sesión</span>
       <form class="form" [formGroup]="form" (ngSubmit)="onSubmitLogin(form.value)">
         <div class="group">
-          <ion-label for="user" class="label" position="floating">Correo electrónico</ion-label>
+          <ion-label for="usuario" class="label" position="floating">Correo electrónico</ion-label>
           <input type="text" class="input" formControlName="email" required>
         </div>
         <div class="validation-errors">
@@ -58,8 +58,8 @@
       </div>
       <ion-item id="defaultUsers">
         <ion-label>Usuarios predefinidos</ion-label>
-        <ion-select okText="Aceptar" cancelText="Cancelar" [(ngModel)]="user" (ionChange)="setDefaultUser()">
-          <ion-select-option *ngFor="let user of defaultUsers" [value]="user">{{user.email}}</ion-select-option>
+        <ion-select okText="Aceptar" cancelText="Cancelar" [(ngModel)]="usuario" (ionChange)="setDefaultUser()">
+          <ion-select-option *ngFor="let usuario of defaultUsers" [value]="usuario">{{usuario.email}}</ion-select-option>
         </ion-select>
       </ion-item>
     </div>

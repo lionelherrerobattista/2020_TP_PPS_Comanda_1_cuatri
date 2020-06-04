@@ -5,6 +5,8 @@ import Swal from 'sweetalert2';
 import { Usuario } from 'src/app/clases/usuario';
 import { AuthService } from 'src/app/servicios/auth.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
+import { ClienteHomeComponent } from 'src/app/componentes/cliente-home/cliente-home.component';
+import { LoadingService } from 'src/app/servicios/loading.service';
 
 
 @Component({
@@ -12,27 +14,29 @@ import { UsuarioService } from 'src/app/servicios/usuario.service';
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
-export class HomePage implements OnInit {
+export class HomePage {
   currentUser: Usuario;
+  
 
   constructor(
     private authService: AuthService,
-    private userService: UsuarioService,
-    private router: Router
+    private usuarioService: UsuarioService,
+    private router: Router,
+    private loadingService: LoadingService
   ) {
-      let usuario = this.authService.getCurrentUser(); 
-      console.log(usuario);    
-      if (isNullOrUndefined(usuario)) {       
-        this.router.navigateByUrl("/login");
-      }
-      console.log("current usuario obtenido",usuario)
-      this.userService.getUserById(usuario.uid).then(userData => {
-        this.currentUser = Object.assign(new Usuario, userData.data());
-      })    
+    let user = this.authService.getCurrentUser();
+    if (isNullOrUndefined(user)) {
+      this.router.navigateByUrl("/login");
+    }
+    this.usuarioService.getUserById(user.uid).then(userData => {
+      this.currentUser = Object.assign(new Usuario, userData.data());
+    })
+
+    
   }
 
+
   showAlert() {
-    // Swal.fire('Oops...', 'Something went wrong!', 'error');
     Swal.fire({
       title: 'Custom width, padding, background.',
       width: 600,
@@ -46,7 +50,5 @@ export class HomePage implements OnInit {
   }
 
 
-  ngOnInit() {
-  }
 
 }

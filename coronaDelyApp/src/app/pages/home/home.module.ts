@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { HomePage } from './home.page';
+import { ClienteHomeComponent } from 'src/app/componentes/cliente-home/cliente-home.component';
 
 @NgModule({
   imports: [
@@ -17,6 +18,6 @@ import { HomePage } from './home.page';
       }
     ])
   ],
-  declarations: [HomePage] // aca agrego las otras opciones
+  declarations: [HomePage, ClienteHomeComponent] // aca agrego las otras opciones
 })
 export class HomePageModule {}

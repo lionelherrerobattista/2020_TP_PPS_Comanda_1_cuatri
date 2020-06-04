@@ -1,0 +1,20 @@
+<ion-button color="medium" (click)="scan()">Escanear QR</ion-button>
+<form class="form">
+  <ion-list lines="full" class="ion-no-margin ion-no-padding">
+    <ion-item class="group">
+      <ion-label for="user" class="label" position="floating">Número de mesa</ion-label>
+      <ion-input type="number" class="input" [(ngModel)]="mesa.numero" name="numero" required></ion-input>
+    </ion-item>
+     <ion-item class="group">
+      <ion-label for="pass" class="label" position="floating">Tipo</ion-label>
+      <ion-input type="text" class="input" [(ngModel)]="mesa.tipo" name="tipo" required></ion-input>
+    </ion-item>
+    <ion-item class="group">
+      <ion-label for="pass" class="label" position="floating">Cantidad de Comensales</ion-label>
+      <ion-input type="number" class="input" [(ngModel)]="mesa.nroComensales" name="nroComensales" required></ion-input>
+    </ion-item>
+   
+  </ion-list>
+  <ion-button color="medium" (click)="tomarFoto()">Sacar Foto</ion-button>
+  <ion-button color="medium" (click)="registrar()">Registrar</ion-button>
+</form>
