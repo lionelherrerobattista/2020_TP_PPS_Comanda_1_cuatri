@@ -17,7 +17,8 @@ export class LoginPage implements OnInit {
   private password: string;
   form: FormGroup;
   defaultUsers: Array<any> = [];
-  user: Usuario;
+  usuario: Usuario;
+
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
@@ -62,11 +63,10 @@ export class LoginPage implements OnInit {
   }
 
   setDefaultUser() {
-    this.onSubmitLogin(this.user);
+    this.onSubmitLogin(this.usuario);
   }
 
-  onSubmitLogin(form) {
-    console.log("voy a firebase")
+  onSubmitLogin(form) {   
     this.loadingService.showLoading("Espere..");
     console.log(form.email, form.password)
     this.authService.logIn(form.email, form.password)

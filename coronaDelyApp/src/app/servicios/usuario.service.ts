@@ -4,6 +4,7 @@ import { AngularFirestore, DocumentChangeAction } from "@angular/fire/firestore"
 import { AuthService } from './auth.service';
 import { DataService } from './data.service';
 import { Usuario } from '../clases/usuario';
+import { Collections } from '../clases/enums/collections';
 
 
 @Injectable({
@@ -11,6 +12,7 @@ import { Usuario } from '../clases/usuario';
 })
 export class UsuarioService {
 
+  resultado: any =  [];
   constructor(
     private db: AngularFirestore,
     private authService: AuthService,
@@ -33,13 +35,22 @@ export class UsuarioService {
   }
 
   getUserById(userId) {
-    console.log("userId",userId)
-    return this.dataService.getOne('usuarios', userId);
+    return this.dataService.getOne(Collections.Usuarios, userId);
   }
+  // getUserById(userId) {      
+  //   return this.dataService.getOne('usuarios',userId)
+  //              .subscribe({
+  //                 complete() { resultado => {
+  //                   this.resultado=resultado;
+  //                   }                  
+  //                 }
+  //               })
+               
+     
+  // }
 
   getAllUsers(collection): Observable<DocumentChangeAction<Usuario>[]> {
-    console.log(collection);
-    return this.dataService.getAll(collection);
+     return this.dataService.getAll(collection);
   }
 
   updateUser(collection: string, id: string, object: any) {
@@ -49,4 +60,7 @@ export class UsuarioService {
   deleteDocument(collection:string, user: any) {
     return this.dataService.deleteDocument(collection, user.id);
   }
+
+  
+
 }
