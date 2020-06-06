@@ -1,13 +1,14 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>home</ion-title>
+    <ion-title> Corona Dely </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="home-background">
   <div class="home-background">
    <!-- Agregar una imagen -->
-    <section class="ion-text-center ion-margin-bottom" *ngIf="currentUser?.profile == 'dueño'">
+   <br><br>
+    <section class="ion-text-center ion-margin-bottom" *ngIf="usuario?.perfil == 'dueño'">
       <ion-grid>
         <ion-row>          
           <ion-col col-6>
@@ -20,5 +21,6 @@
       </ion-grid>
     </section>
     <app-cliente-home *ngIf="usuario?.perfil == 'cliente'"></app-cliente-home>
+    <!-- Agregar los otros componentes -->
   </div>
 </ion-content>

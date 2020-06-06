@@ -15,7 +15,7 @@ import { LoadingService } from 'src/app/servicios/loading.service';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage {
-  currentUser: Usuario;
+  usuario: Usuario;
   
 
   constructor(
@@ -28,9 +28,12 @@ export class HomePage {
     if (isNullOrUndefined(user)) {
       this.router.navigateByUrl("/login");
     }
-    this.usuarioService.getUserById(user.uid).then(userData => {
-      this.currentUser = Object.assign(new Usuario, userData.data());
+    this.usuarioService.getUserById(user.uid)
+    .subscribe(userData => { this.usuario=userData[0];
+    console.log(this.usuario)
+      
     })
+
 
     
   }

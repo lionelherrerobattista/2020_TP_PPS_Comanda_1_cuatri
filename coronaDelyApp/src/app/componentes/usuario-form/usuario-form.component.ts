@@ -11,7 +11,7 @@ import { CamaraService } from '../../servicios/camara.service';
   styleUrls: ['./usuario-form.component.scss'],
 })
 export class UsuarioFormComponent implements OnInit {
-  @Input() isClient:boolean;
+  @Input() esCliente:boolean;
   private usuario:Usuario;
   constructor(
     private router: Router,
@@ -25,13 +25,13 @@ export class UsuarioFormComponent implements OnInit {
 
   ngOnInit() {}
 
-  register(){ 
-    if(this.isClient){
+  registro(){ 
+    if(this.esCliente){
       this.usuario.perfil = "cliente";
       this.usuario.estado = "sinAtender";
     }
     this.userService.saveUserWithLogin(this.usuario).then(response =>{
-      if(this.isClient){
+      if(this.esCliente){
         this.router.navigate(['/home']);
       }
       else{

@@ -24,7 +24,7 @@
     <ion-label position="floating">Clave</ion-label>
     <ion-input type="password" minlength="6" required [(ngModel)]="usuario.password" name="password"></ion-input>
   </ion-item>
-  <ion-item *ngIf="!isClient">
+  <ion-item *ngIf="!esCliente">
     <ion-label position="floating">Perfil</ion-label>
     <ion-select [(ngModel)]="usuario.profile" name="profile" placeholder="Seleccione perfil" required>
       <ion-select-option value="mozo">Mozo</ion-select-option>

@@ -24,22 +24,8 @@ export class AuthService {
           console.log(respuesta);      
           resolve(respuesta);
         }).catch(error => {console.log(error);});
-    })
-
-  
-    
+    })    
   }
-
-
-
-  // logIn(email: string, password: string) {
-  //   console.log("login")
-  //   return new Promise((resolve, rejected) => {
-  //     this.AFauth.auth.signInWithEmailAndPassword(email, password)
-  //       .then(user => resolve(user))
-  //       .catch(err => rejected(err))
-  //   });
-  // }
 
   logOut() {
     this.AFauth.auth.signOut().then(auth => {
@@ -48,7 +34,7 @@ export class AuthService {
   }
 
   getCurrentUser() {
-    console.log("auth-getCurrentUser", this.AFauth.auth.currentUser.getIdToken)
+      console.log("auth-getCurrentUser", this.AFauth.auth.currentUser)
       return this.AFauth.auth.currentUser;
     
   }

@@ -28,18 +28,20 @@ export class DataService {
   }
 
 
-    getOne(collection,id){
-    return this.db.collection(collection).doc(id).get().toPromise();   
-    // return this.db.collection(collection).snapshotChanges().pipe(map(res =>{
-    //   return res.map(i => {
-    //     let data = i.payload.doc.data() as Usuario;
-    //     if (id==i.payload.doc.id){
-    //        data.uid = i.payload.doc.id;
-    //        console.log("data", data)
-    //     }
-    //     return data;
-    //   })
-    // })); 
-  }
+getOne(collection, id){
+//     return this.db.collection(collection).doc(id).get().toPromise();
+// }
+    return this.db.collection(collection).snapshotChanges().pipe(map(res =>{
+      return res.map(i => {
+        let data = i.payload.doc.data() as Usuario;
+        if (id==i.payload.doc.id){
+           data.id = i.payload.doc.id;
+           console.log("data", data)
+        }
+        return data;
+      })
+    })); 
+  
+}
  
 }
