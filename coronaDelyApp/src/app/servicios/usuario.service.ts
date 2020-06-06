@@ -5,6 +5,7 @@ import { AuthService } from './auth.service';
 import { DataService } from './data.service';
 import { Usuario } from '../clases/usuario';
 import { Collections } from '../clases/enums/collections';
+import { map } from 'rxjs/operators';
 
 
 @Injectable({
@@ -34,20 +35,13 @@ export class UsuarioService {
     this.db.collection(collection).doc(id).set(object);
   }
 
-  getUserById(userId) {
-    return this.dataService.getOne(Collections.Usuarios, userId);
+    getUserById(userId) {
+        return this.db.collection<Usuario>('usuarios', (ref) =>  ref.where ('id', '==', userId).limit(1)). valueChanges();   
+    }
+    getUsusario(userId) {
+      return this.dataService.getOne(Collections.Usuarios, userId);
   }
-  // getUserById(userId) {      
-  //   return this.dataService.getOne('usuarios',userId)
-  //              .subscribe({
-  //                 complete() { resultado => {
-  //                   this.resultado=resultado;
-  //                   }                  
-  //                 }
-  //               })
-               
-     
-  // }
+
 
   getAllUsers(collection): Observable<DocumentChangeAction<Usuario>[]> {
      return this.dataService.getAll(collection);

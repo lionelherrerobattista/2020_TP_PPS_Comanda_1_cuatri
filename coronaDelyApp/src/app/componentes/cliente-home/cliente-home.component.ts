@@ -14,7 +14,7 @@ import { Usuario } from 'src/app/clases/usuario';
 })
 export class ClienteHomeComponent implements OnInit {
 
-  currentUser: Usuario;
+  usuario: Usuario;
 
   constructor(
     private authService: AuthService,
@@ -27,29 +27,34 @@ export class ClienteHomeComponent implements OnInit {
     if (isNullOrUndefined(user)) {
       this.router.navigateByUrl("/login");
     }
-    this.usuarioService.getUserById(user.uid).then(userData => {
-      this.currentUser = Object.assign(new Usuario, userData.data());
+    this.usuarioService.getUserById(user.uid)
+    .subscribe(userData => { this.usuario=userData[0];
+    console.log(this.usuario)
+      
     })
   }
 
   ngOnInit(){}
 
-  agegarAListaEspera() {
+  irAListaEspera() {
     this.qrscannerService.scanQr().then(response => {
       if (response == 'listaDeEspera') {
-        this.usuarioService.setDocument('listaDeEspera', this.currentUser.uid.toString(), { 'date' : Date.now(), 'name': this.currentUser.nombre + " " + this.currentUser.apellido, 'dni' : this.currentUser.dni });
-        this.usuarioService.updateUser('usuarios', this.currentUser.uid, { 'status': 'enEspera' }).then(() => {
-          // this.usuarioService.getUserById(this.currentUser.uid.toString()).then(user => {
-          //   this.currentUser = Object.assign(new Usuario, user.data());
-          // })
+        this.usuarioService.setDocument('listaDeEspera', this.usuario.id.toString(), 
+        { 'fecha' : Date.now(), 'nombre': this.usuario.nombre + " "
+         + this.usuario.apellido, 'dni' : this.usuario.dni });
+        this.usuarioService.updateUser('usuarios', this.usuario.id, { 'estado': 'enEspera' }).then(() => {
+          this.usuarioService.getUserById(this.usuario.id)
+          .subscribe(userData => { this.usuario=userData[0];
+                
+          })
         });
       }
     });
   }
 
-  quitarDeListaEspera() {
-    this.usuarioService.deleteDocument('listaDeEspera', this.currentUser.uid.toString());
-    this.usuarioService.updateUser('usuarios', this.currentUser.uid, { 'status': 'sinAtender' }).then(() => {
+  salirDeListaEspera() {
+    this.usuarioService.deleteDocument('listaDeEspera', this.usuario.id.toString());
+    this.usuarioService.updateUser('usuarios', this.usuario.id, { 'estado': 'sinAtender' }).then(() => {
     })
   }
 
