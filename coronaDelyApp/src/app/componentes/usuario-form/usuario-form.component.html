@@ -26,12 +26,12 @@
   </ion-item>
   <ion-item *ngIf="!esCliente">
     <ion-label position="floating">Perfil</ion-label>
-    <ion-select [(ngModel)]="usuario.profile" name="profile" placeholder="Seleccione perfil" required>
+    <ion-select [(ngModel)]="usuario.perfil" name="profile" placeholder="Seleccione perfil" required>
       <ion-select-option value="mozo">Mozo</ion-select-option>
       <ion-select-option value="cocinero">Cocinero</ion-select-option>
       <ion-select-option value="bartender">Bartender</ion-select-option>
-      <ion-select-option value="dueño">Dueño</ion-select-option>
-      <ion-select-option value="supervisor">Supervisor</ion-select-option>
+      <ion-select-option *ngIf="perfilEmpleado == 'dueño'" value="dueño">Dueño</ion-select-option>
+      <ion-select-option *ngIf="perfilEmpleado == 'supervisor' || perfilEmpleado == 'dueño'" value="supervisor">Supervisor</ion-select-option>
     </ion-select>
   </ion-item>
   <ion-button color="medium" (click)="tomarFoto()">Sacar Foto</ion-button>

@@ -21,6 +21,8 @@ export class UsuarioService {
   ) { }
 
   saveUserWithLogin(user) {
+
+    
     return this.authService.createUser(user).then(createdUser => {
       user.id = createdUser.user.uid;
       this.saveUser(user);
@@ -28,7 +30,13 @@ export class UsuarioService {
   }
 
   saveUser(user) {
+    
     this.db.collection('usuarios').doc(user.id).set(Object.assign({}, user));
+  }
+
+  createUsuario(user:Usuario) {
+    
+    return this.db.collection('usuarios').add({...user});
   }
 
   setDocument(collection: string, id: string, object: object): void {

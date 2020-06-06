@@ -9,7 +9,7 @@ const routes: Routes = [
  // accesos admin  
   { path: 'registro/:object', loadChildren: './pages/registro/registro.module#RegistroPageModule' },
   // accesos cliente
-  { path: 'menu', loadChildren: './pages/menu/menu.module#MenuPageModule' }
+  // { path: 'menu', loadChildren: './pages/menu/menu.module#MenuPageModule' }
 
 
 ];

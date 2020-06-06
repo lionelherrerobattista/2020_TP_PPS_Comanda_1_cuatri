@@ -1,0 +1,38 @@
+<section class="ion-text-center ion-margin-bottom">
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngIf="usuario.perfil == 'dueño'" col-4 >
+        <ion-card routerLink="/registro/usuario"  class="ion-text-center ion-padding" color="000">
+          <ion-icon name="contact"></ion-icon>
+          <h2 class="long-name">Registrar Dueño</h2>
+        </ion-card>
+      </ion-col>
+
+      <ion-col col-4 >
+        <ion-card routerLink="/registro/usuario"  class="ion-text-center ion-padding" color="000">
+          <ion-icon name="contact"></ion-icon>
+          <h2 class="long-name">Registrar Supervisor</h2>
+        </ion-card>
+      </ion-col>
+      
+  
+    </ion-row>
+    <ion-row >
+      <ion-col col-4 >
+        <ion-card routerLink="/registro/usuario" class="ion-text-center ion-padding" color="000">
+          <ion-icon name="man"></ion-icon>
+          <h2 class="long-name">Registrar Empleado</h2>
+        </ion-card>
+      </ion-col>
+      
+      <ion-col col-4 >
+        <ion-card routerLink="/registro/producto" class="ion-text-center ion-padding" color="000">
+          <ion-icon name="restaurant"></ion-icon>
+          <h2 class="long-name">Registrar Producto</h2>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    
+  </ion-grid>
+</section>

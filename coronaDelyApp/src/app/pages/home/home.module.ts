@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { HomePage } from './home.page';
 import { ClienteHomeComponent } from 'src/app/componentes/cliente-home/cliente-home.component';
+import { SupervisorHomeComponent } from 'src/app/componentes/supervisor-home/supervisor-home.component';
 
 @NgModule({
   imports: [
@@ -18,6 +19,6 @@ import { ClienteHomeComponent } from 'src/app/componentes/cliente-home/cliente-h
       }
     ])
   ],
-  declarations: [HomePage, ClienteHomeComponent] // aca agrego las otras opciones
+  declarations: [HomePage, ClienteHomeComponent, SupervisorHomeComponent] // aca agrego las otras opciones
 })
 export class HomePageModule {}
