@@ -21,16 +21,14 @@ export class UsuarioService {
   ) { }
 
   saveUserWithLogin(user) {
-
-    
     return this.authService.createUser(user).then(createdUser => {
       user.id = createdUser.user.uid;
       this.saveUser(user);
     })
   }
 
-  saveUser(user) {
-    
+  //Me parece que hay algun tipo de problema cuando las promesas devuelven void
+  saveUser(user) {    
     this.db.collection('usuarios').doc(user.id).set(Object.assign({}, user));
   }
 
@@ -56,7 +54,8 @@ export class UsuarioService {
   }
 
   updateUser(collection: string, id: string, object: any) {
-    return this.dataService.update(collection, id, object);
+     //Paso clase a object de Javascript para que guarde en Firebase
+    return this.dataService.update(collection, id, Object.assign({},object));
   }
 
   deleteDocument(collection:string, user: any) {

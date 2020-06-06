@@ -30,8 +30,10 @@ export class RegistroPage implements OnInit {
       
     }
     this.usuarioService.getUserById(user.uid)
-    .subscribe(userData => { this.perfilEmpleado=userData[0].perfil;
-    
+    .subscribe(userData => { 
+      
+      //Buscar el perfil para controlar a quién puede dar de alta
+      this.perfilEmpleado=userData[0].perfil;
       
     })
     
