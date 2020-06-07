@@ -17,13 +17,13 @@ export class AuthService {
   ///Login del usuario registrado con email y password
   logIn(email: string, password: string) {
    console.log("auth-login")
-    return new Promise((resolve, rejected) => {
+    return new Promise((resolve, reject) => {
 
       this.AFauth.auth.signInWithEmailAndPassword(email, password)
        .then(respuesta => {  
-          console.log(respuesta);      
+          
           resolve(respuesta);
-        }).catch(error => {console.log(error);});
+        }).catch(error => {reject(error)});
     })    
   }
 

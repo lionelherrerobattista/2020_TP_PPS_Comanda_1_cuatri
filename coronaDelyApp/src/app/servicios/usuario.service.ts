@@ -13,21 +13,34 @@ import { map } from 'rxjs/operators';
 })
 export class UsuarioService {
 
-  resultado: any =  [];
+  // resultado: any =  [];
   constructor(
     private db: AngularFirestore,
     private authService: AuthService,
     private dataService: DataService
   ) { }
 
-  saveUserWithLogin(user) {
-    return this.authService.createUser(user).then(createdUser => {
-      user.id = createdUser.user.uid;
-      this.saveUser(user);
-    })
-  }
+  // Esta es la función original
+  // saveUserWithLogin(user) {
+  //   return this.authService.createUser(user).then(createdUser => {
+  //     user.id = createdUser.user.uid;
+  //     this.saveUser(user);
+  //   })
+  // }
 
-  //Me parece que hay algun tipo de problema cuando las promesas devuelven void
+  // Uso el async sino no me funcionaba, hace lo mismo que antes
+  async saveUserWithLogin(user) {
+    let credenciales = await this.authService.createUser(user);
+    user.id = credenciales.user.uid;
+
+    await this.saveUser(user);
+
+    return new Promise((resolve, reject) => {
+      resolve(user);
+      reject('error');
+    });
+  }
+  
   saveUser(user) {    
     this.db.collection('usuarios').doc(user.id).set(Object.assign({}, user));
   }
@@ -41,16 +54,17 @@ export class UsuarioService {
     this.db.collection(collection).doc(id).set(object);
   }
 
-    getUserById(userId) {
-        return this.db.collection<Usuario>('usuarios', (ref) =>  ref.where ('id', '==', userId).limit(1)). valueChanges();   
-    }
-    getUsusario(userId) {
-      return this.dataService.getOne(Collections.Usuarios, userId);
+  getUserById(userId) {
+    return this.db.collection<Usuario>('usuarios', (ref) =>  ref.where ('id', '==', userId).limit(1)). valueChanges();   
+  }
+
+  getUsuario(userId) {
+    return this.dataService.getOne(Collections.Usuarios, userId);
   }
 
 
   getAllUsers(collection): Observable<DocumentChangeAction<Usuario>[]> {
-     return this.dataService.getAll(collection);
+    return this.dataService.getAll(collection);
   }
 
   updateUser(collection: string, id: string, object: any) {
