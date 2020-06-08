@@ -2,8 +2,8 @@
 
 ## Grupo CoronaDely :hamburger: :pizza: :green_salad:
 
-<img src="coronaDelyApp\src\assets\icon\icon.png" alt="drawing" width="200"/>
-![Alt text](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/blob/lherrerob/coronaDelyApp/src/assets/icon/icon.png?raw=true)
+<img src="coronaDelyApp\src\assets\icon\icon.png" alt="drawing" width="400"/>
+
 
 ### Integrantes :mortar_board:
 
