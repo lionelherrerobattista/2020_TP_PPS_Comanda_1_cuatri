@@ -1,6 +1,11 @@
-# 2020 - 1 cuatrimestre - PPS -- La Comanda
+# 2020 - 1° cuatrimestre - PPS -- La Comanda
 
 ## Grupo CoronaDely :hamburger: :pizza: :green_salad:
+
+<p align="center">
+    <img src="coronaDelyApp\src\assets\icon\icon.png" alt="drawing" width="400"/>
+</p>
+
 
 ### Integrantes :mortar_board:
 
@@ -29,7 +34,7 @@
 | **Nombre** | Lionel Roberto | Paola | Rosa Elena |
 | **Módulos** | `ABM: Supervisor` | `ABM: Cliente` `ABM: Productos` `ABM: Mesa` | `ABM: Empleados` |
 | **Fecha de inicio de la tarea** | 30/05/2020 | 30/05/2020 | 30/05/2020 |
-| **Fecha de finalización de la tarea** | - | 01/06/2020 | - |
+| **Fecha de finalización de la tarea** | 07/06/2020 | 01/06/2020 | 07/06/2020 |
 | **Branch** | [lherrerob](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/tree/lherrerob) | [ptorrealba](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/tree/ptorrealba) | [rmuruchi](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/tree/rmuruchi) |
 
 ### Semana 3 (06/06/2020 al 13/06/2020)
