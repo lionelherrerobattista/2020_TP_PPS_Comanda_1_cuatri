@@ -21,7 +21,7 @@ export class ModalModifUsuarioPage implements OnInit {
   ngOnInit() {
   }
 
-  async actualizar(usuario) {
+  async actualizarUsuario(usuario) {
 
     //Revisar la modificación de la pass y del email
     await this.usuarioService.updateUser('usuarios', this.usuario.id, this.usuario);

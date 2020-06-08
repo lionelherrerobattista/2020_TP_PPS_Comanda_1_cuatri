@@ -33,20 +33,25 @@ export class UsuarioListaComponent implements OnInit {
     })
   }
 
-  filtrar() {
+  filtrarLista() {
     this.usuarioService.getUsuariosFiltrados(this.filtro).subscribe( empleadosFiltrados => {
       console.log(empleadosFiltrados)
       this.listaUsuarios = empleadosFiltrados;
     })
   }
 
-  async eliminar(usuario:Usuario) {
+  modificarUsuario(usuario) {
+
+    this.mostrarModal(usuario);
+  }
+
+  async eliminarUsuario(usuario:Usuario) {
 
     let resultado;
+    //Configurar el alert
     const alert = await this.alertController.create({
       header: 'Eliminar usuario',
-      message: '¿Está seguro que desea eliminar a este usuario?',
-      
+      message: '¿Está seguro que desea eliminar a este usuario?',    
       buttons: [
         {
           text: 'Cancelar',
@@ -68,11 +73,7 @@ export class UsuarioListaComponent implements OnInit {
     });
 
     await alert.present();
-
     resultado = await alert.onDidDismiss();
-    
-
-    console.log(resultado);
 
     if(resultado == 'eliminado') {
       this.mostrarToast('Empleado eliminado')
@@ -82,14 +83,7 @@ export class UsuarioListaComponent implements OnInit {
 
   }
 
-  modificar(usuario) {
-
-    //Implementar
-    this.mostrarModal(usuario);
-
-  }
-
-
+  ///Funciones que llaman al toast y al alert
   async mostrarToast(mensaje:string) {
     const toast = await this.toastController.create({
       message: mensaje,
