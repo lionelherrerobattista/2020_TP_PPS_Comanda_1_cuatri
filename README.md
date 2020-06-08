@@ -2,7 +2,7 @@
 
 ## Grupo CoronaDely :hamburger: :pizza: :green_salad:
 
-<img src="coronaDelyApp\src\assets\icon\icon.png" alt="drawing" width="400"/>
+<img align="center" src="coronaDelyApp\src\assets\icon\icon.png" alt="drawing" width="400"/>
 
 
 ### Integrantes :mortar_board:
