@@ -5,6 +5,7 @@ import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'; 
 import { Usuario } from 'src/app/clases/usuario';
 import { LoadingService } from 'src/app/servicios/loading.service';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +19,9 @@ export class LoginPage implements OnInit {
   form: FormGroup;
   defaultUsers: Array<any> = [];
   usuario: Usuario;
+
+  splash = true;
+  audioSplash = true;
 
   constructor(
     private router: Router,
@@ -40,6 +44,16 @@ export class LoginPage implements OnInit {
         Validators.required
       ])),
     });
+  }
+
+  ionViewDidEnter() {
+    if (this.audioSplash === true) {
+      let audio = new Audio();
+      audio.src = 'assets/audio/splash.mp3';
+      audio.play();
+      this.audioSplash = false;
+    }
+    setTimeout(() => this.splash = false, 4000);
   }
 
   validation_messages = {

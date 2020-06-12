@@ -19,7 +19,7 @@ export class AuthService {
    console.log("auth-login")
     return new Promise((resolve, reject) => {
 
-      this.AFauth.auth.signInWithEmailAndPassword(email, password)
+      this.AFauth.signInWithEmailAndPassword(email, password)
        .then(respuesta => {  
           
           resolve(respuesta);
@@ -28,19 +28,19 @@ export class AuthService {
   }
 
   logOut() {
-    this.AFauth.auth.signOut().then(auth => {
+    this.AFauth.signOut().then(auth => {
       this.router.navigate(['/login']);
     })
   }
 
   getCurrentUser() {
-      console.log("auth-getCurrentUser", this.AFauth.auth.currentUser)
-      return this.AFauth.auth.currentUser;
+      console.log("auth-getCurrentUser", this.AFauth.currentUser)
+      return this.AFauth.currentUser;
     
   }
 
   createUser(user) {
-    return this.AFauth.auth.createUserWithEmailAndPassword(user.email, user.password);
+    return this.AFauth.createUserWithEmailAndPassword(user.email, user.password);
   }
 
   //Paola- esto falta configurar
