@@ -22,7 +22,7 @@ export class ProductoService {
     return this.dataService.update(collection, id, object);
   }
   getProductById(productId){
-    return this.dataService.getOne('productos', productId);
+    return this.dataService.getOneProducto('productos', productId);
   }
 
   deleteProduct(productId){

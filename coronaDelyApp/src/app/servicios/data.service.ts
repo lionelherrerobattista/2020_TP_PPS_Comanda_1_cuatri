@@ -3,6 +3,8 @@ import { AngularFirestore, DocumentChangeAction } from '@angular/fire/firestore'
 import { Observable } from 'rxjs';
 import { map} from "rxjs/operators";
 import { Usuario } from '../clases/usuario';
+import { Mesa } from '../clases/mesa';
+import { Producto } from '../clases/producto';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +28,9 @@ export class DataService {
       })
     );
   }
+  setStatus(collection, id, status){
+    return this.update(collection, id, { 'estado': status });
+  }
 
   update(collection: string, id:string, objeto:any) {
     return this.db.doc<any>(`${collection}/${id}`).update(objeto);
@@ -39,10 +44,8 @@ export class DataService {
     return this.db.collection(collection).add(Object.assign({}, object));
   }
 
-
-getOne(collection, id){
-//     return this.db.collection(collection).doc(id).get().toPromise();
-// }
+//Traer un usuario
+getOneUsuario(collection, id){
     return this.db.collection(collection).snapshotChanges().pipe(map(res =>{
       return res.map(i => {
         let data = i.payload.doc.data() as Usuario;
@@ -54,6 +57,40 @@ getOne(collection, id){
       })
     })); 
   
+}
+
+//Traer una mesa
+getOneMesa(collection, id){
+      return this.db.collection(collection).snapshotChanges().pipe(map(res =>{
+        return res.map(i => {
+          let data = i.payload.doc.data() as Mesa;
+          if (id==i.payload.doc.id){
+             data.id = i.payload.doc.id;
+             console.log("data", data)
+          }
+          return data;
+        })
+      })); 
+
+  }
+
+  //Traer un usuario
+getOneProducto(collection, id){
+  return this.db.collection(collection).snapshotChanges().pipe(map(res =>{
+    return res.map(i => {
+      let data = i.payload.doc.data() as Producto;
+      if (id==i.payload.doc.id){
+         data.id = i.payload.doc.id;
+         console.log("data", data)
+      }
+      return data;
+    })
+  })); 
+
+}
+
+setData(collection, id, data){
+  return this.db.collection(collection).doc(id).set(Object.assign({}, data));
 }
  
 }

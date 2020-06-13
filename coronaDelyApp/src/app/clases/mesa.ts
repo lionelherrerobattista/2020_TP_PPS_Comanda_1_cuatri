@@ -1,8 +1,8 @@
 export class Mesa {
     id:string;
     numero:number;
-    nroComensales:number;
+    nroComensales:number;//capacidad
     tipo:string;
     foto:string;
-    estaOcupada:boolean;
+    estado:boolean;   
 }

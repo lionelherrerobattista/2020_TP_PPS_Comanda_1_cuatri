@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Producto } from 'src/app/clases/producto';
 import { Router } from '@angular/router';
 import { CamaraService } from 'src/app/servicios/camara.service';
-import { QrscannerService } from 'src/app/servicios/qrscanner.service';
+import { QrScannerService } from 'src/app/servicios/qrscanner.service';
 import { ProductoService } from 'src/app/servicios/producto.service';
 
 @Component({
@@ -16,7 +16,7 @@ export class ProductoFormComponent implements OnInit {
   constructor(
     private cameraService: CamaraService,
     private productoService: ProductoService,
-    private qrscannerService: QrscannerService,
+    private qrscannerService: QrScannerService,
     private router: Router
   ) { 
     this.producto = new Producto();
