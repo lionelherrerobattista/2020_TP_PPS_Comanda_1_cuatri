@@ -8,6 +8,10 @@ const routes: Routes = [
   { path: 'registro', loadChildren: './pages/registro/registro.module#RegistroPageModule' },
  // accesos admin  
   { path: 'registro/:object', loadChildren: './pages/registro/registro.module#RegistroPageModule' },
+  { path: 'listas', loadChildren: './pages/listas/listas.module#ListasPageModule' },
+
+
+
   // accesos cliente
   // { path: 'menu', loadChildren: './pages/menu/menu.module#MenuPageModule' }
 

@@ -11,8 +11,20 @@ export class DataService {
 
   constructor(private db: AngularFirestore) { }
 
-  getAll(collection):Observable<DocumentChangeAction<any>[]>{
-    return this.db.collection(collection).snapshotChanges();
+  // getAll(collection):Observable<DocumentChangeAction<any>[]>{
+  //   return this.db.collection(collection).snapshotChanges();
+  // }
+
+  getAll(collection):Observable<any[]>{
+    return this.db.collection('usuarios').snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...(data as any) } ;
+        });
+      })
+    );
   }
 
   update(collection: string, id:string, objeto:any) {

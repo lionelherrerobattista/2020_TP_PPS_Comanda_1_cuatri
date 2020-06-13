@@ -1,0 +1,15 @@
+#div-filtro-perfiles {
+    display:flex;
+    flex-direction: column;
+    // margin-top: 1vh;
+    padding: 0 2vw 0 2vw;
+}
+
+#div-filtro-perfiles ion-label {
+    margin-bottom: 2vh;
+}
+
+ion-item-option {
+    background-color: red;
+}
+

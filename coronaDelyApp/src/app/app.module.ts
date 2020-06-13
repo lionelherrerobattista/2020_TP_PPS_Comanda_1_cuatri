@@ -20,6 +20,7 @@ import { AngularFirestore } from "@angular/fire/firestore";
 import { FormsModule } from '@angular/forms'  
 import { ReactiveFormsModule} from '@angular/forms' 
 import { firebaseConfig } from 'src/environments/environment';
+import { ModalModifUsuarioPageModule } from './pages/modal-modif-usuario/modal-modif-usuario.module';
 
 
 @NgModule({
@@ -32,6 +33,8 @@ import { firebaseConfig } from 'src/environments/environment';
     AppRoutingModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
+    ModalModifUsuarioPageModule
+    
   ],
   providers: [
     AngularFirestore,
@@ -40,6 +43,7 @@ import { firebaseConfig } from 'src/environments/environment';
     Camera,
     SplashScreen, 
     SplashScreen,
+
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

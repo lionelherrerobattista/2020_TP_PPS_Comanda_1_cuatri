@@ -25,15 +25,22 @@ export class RegistroPage implements OnInit {
   ngOnInit() {
     this.object = this.activatedRoute.snapshot.paramMap.get('object');
 
-    let user = this.authService.getCurrentUser();
-    if (isNullOrUndefined(user)) {
-      
+    if(this. object != 'cliente') {
+      let user = this.authService.getCurrentUser();
+      this.usuarioService.getUserById(user.uid)
+        .subscribe(userData => { 
+          
+          //Buscar el perfil para controlar a quién puede dar de alta
+          this.perfilEmpleado=userData[0].perfil;
+          
+        })
+
     }
-    this.usuarioService.getUserById(user.uid)
-    .subscribe(userData => { this.perfilEmpleado=userData[0].perfil;
     
+    // if (isNullOrUndefined(user)) {
       
-    })
+    // }
+    
     
   }
 

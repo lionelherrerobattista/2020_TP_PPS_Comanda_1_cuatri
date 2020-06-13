@@ -6,59 +6,60 @@ import { QrscannerService } from '../../servicios/qrscanner.service';
 import { CamaraService } from '../../servicios/camara.service';
 import { AuthService } from 'src/app/servicios/auth.service';
 
+
 @Component({
   selector: 'app-usuario-form',
   templateUrl: './usuario-form.component.html',
   styleUrls: ['./usuario-form.component.scss'],
 })
 export class UsuarioFormComponent implements OnInit {
-  @Input() esCliente:boolean;
-  @Input() perfilEmpleado:string;
   
-  private usuario:Usuario;
+  @Input() esCliente:boolean;
+  @Input() perfilEmpleado:string;  
+  usuario:Usuario;
+
   constructor(
     private router: Router,
     private userService: UsuarioService,
     private camaraService: CamaraService,
     private qrscannerService: QrscannerService,
-    private authService:AuthService,
-
   ) { 
     this.usuario = new Usuario();
   }
 
   ngOnInit() {}
 
-  registro(){ 
+  async registro(){ 
 
     if(this.esCliente){
       this.usuario.perfil = "cliente";
       this.usuario.estado = "sinAtender";
     }
+    
+    //Esto funciona y uso la función original:
+    await this.userService.saveUserWithLogin(this.usuario);
 
-    //Lionel:Si dejo esto así me guarda en la BD
-    this.userService.createUsuario(this.usuario).then(resultado => {
-          
+    //Redireccionar
+    if(this.esCliente){
+      this.router.navigate(['/home']);
+    }
+    else{
       // this.router.navigateByUrl('/listado/usuarios');
       this.router.navigateByUrl('/home');
-
-    }, error => console.log(error));  
-
+    }
     
-    //Lionel: Con esto no me guarda los datos en la BD
+    //Lionel: Con esto no me guarda los datos en la BD (la dejo por las dudas)
+    
     // this.userService.saveUserWithLogin(this.usuario).then(response =>{
     //   if(this.esCliente){
     //     this.router.navigate(['/home']);
     //   }
     //   else{
-    //     this.userService.createUsuario(this.usuario).then(resultado => {
-          
-    //       // this.router.navigateByUrl('/listado/usuarios');
-    //       this.router.navigateByUrl('/home');
-
-    //     }, error => console.log(error));  
+    //     // this.router.navigateByUrl('/listado/usuarios');
+    //     this.router.navigateByUrl('/home');
     //   }
     // });
+
   }  
 
   tomarFoto(){
