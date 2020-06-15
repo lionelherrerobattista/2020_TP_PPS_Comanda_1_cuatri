@@ -9,6 +9,14 @@ export class CamaraService {
 
   constructor(private camera: Camera) { }
 
+  getImageByName(collection, imageName) {
+    console.log("getImageByName", collection, imageName)
+    return firebase.storage().ref(`${collection}/${imageName}`).getDownloadURL();
+  }
+
+  deleteImage(collection, imageName) {
+    return firebase.storage().ref(`${collection}/${imageName}`).delete();
+  }
   // toma la foto
   async tomarFoto(collection, imageName) {
     let options: CameraOptions = {

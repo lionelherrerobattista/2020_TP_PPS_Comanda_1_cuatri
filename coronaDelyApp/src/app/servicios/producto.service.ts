@@ -14,8 +14,9 @@ export class ProductoService {
     return this.dataService.add('productos', product);
   }
 
-  getAllProducts(collection){
-    return this.dataService.getAll(collection);
+  getAllProductos(collection){
+    console.log(collection)
+    return this.dataService.getAll(collection); 
   }
 
   updateProduct(collection: string, id: string, object: any) {

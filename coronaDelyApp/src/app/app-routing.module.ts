@@ -9,11 +9,18 @@ const routes: Routes = [
  // accesos admin  
   { path: 'registro/:object', loadChildren: './pages/registro/registro.module#RegistroPageModule' },
   { path: 'listas', loadChildren: './pages/listas/listas.module#ListasPageModule' },
-
-
+  { path: 'reservar', loadChildren: './pages/reserva/reserva.module#ReservaPageModule' },
+  { path: 'reserva', loadChildren: './pages/reserva/reserva.module#ReservaPageModule' },
+  { path: 'pedido', loadChildren: './pages/pedido/pedido.module#PedidoPageModule' },
+  { path: 'juego', loadChildren: './pages/juego/juego.module#JuegoPageModule' },
+  { path: 'juego', loadChildren: './pages/juego/juego.module#JuegoPageModule' },
+  { path: 'pedido', loadChildren: './pages/pedido/pedido.module#PedidoPageModule' },
+  { path: 'inicio', loadChildren: './pages/home/home.module#HomePageModule' },
+  // { path: 'menu', loadChildren: './pages/menu/menu.module#MenuPageModule' }
+  { path: 'delivery', loadChildren: './pages/delivery/delivery.module#DeliveryPageModule' },
 
   // accesos cliente
-  // { path: 'menu', loadChildren: './pages/menu/menu.module#MenuPageModule' }
+ 
 
 
 ];
