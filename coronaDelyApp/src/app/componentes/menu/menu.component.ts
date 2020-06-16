@@ -57,10 +57,8 @@ export class MenuComponent implements OnInit {
     });
   }
 
-  async showAlert(producto: Producto) {
-    console.log(producto,"producto y foto")
-    console.log(producto.descripcion)
-    console.log(producto.fotos.length)
+  //IMPORTANTE! las carpetas de las fotos deen coincidir con las entidades
+  async showAlert(producto: Producto) {   
     let message = "<div>" +
                     `<ion-label>${producto.descripcion}</ion-label>`;
 
@@ -82,7 +80,7 @@ export class MenuComponent implements OnInit {
       ],
       buttons: [
         {
-          text: 'Agregar al pedido',
+          text: 'Agregar al pedido', // FALTA AGREGAR AL PEDIDO
           handler: (input) => {
             alert.dismiss(input);
             return false;

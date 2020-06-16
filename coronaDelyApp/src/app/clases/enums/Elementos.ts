@@ -1,6 +1,7 @@
 export enum Elementos {
     ListaDeEspera = 'listaDeEspera',
-    Usuarios = 'usuarios',  
+    Usuarios = 'usuarios', 
+    Reserva = 'reserva', 
     Mesas = 'mesas',
     Productos = 'productos',  
     EncuestasEmpleados = 'encuestas_empleados',

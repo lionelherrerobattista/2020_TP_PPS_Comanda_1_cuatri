@@ -24,6 +24,7 @@ import { Perfiles } from 'src/app/clases/enums/perfiles';
 export class ClienteHomeComponent implements OnInit {
 
   usuario: Usuario;
+  tieneReserva:boolean;
 
   constructor(
     private authService: AuthService,
