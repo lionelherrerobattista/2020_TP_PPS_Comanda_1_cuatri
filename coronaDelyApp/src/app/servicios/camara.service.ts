@@ -10,6 +10,7 @@ export class CamaraService {
   constructor(private camera: Camera) { }
 
   getImageByName(collection, imageName) {
+    console.log(firebase.storage().ref(`${collection}/${imageName}`).getDownloadURL())
     return firebase.storage().ref(`${collection}/${imageName}`).getDownloadURL();
   }
 

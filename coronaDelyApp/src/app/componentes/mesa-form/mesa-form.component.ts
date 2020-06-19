@@ -16,7 +16,7 @@ export class MesaFormComponent implements OnInit {
   private mesa:Mesa;
 
   constructor(
-    private cameraService: CamaraService,
+    private camaraService: CamaraService,
     private mesaService: MesaService,
     private qrScannerService: QrScannerService,
     private router: Router
@@ -32,13 +32,12 @@ export class MesaFormComponent implements OnInit {
     });
   }  
 
-  takePhoto(){
-    //Cambiar nombre de la foto (segundo parametro)
-    this.cameraService.tomarFoto('mesas', Date.now());
+  takePhoto(){   
+    this.camaraService.tomarFoto('mesas', Date.now());
   }
 
   scannear(){
-    let data = this.qrScannerService.scanDni();
+    let data = this.qrScannerService.scanQr();
     alert(data);
   }
 

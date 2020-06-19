@@ -10,8 +10,13 @@ export class ProductoService {
     private dataService: DataService
   ) { }
 
-  saveProduct(product){
-    return this.dataService.add('productos', product);
+  modifyProduct(productId, product) {
+    return this.dataService.update('productos', productId, product);
+  }
+  saveProduct(producto){
+    console.log("guardo producto", producto)
+    return this.dataService.setData('productos', `${producto.nombre}_${producto.descripcion}`.toLowerCase(), producto);
+    
   }
 
   getAllProductos(collection){
@@ -22,6 +27,11 @@ export class ProductoService {
   updateProduct(collection: string, id: string, object: any) {
     return this.dataService.update(collection, id, object);
   }
+
+  getProduct(productId) {
+    return this.dataService.getOneProducto('productos', productId);
+  }
+
   getProductById(productId){
     return this.dataService.getOneProducto('productos', productId);
   }

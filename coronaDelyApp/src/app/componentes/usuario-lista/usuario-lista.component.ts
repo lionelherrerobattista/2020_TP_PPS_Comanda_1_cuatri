@@ -41,7 +41,6 @@ export class UsuarioListaComponent implements OnInit {
   }
 
   modificarUsuario(usuario) {
-
     this.mostrarModal(usuario);
   }
 

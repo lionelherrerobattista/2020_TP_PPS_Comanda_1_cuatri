@@ -5,4 +5,5 @@ export class Producto {
     tiempoPreparacion:number;
     precio:number;
     fotos:Array<string>;
+    sector : string;
 }
