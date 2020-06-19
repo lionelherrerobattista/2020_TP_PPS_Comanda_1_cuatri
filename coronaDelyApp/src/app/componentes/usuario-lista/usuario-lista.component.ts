@@ -29,7 +29,7 @@ export class UsuarioListaComponent implements OnInit {
   ngOnInit() {
     this.usuarioService.getUsuariosFiltrados(this.filtro).subscribe( usuarios => {
       this.listaUsuarios = usuarios;
-      console.log(usuarios);
+      console.log(this.listaUsuarios);
     })
   }
 

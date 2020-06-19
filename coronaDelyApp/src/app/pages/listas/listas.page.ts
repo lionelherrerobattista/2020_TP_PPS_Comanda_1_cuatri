@@ -29,7 +29,7 @@ export class ListasPage implements OnInit {
       let user = this.authService.getCurrentUser();
       this.usuarioService.getUserById(user.uid)
         .subscribe(userData => { 
-          
+          console.log(userData[0]);
           //Buscar el perfil para controlar a quién puede dar de alta
           this.perfilEmpleado=userData[0].perfil;
           
