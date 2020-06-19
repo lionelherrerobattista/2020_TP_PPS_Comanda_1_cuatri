@@ -7,12 +7,13 @@ import { ModalController } from '@ionic/angular';
 import { ModalModifUsuarioPage } from 'src/app/pages/modal-modif-usuario/modal-modif-usuario.page';
 import { Estados } from 'src/app/clases/enums/estados';
 
+
 @Component({
-  selector: 'app-supervisor-lista-espera',
-  templateUrl: './supervisor-lista-espera.component.html',
-  styleUrls: ['./supervisor-lista-espera.component.scss'],
+  selector: 'app-metre-lista-espera',
+  templateUrl: './metre-lista-espera.component.html',
+  styleUrls: ['./metre-lista-espera.component.scss'],
 })
-export class SupervisorListaEsperaComponent implements OnInit {
+export class MetreListaEsperaComponent implements OnInit {
 
   listaClientes:Usuario[];
   filtro:string;
@@ -29,7 +30,7 @@ export class SupervisorListaEsperaComponent implements OnInit {
 
   ngOnInit() {
     this.usuarioService.getUsuariosFiltrados(this.filtro).subscribe( usuarios => {
-      this.listaClientes = usuarios.filter(cliente => cliente.estado == Estados.pendienteDeAprobacion);
+      this.listaClientes = usuarios.filter(cliente => cliente.estado == Estados.enEspera);
       console.log(this.listaClientes);
     })
   }
