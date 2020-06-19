@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <!-- <app-usuario-lista *ngIf="object == 'usuario'"></app-usuario-lista> -->
-  <app-usuario-lista *ngIf="perfilEmpleado != 'cliente'"></app-usuario-lista>
-  <!-- <app-producto-form *ngIf="object == 'producto'"></app-producto-form>  -->
+  <app-usuario-lista *ngIf="object == 'usuario'"></app-usuario-lista>
+  <app-supervisor-lista-espera *ngIf="object == 'listaEspera'"></app-supervisor-lista-espera>
+  <app-producto-lista *ngIf="object == 'producto'"></app-producto-lista> 
 </ion-content>
