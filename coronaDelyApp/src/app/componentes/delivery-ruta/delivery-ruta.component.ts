@@ -1,8 +1,8 @@
 import { Component, OnInit,EventEmitter, ViewChild, ElementRef, Output, AfterViewInit } from '@angular/core';
-import { HttpClient } from 'selenium-webdriver/http';
 import { NgForm } from '@angular/forms';
 import { NotificacionesService } from 'src/app/servicios/notificaciones.service';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { HttpClient } from '@angular/common/http';
 declare var google:any;
 
 @Component({
@@ -26,7 +26,7 @@ export class DeliveryRutaComponent implements OnInit, AfterViewInit {
 
   constructor(
     private geolocalizacion: Geolocation,
-    private http: HttpClient,
+    private http:HttpClient,
     private notificacionService: NotificacionesService
   ) { 
     console.log("delivery-ruta")
@@ -97,6 +97,7 @@ export class DeliveryRutaComponent implements OnInit, AfterViewInit {
   }
 
   geocode(latitude, longitude){
+    
     return this.http
     .get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyAGS1es2kjUoVdPlWCg3WGQ21iWxKufGXA`);
   }

@@ -109,10 +109,12 @@ export class ClienteHomeComponent implements OnInit {
     
   }
 
-  //asignar mesa a cliente
+  // asignar mesa a cliente
   asignarMesa(mesaId, usuarioId){
-    this.mesaService.getTableById(mesaId).then(element => {
-      let mesaActual = Object.assign(new Mesa, element.data());
+    // this.mesaService.getTableById(mesaId).then(element => {
+      this.mesaService.getTableById(mesaId).subscribe(element => {
+      // let mesaActual = Object.assign(new Mesa, element.data());
+      let mesaActual = element[0];
       if (mesaActual.estado != Estados.disponible) {
         this.notificacionService.mostrarToast(`Mesa N.° ${mesaActual.numero} ${mesaActual.estado}`, "danger", "top");
       }
@@ -122,7 +124,7 @@ export class ClienteHomeComponent implements OnInit {
         this.dataService.deleteDocument(Elementos.ListaDeEspera, usuarioId);
         var mesaService = { mesaId: mesaId, usuarioId: usuarioId };
         this.dataService.setData(Elementos.ServicioDeMesa, usuarioId, mesaService);
-        this.notificacionService.mostrarToast(`Mesa N.° ${mesaActual.number} asignada`, "success", "top");
+        this.notificacionService.mostrarToast(`Mesa N.° ${mesaActual.numero} asignada`, "success", "top");
       }
     });
   }

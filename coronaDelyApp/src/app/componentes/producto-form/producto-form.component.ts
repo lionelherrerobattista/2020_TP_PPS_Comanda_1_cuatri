@@ -5,7 +5,6 @@ import { CamaraService } from 'src/app/servicios/camara.service';
 import { QrScannerService } from 'src/app/servicios/qrscanner.service';
 import { ProductoService } from 'src/app/servicios/producto.service';
 import { NotificacionesService } from 'src/app/servicios/notificaciones.service';
-import { url } from 'inspector';
 
 @Component({
   selector: 'app-producto-form',
@@ -37,8 +36,10 @@ export class ProductoFormComponent implements OnInit {
   ngOnInit() {
     if (this.idProducto) {
       this.esModificacion = true;
-      this.productoService.getProduct(this.idProducto).then(prod => {
-        this.producto = prod.data() as Producto;
+      // this.productoService.getProduct(this.idProducto).then(prod => {
+        this.productoService.getProduct(this.idProducto).subscribe(prod => {
+        // this.producto = prod.data() as Producto;
+        this.producto = prod[0];
         this.producto.fotos.forEach(photo => {
           this.cargarFoto(photo);
         })

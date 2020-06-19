@@ -4,5 +4,5 @@ export class Mesa {
     nroComensales:number;//capacidad
     tipo:string;
     foto:string;
-    estado:boolean;   
+    estado:string;   
 }
