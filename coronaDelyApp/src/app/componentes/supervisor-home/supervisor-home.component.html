@@ -32,10 +32,17 @@
     </ion-row>
 
     <ion-row >
-      <ion-col>
+      <ion-col col-4>
         <ion-card [routerLink]="['/listas', 'listaEspera']" class="ion-text-center ion-padding" color="000">
           <ion-icon name="man"></ion-icon>
           <h2 class="long-name">Clientes Pendientes de Aprobación</h2>
+        </ion-card>
+      </ion-col>  
+
+      <ion-col col-4>
+        <ion-card [routerLink]="['/encuesta', 'empleado']" class="ion-text-center ion-padding" color="000">
+          <ion-icon name="time"></ion-icon>
+          <h2 class="long-name">Terminar Jornada Laboral</h2>
         </ion-card>
       </ion-col>  
       

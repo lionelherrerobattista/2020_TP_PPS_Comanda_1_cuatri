@@ -6,6 +6,7 @@ export enum Elementos {
     Productos = 'productos',  
     EncuestasEmpleados = 'encuestas_empleados',
     EncuestasClientes = 'encuestas_clientes',
+    Encuestas= 'encuestas',
     EmailPlantilla = "email_plantilla",
     Pedidos = 'pedidos',
     ServicioDeMesa = 'servicioDeMesa'   

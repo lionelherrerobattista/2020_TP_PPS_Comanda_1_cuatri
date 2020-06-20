@@ -20,6 +20,8 @@ const routes: Routes = [
   // accesos cliente
   { path: 'delivery', loadChildren: './pages/delivery/delivery.module#DeliveryPageModule' },
   { path: 'juego', loadChildren: './pages/juego/juego.module#JuegoPageModule' },
+  { path: 'encuesta/:object', loadChildren: './pages/encuesta/encuesta.module#EncuestaPageModule' },
+
 
 
 ];
