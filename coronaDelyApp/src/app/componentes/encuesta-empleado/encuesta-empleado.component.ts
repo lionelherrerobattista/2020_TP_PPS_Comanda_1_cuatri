@@ -36,7 +36,6 @@ export class EncuestaEmpleadoComponent implements OnInit {
       this.usuarioService.getUserById(usuario.uid).subscribe(usuario => {
 
         this.empleado = usuario[0];
-        console.log(this.empleado);
 
       });
     }
