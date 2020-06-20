@@ -7,7 +7,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Camera } from '@ionic-native/camera/ngx';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
-
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -20,6 +20,7 @@ import { AngularFirestore } from "@angular/fire/firestore";
 import { FormsModule } from '@angular/forms'  
 import { ReactiveFormsModule} from '@angular/forms' 
 import { firebaseConfig } from 'src/environments/environment';
+import { ModalModifUsuarioPageModule } from './pages/modal-modif-usuario/modal-modif-usuario.module';
 
 
 @NgModule({
@@ -32,6 +33,9 @@ import { firebaseConfig } from 'src/environments/environment';
     AppRoutingModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
+    ModalModifUsuarioPageModule,
+    HttpClientModule
+    
   ],
   providers: [
     AngularFirestore,
@@ -40,6 +44,7 @@ import { firebaseConfig } from 'src/environments/environment';
     Camera,
     SplashScreen, 
     SplashScreen,
+
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

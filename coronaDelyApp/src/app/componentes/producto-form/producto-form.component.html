@@ -1,4 +1,4 @@
-<ion-button color="medium" (click)="scan()">Escanear QR</ion-button>
+<ion-button color="medium" (click)="scannearQR()">Escanear QR</ion-button>
 <form class="form">
   <ion-list lines="full" class="ion-no-margin ion-no-padding">
     <ion-item class="group">
@@ -10,14 +10,49 @@
       <ion-input type="text" class="input" [(ngModel)]="producto.descripcion" name="descripcion" required></ion-input>
     </ion-item>
     <ion-item class="group">
-      <ion-label for="pass" class="label" position="floating">Tiempo Promedio de Elaboración</ion-label>
-      <ion-input type="number" class="input" [(ngModel)]="producto.tiempoPreparacion" name="tiempoPreparacion" required></ion-input>
+      <ion-label for="tiempo" class="label" position="floating">Tiempo de Elaboración</ion-label>
+      <ion-input type="number" class="input" [(ngModel)]="producto.tiempoPreparacion" name="tiempoPreparacion" required>
+      </ion-input>
     </ion-item>
     <ion-item class="group">
-      <ion-label for="pass" class="label" position="floating">Precio</ion-label>
+      <ion-label for="precio" class="label" position="floating">Precio</ion-label>
       <ion-input type="number" class="input" [(ngModel)]="producto.precio" name="precio" required></ion-input>
     </ion-item>
+
+    <ion-item class="group">
+      <ion-label for="pass" class="label" position="floating">Sector</ion-label>
+      <ion-select placeholder="Seleccione un sector" [(ngModel)]="producto.sector" name="sector">
+        <ion-select-option value="cocinero">Cocina</ion-select-option>
+        <ion-select-option value="bartender">Barra</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+
   </ion-list>
-  <ion-button color="medium" (click)="tomarFoto()">Sacar Foto</ion-button>
-  <ion-button color="medium" (click)="registrar()">Registrar</ion-button>
+  <br>
+  <ion-button color="medium" (click)="tomarFoto()" [disabled]="producto.nombre == undefined || producto.nombre == ''">Tomar
+    Foto</ion-button>
+
+  <ion-button color="medium" (click)="registro()" *ngIf="!esModificacion">Registrar</ion-button>
+  <ion-button color="medium" (click)="registro()" *ngIf="esModificacion">Modificar</ion-button>
+
+  <br>
+
+  <ion-grid *ngIf="imagenes.length > 0">
+    <ion-row *ngFor="let imagen of imagenes">
+      <ion-col>
+        <ion-card class="card">
+          <ion-card-content>
+            <ion-fab vertical="top" horizontal="end">
+              <ion-fab-button class="delete-btn" size="small" color="danger" (click)="eliminarFoto(imagen.nombre)">
+                <ion-icon name="trash"></ion-icon>
+              </ion-fab-button>
+            </ion-fab>
+            <img src="{{imagen.url}}">
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
 </form>

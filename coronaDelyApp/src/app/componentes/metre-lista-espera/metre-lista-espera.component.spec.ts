@@ -1,22 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SupervisorHomeComponent } from './supervisor-home.component';
+import { MetreListaEsperaComponent } from './metre-lista-espera.component';
 
-describe('SupervisorHomeComponent', () => {
-  let component: SupervisorHomeComponent;
-  let fixture: ComponentFixture<SupervisorHomeComponent>;
+describe('MetreListaEsperaComponent', () => {
+  let component: MetreListaEsperaComponent;
+  let fixture: ComponentFixture<MetreListaEsperaComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SupervisorHomeComponent ],
+      declarations: [ MetreListaEsperaComponent ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SupervisorHomeComponent);
+    fixture = TestBed.createComponent(MetreListaEsperaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

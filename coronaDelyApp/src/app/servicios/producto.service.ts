@@ -10,19 +10,30 @@ export class ProductoService {
     private dataService: DataService
   ) { }
 
-  saveProduct(product){
-    return this.dataService.add('productos', product);
+  modifyProduct(productId, product) {
+    return this.dataService.update('productos', productId, product);
+  }
+  saveProduct(producto){
+    console.log("guardo producto", producto)
+    return this.dataService.setData('productos', `${producto.nombre}_${producto.descripcion}`.toLowerCase(), producto);
+    
   }
 
-  getAllProducts(collection){
-    return this.dataService.getAll(collection);
+  getAllProductos(collection){
+    console.log(collection)
+    return this.dataService.getAll(collection); 
   }
 
   updateProduct(collection: string, id: string, object: any) {
     return this.dataService.update(collection, id, object);
   }
+
+  getProduct(productId) {
+    return this.dataService.getOneProducto('productos', productId);
+  }
+
   getProductById(productId){
-    return this.dataService.getOne('productos', productId);
+    return this.dataService.getOneProducto('productos', productId);
   }
 
   deleteProduct(productId){

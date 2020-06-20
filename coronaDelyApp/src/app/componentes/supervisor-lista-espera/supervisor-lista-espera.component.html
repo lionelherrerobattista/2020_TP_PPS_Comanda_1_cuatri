@@ -1,0 +1,19 @@
+
+<h1>Clientes pendientes de aprobacion:</h1>
+<ion-list>
+  <ion-item-sliding  *ngFor="let cliente of listaClientes">
+    <ion-item (click)="aceptarCliente(cliente)">
+      <ion-avatar *ngIf="cliente.foto != undefined" slot="start">
+        <img [src]="[cliente.foto]">
+      </ion-avatar>
+      <ion-label>
+        <h2>{{cliente.nombre}} {{cliente.apellido}}</h2>
+        <h3>{{cliente.dni}}</h3>
+      </ion-label>
+    </ion-item>
+    <ion-item-options side="end">
+      <ion-item-option (click)="rechazarCliente(cliente)">Rechazar</ion-item-option>
+    </ion-item-options>
+  </ion-item-sliding>
+  
+</ion-list>

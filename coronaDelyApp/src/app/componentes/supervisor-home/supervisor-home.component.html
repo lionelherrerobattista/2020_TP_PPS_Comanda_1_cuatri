@@ -1,30 +1,13 @@
 <section class="ion-text-center ion-margin-bottom">
   <ion-grid>
     <ion-row>
-      <ion-col *ngIf="usuario.perfil == 'dueño'" col-4 >
-        <ion-card routerLink="/registro/usuario"  class="ion-text-center ion-padding" color="000">
-          <ion-icon name="contact"></ion-icon>
-          <h2 class="long-name">Registrar Dueño</h2>
-        </ion-card>
-      </ion-col>
-
       <ion-col col-4 >
         <ion-card routerLink="/registro/usuario"  class="ion-text-center ion-padding" color="000">
           <ion-icon name="contact"></ion-icon>
-          <h2 class="long-name">Registrar Supervisor</h2>
-        </ion-card>
-      </ion-col>
-      
-  
-    </ion-row>
-    <ion-row >
-      <ion-col col-4 >
-        <ion-card routerLink="/registro/usuario" class="ion-text-center ion-padding" color="000">
-          <ion-icon name="man"></ion-icon>
           <h2 class="long-name">Registrar Empleado</h2>
         </ion-card>
       </ion-col>
-      
+
       <ion-col col-4 >
         <ion-card routerLink="/registro/producto" class="ion-text-center ion-padding" color="000">
           <ion-icon name="restaurant"></ion-icon>
@@ -32,7 +15,38 @@
         </ion-card>
       </ion-col>
     </ion-row>
+    
+    <ion-row >
+      <ion-col col-4 >
+        <ion-card [routerLink]="['/listas', 'usuario']" class="ion-text-center ion-padding" color="000">
+          <ion-icon name="man"></ion-icon>
+          <h2 class="long-name">Lista Empleados</h2>
+        </ion-card>
+      </ion-col>  
+      <ion-col col-4 >
+        <ion-card routerLink="/registro/mesa" class="ion-text-center ion-padding" color="000">
+          <ion-icon name="bookmarks"></ion-icon>
+          <h2 class="long-name">Registrar Mesa</h2>
+        </ion-card>
+      </ion-col> 
+    </ion-row>
 
+    <ion-row >
+      <ion-col col-4>
+        <ion-card [routerLink]="['/listas', 'listaEspera']" class="ion-text-center ion-padding" color="000">
+          <ion-icon name="man"></ion-icon>
+          <h2 class="long-name">Clientes Pendientes de Aprobación</h2>
+        </ion-card>
+      </ion-col>  
+
+      <ion-col col-4>
+        <ion-card [routerLink]="['/encuesta', 'empleado']" class="ion-text-center ion-padding" color="000">
+          <ion-icon name="time"></ion-icon>
+          <h2 class="long-name">Terminar Jornada Laboral</h2>
+        </ion-card>
+      </ion-col>  
+      
+    </ion-row>
     
   </ion-grid>
 </section>

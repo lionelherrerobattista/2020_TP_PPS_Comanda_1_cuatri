@@ -1,0 +1,15 @@
+<!-- ENTREGAS A DOMICILIO -->
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Envío a Domicilio</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-menu *ngIf="!pedidoTomado" (menuEnvio)="setMenuPedido($event)"></app-menu> 
+  <!-- <app-delivery-ruta *ngIf="pedidoTomado && !rutaSeleccionada" (tiempoEnvio)="setTiempoPedido($event)"></app-delivery-ruta> -->
+  <!-- <app-entrega-pedido *ngIf="rutaSeleccionada" [pedido]="pedido"></app-entrega-pedido>  -->
+</ion-content>

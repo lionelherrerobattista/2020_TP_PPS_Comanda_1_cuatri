@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { UsuarioService } from '../../servicios/usuario.service';
 import { Router } from '@angular/router';
 import { Usuario } from '../../clases/usuario';
-import { QrscannerService } from '../../servicios/qrscanner.service';
+import { QrScannerService } from '../../servicios/qrscanner.service';
 import { CamaraService } from '../../servicios/camara.service';
 import { AuthService } from 'src/app/servicios/auth.service';
 
@@ -22,7 +22,7 @@ export class UsuarioFormComponent implements OnInit {
     private router: Router,
     private userService: UsuarioService,
     private camaraService: CamaraService,
-    private qrscannerService: QrscannerService,
+    private qrscannerService: QrScannerService,
   ) { 
     this.usuario = new Usuario();
   }
