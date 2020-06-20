@@ -16,6 +16,7 @@ export class MesaService {
     return this.dataService.add('mesas', table);
   }
 
+  
   setDocument(collection: string, id: string, object: object): void {
     this.db.collection(collection).doc(id).set(object);
   }
@@ -33,7 +34,9 @@ export class MesaService {
     this.dataService.deleteDocument('mesas', tableId);
   }
 
+  
   getTableById(tableId){
-    return this.dataService.getOne('mesas', tableId);
+    return this.dataService.getOneMesa('mesas', tableId);
   }
+  
 }

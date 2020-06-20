@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+    <ion-title>Menú</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="consultarMenu()">
+        <ion-icon size="large" slot="icon-only" name="help" title="Consulta"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-menu *ngIf="!pedidoTomado" (enviarPedido)="setMenuPedido($event)"></app-menu>
+  <!-- <app-entrega-pedido *ngIf="pedidoTomado" [order]="pedido"></app-entrega-pedido> -->
+</ion-content>

@@ -18,11 +18,27 @@
     
     <ion-row >
       <ion-col col-4 >
-        <ion-card routerLink="/listas" class="ion-text-center ion-padding" color="000">
+        <ion-card [routerLink]="['/listas', 'usuario']" class="ion-text-center ion-padding" color="000">
           <ion-icon name="man"></ion-icon>
           <h2 class="long-name">Lista Empleados</h2>
         </ion-card>
-      </ion-col>   
+      </ion-col>  
+      <ion-col col-4 >
+        <ion-card routerLink="/registro/mesa" class="ion-text-center ion-padding" color="000">
+          <ion-icon name="bookmarks"></ion-icon>
+          <h2 class="long-name">Registrar Mesa</h2>
+        </ion-card>
+      </ion-col> 
+    </ion-row>
+
+    <ion-row >
+      <ion-col>
+        <ion-card [routerLink]="['/listas', 'listaEspera']" class="ion-text-center ion-padding" color="000">
+          <ion-icon name="man"></ion-icon>
+          <h2 class="long-name">Clientes Pendientes de Aprobación</h2>
+        </ion-card>
+      </ion-col>  
+      
     </ion-row>
     
   </ion-grid>

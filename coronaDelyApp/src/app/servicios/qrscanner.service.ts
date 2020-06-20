@@ -4,24 +4,23 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 @Injectable({
   providedIn: 'root'
 })
-export class QrscannerService {
+export class QrScannerService {
   
+  dispositivo = "web"; //cambiar a mobile para las pruebas en el celu
   constructor(private scanner: BarcodeScanner) { }
+  
+  scanQr(options?){
+    return this.scanner.scan(options).then(barcodeData => {
+      return barcodeData.text;
+    }).catch(err => { });
+  }
 
   scanDni(){
     let options = { prompt: "Escaneá el DNI", formats: "PDF_417" };
 
-    this.scanner.scan(options).then(barcodeData => {
-      return barcodeData.text.split('@');
-    }).catch(err => { 
-      console.log('Error', err);
+    return this.scanQr(options).then((response: string) => {
+      return response.split('@');
     });
-  }
-
-  scanQr(){
-    return this.scanner.scan().then(barcodeData => {
-      return barcodeData.text;
-    }).catch(err => { });
   }
 }
 

@@ -5,7 +5,7 @@ import { AngularFirestore, DocumentChangeAction } from "@angular/fire/firestore"
 import { AuthService } from './auth.service';
 import { DataService } from './data.service';
 import { Usuario } from '../clases/usuario';
-import { Collections } from '../clases/enums/collections';
+import { Elementos } from '../clases/enums/elementos';
 
 
 @Injectable({
@@ -55,7 +55,7 @@ export class UsuarioService {
   }
 
   getUsuario(userId) {
-    return this.dataService.getOne(Collections.Usuarios, userId);
+    return this.dataService.getOneUsuario(Elementos.Usuarios, userId);
   }
 
 

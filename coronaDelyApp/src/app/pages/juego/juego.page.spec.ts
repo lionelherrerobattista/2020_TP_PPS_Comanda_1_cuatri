@@ -1,22 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SupervisorHomeComponent } from './supervisor-home.component';
+import { JuegoPage } from './juego.page';
 
-describe('SupervisorHomeComponent', () => {
-  let component: SupervisorHomeComponent;
-  let fixture: ComponentFixture<SupervisorHomeComponent>;
+describe('JuegoPage', () => {
+  let component: JuegoPage;
+  let fixture: ComponentFixture<JuegoPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SupervisorHomeComponent ],
+      declarations: [ JuegoPage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SupervisorHomeComponent);
+    fixture = TestBed.createComponent(JuegoPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
