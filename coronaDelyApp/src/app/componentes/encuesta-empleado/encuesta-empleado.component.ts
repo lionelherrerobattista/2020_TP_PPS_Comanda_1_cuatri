@@ -13,6 +13,7 @@ import { AuthService } from 'src/app/servicios/auth.service';
 })
 export class EncuestaEmpleadoComponent implements OnInit {
 
+  
   preguntas:Pregunta[];
   limpieza:number;
   predisposicion:string;

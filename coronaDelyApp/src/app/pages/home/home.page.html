@@ -27,5 +27,8 @@
     <app-cliente-home *ngIf="usuario?.perfil == 'cliente'"></app-cliente-home>
     <!-- Agregar los otros componentes -->
     <app-supervisor-home [usuario]="usuario"  *ngIf="usuario?.perfil == 'supervisor' || usuario?.perfil == 'dueño'"></app-supervisor-home>
+    <!--<app-metre-home [usuario]="usuario"  *ngIf="usuario?.perfil == 'metre'"></app-metre-home>-->
+    <app-cocinero-home [usuario]="usuario"  *ngIf="usuario?.perfil == 'cocinero' || usuario?.perfil == 'bartender'"></app-cocinero-home>
+    
   </div>
 </ion-content>
