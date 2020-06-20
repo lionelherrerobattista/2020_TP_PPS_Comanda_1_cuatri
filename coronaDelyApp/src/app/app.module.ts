@@ -29,7 +29,7 @@ import { ModalModifUsuarioPageModule } from './pages/modal-modif-usuario/modal-m
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
-    FormsModule   ,
+    FormsModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,

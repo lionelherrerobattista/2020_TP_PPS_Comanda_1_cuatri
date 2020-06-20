@@ -65,7 +65,7 @@ export class EncuestaEmpleadoComponent implements OnInit {
       respuesta: this.limpieza.toString(),
     }
     preguntaDos = {
-      pregunta: "Predisposición del jefe/supervisor",
+      pregunta: "Predisposición del supervisor",
       respuesta: this.predisposicion,
     }
     preguntaTres = {

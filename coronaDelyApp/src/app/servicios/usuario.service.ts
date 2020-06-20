@@ -59,10 +59,6 @@ export class UsuarioService {
   }
 
 
-  // getAllUsers(collection): Observable<DocumentChangeAction<Usuario>[]> {
-  //   return this.dataService.getAll(collection);
-  // }
-
   getAllUsers(collection): Observable<Usuario[]> {
     return this.dataService.getAll(collection);
   }
