@@ -1,3 +1,13 @@
+<div id="div-filtro-categorias">
+  <ion-label position="floating">Categoría:</ion-label>
+  <ion-select  (ionChange)="filtrarLista($event)" name="filtro" placeholder="Seleccione categoría">
+    <ion-select-option value="todos">Todos</ion-select-option>
+    <ion-select-option value="comida">Comidas</ion-select-option>
+    <ion-select-option value="bebida">Bebidas</ion-select-option>
+    <ion-select-option value="postre">Postres</ion-select-option>
+  </ion-select>
+</div>
+
 <ion-list>
   <ion-item *ngFor="let producto of productos" (click)="verDetalles(producto)">
     <ion-icon name="restaurant"></ion-icon>

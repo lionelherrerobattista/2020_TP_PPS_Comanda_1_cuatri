@@ -11,7 +11,7 @@ import { NotificacionesService } from 'src/app/servicios/notificaciones.service'
 import { MesaService } from 'src/app/servicios/mesa.service';
 import { TipoDeNotificacion } from 'src/app/clases/enums/tipo-de-notificacion';
 import { DataService } from 'src/app/servicios/data.service';
-import { Elementos } from 'src/app/clases/enums/Elementos';
+import { Elementos } from 'src/app/clases/enums/elementos';
 import { Perfiles } from 'src/app/clases/enums/perfiles';
 
 

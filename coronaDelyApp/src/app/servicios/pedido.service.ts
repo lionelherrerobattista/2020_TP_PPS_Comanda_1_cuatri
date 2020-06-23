@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Elementos } from '../clases/enums/Elementos';
+import { Elementos } from '../clases/enums/elementos';
 import { DataService } from './data.service';
 
 @Injectable({

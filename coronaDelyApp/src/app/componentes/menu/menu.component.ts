@@ -10,6 +10,7 @@ import { ProductoService } from 'src/app/servicios/producto.service';
   styleUrls: ['./menu.component.scss'],
 })
 export class MenuComponent implements OnInit {
+
   public  productos: Array<Producto>  = new Array<Producto>();
   private total: number = 0;
   private menu: Array<Producto> = new Array<Producto>();
@@ -40,6 +41,18 @@ export class MenuComponent implements OnInit {
   ngOnInit() {
   }
 
+  filtrarLista(event) {
+    let filtro = event.target.value;
+
+    console.log(filtro);
+    
+    this.productoService.getProductosFiltrados(filtro).subscribe( productosFiltrados => {
+      console.log(productosFiltrados)
+      this.productos = productosFiltrados;
+    })
+  }
+
+
   verDetalles(producto: Producto){
     console.log("verDetalles")
     this.showAlert(producto).then(response => {
@@ -57,13 +70,14 @@ export class MenuComponent implements OnInit {
     });
   }
 
-  //IMPORTANTE! las carpetas de las fotos deen coincidir con las entidades
+  //IMPORTANTE! las carpetas de las fotos deben coincidir con las entidades
   async showAlert(producto: Producto) {   
     let message = "<div>" +
                     `<ion-label>${producto.descripcion}</ion-label>`;
 
     message += (producto.fotos.length > 0) ? 
-                    `<img src="${await this.camaraService.getImageByName('productos', producto.fotos[0])}" style="bmenu-radius: 2px">` : 
+                    // `<img src="${await this.camaraService.getImageByName('productos', producto.fotos[0])}" style="bmenu-radius: 2px">` : 
+                    `<img src="${producto.fotos[0]}" style="bmenu-radius: 2px">` : 
                       "" + 
                   "</div>"
 
