@@ -1,16 +1,17 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit,Input } from '@angular/core';
 import { AuthService } from 'src/app/servicios/auth.service';
 import { MenuController } from '@ionic/angular';
 import { Usuario } from 'src/app/clases/usuario';
 
 @Component({
-  selector: 'app-cocinero-home',
-  templateUrl: './cocinero-home.component.html',
-  styleUrls: ['./cocinero-home.component.scss'],
+  selector: 'app-empleados-home',
+  templateUrl: './empleados-home.component.html',
+  styleUrls: ['./empleados-home.component.scss'],
 })
-export class CocineroHomeComponent implements OnInit {
-
+export class EmpleadosHomeComponent implements OnInit {
+  
   @Input()usuario;
+  @Input() perfilEmpleado:string;  
 
   constructor(
     private authService: AuthService,
@@ -18,6 +19,7 @@ export class CocineroHomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {}
+
 
   openFirst() {
     this.menu.enable(true, 'first');
