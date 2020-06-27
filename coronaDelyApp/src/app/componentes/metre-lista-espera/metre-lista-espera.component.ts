@@ -35,6 +35,7 @@ export class MetreListaEsperaComponent implements OnInit {
     })
   }
 
+  ///Modifica el estado del cliente para que pueda tomar una mesa
   aceptarCliente(cliente:Usuario) {
     cliente.estado = Estados.puedeTomarMesa ;
     this.usuarioService.updateUser('usuarios', cliente.id, cliente);
@@ -53,18 +54,11 @@ export class MetreListaEsperaComponent implements OnInit {
         {
           text: 'Cancelar',
           role: 'cancel',
-          handler: () => {
-            resultado = 'cancelado';
-          }
         },
         {
           text: 'Confirmar',
-          role: 'Confirmar',
+          role: 'confirmar',
           cssClass: '.danger-alert-btn',
-          handler: () => {
-            this.usuarioService.deleteDocument('usuarios', cliente);
-            resultado = 'rechazado';
-          }
         },
       ]
     });
@@ -72,21 +66,22 @@ export class MetreListaEsperaComponent implements OnInit {
     await alert.present();
     resultado = await alert.onDidDismiss();
 
-    if(resultado == 'rechazado') {
-      this.mostrarToast('Cliente rechazado')
+    //Verificar el role del botón presionado
+    if(resultado.role == 'confirmar') {
+      cliente.estado = Estados.rechazado;
+      this.usuarioService.updateUser('usuarios', cliente.id, cliente);
+      this.mostrarToast('Cliente rechazado');
     } else {
-      console.log('cancelado');
+      this.mostrarToast('El cliente continúa en la lista de espera');
     }
-
   }
 
-  ///Funciones que llaman al toast y al alert
+  ///Funciones que llaman al toast y al modal
   async mostrarToast(mensaje:string) {
     const toast = await this.toastController.create({
       message: mensaje,
       duration: 2000
     });
-
     toast.present();
   }
 

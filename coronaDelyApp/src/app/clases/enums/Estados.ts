@@ -10,6 +10,7 @@ export enum  Estados {
     esperandoOrden = 'esperandoOrden', //ya hizo su pedido
     finalizado = 'finalizado', // ya pago
     tieneReserva = 'tieneReserva',
+    rechazado = 'rechazado', //lo hace el metre o el supervisor/dueño
     // mesa  
     disponible = 'disponible',
     ocupada = 'ocupada',
