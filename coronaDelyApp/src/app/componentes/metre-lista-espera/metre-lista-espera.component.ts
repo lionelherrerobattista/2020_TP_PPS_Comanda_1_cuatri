@@ -35,8 +35,11 @@ export class MetreListaEsperaComponent implements OnInit {
     })
   }
 
-  aceptarCliente(cliente) {
-    this.mostrarModal(cliente);
+  aceptarCliente(cliente:Usuario) {
+    cliente.estado = Estados.puedeTomarMesa ;
+    this.usuarioService.updateUser('usuarios', cliente.id, cliente);
+    this.mostrarToast("El cliente puede tomar una mesa");
+    //Asignar mesa al cliente
   }
 
   async rechazarCliente(cliente:Usuario) {
@@ -44,7 +47,7 @@ export class MetreListaEsperaComponent implements OnInit {
     let resultado;
     //Configurar el alert
     const alert = await this.alertController.create({
-      header: 'Eliminar usuario',
+      header: 'Rechazar cliente',
       message: '¿Está seguro que desea rechazar a este cliente?',    
       buttons: [
         {
@@ -60,7 +63,7 @@ export class MetreListaEsperaComponent implements OnInit {
           cssClass: '.danger-alert-btn',
           handler: () => {
             this.usuarioService.deleteDocument('usuarios', cliente);
-            resultado = 'eliminado';
+            resultado = 'rechazado';
           }
         },
       ]
@@ -69,8 +72,8 @@ export class MetreListaEsperaComponent implements OnInit {
     await alert.present();
     resultado = await alert.onDidDismiss();
 
-    if(resultado == 'eliminado') {
-      this.mostrarToast('Empleado eliminado')
+    if(resultado == 'rechazado') {
+      this.mostrarToast('Cliente rechazado')
     } else {
       console.log('cancelado');
     }

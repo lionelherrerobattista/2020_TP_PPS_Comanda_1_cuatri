@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/servicios/auth.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
-import { ProductoService } from 'src/app/servicios/producto.service';
+
 
 @Component({
   selector: 'app-listas',
@@ -12,18 +12,22 @@ import { ProductoService } from 'src/app/servicios/producto.service';
 export class ListasPage implements OnInit {
  
   object;
+  titulo:string;
   perfilEmpleado:string;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private authService: AuthService,
-    private usuarioService: UsuarioService,
-    private productoService: ProductoService
-    
+    private usuarioService: UsuarioService,    
     ) { }
 
   ngOnInit() {
     this.object = this.activatedRoute.snapshot.paramMap.get('object');
+
+    switch(this.object) {
+      case "listaEsperaMetre":
+        this.titulo = "Lista de espera de clientes"
+    }
 
     if(this. object != 'cliente') {
       let user = this.authService.getCurrentUser();
