@@ -7,6 +7,7 @@ import { Mesa } from '../clases/mesa';
 import { Producto } from '../clases/producto';
 import { Pedido } from '../clases/pedido';
 import { Encuesta } from '../clases/encuesta';
+import { Consulta } from '../clases/consulta';
 
 @Injectable({
   providedIn: 'root'
@@ -106,7 +107,6 @@ getOneProducto(collection, id){
       return data;
     })
   })); 
-
 }
 
 //Traer una encuesta
@@ -121,7 +121,19 @@ getOneEncuesta(collection, id){
       return data;
     })
   })); 
+}
 
+getOneConsulta(collection, id){
+  return this.db.collection(collection).snapshotChanges().pipe(map(res =>{
+    return res.map(i => {
+      let data = i.payload.doc.data() as Consulta;
+      if (id==i.payload.doc.id){
+         data.id = i.payload.doc.id;
+         console.log("data", data)
+      }
+      return data;
+    })
+  })); 
 }
 
 setData(collection, id, data){

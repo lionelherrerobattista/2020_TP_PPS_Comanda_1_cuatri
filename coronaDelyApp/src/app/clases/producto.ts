@@ -10,7 +10,9 @@ export class Producto {
     descripcion:string;
     tiempoPreparacion:number;
     precio:number;
-    fotos:String[];
-    sector : string;
+    fotos:string[];
+    sector:string;
     tipo:TipoProducto;
+    estado?:string;
+    cantidad?:number;
 }

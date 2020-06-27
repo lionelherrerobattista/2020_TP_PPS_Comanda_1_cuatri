@@ -21,6 +21,9 @@ const routes: Routes = [
   { path: 'delivery', loadChildren: './pages/delivery/delivery.module#DeliveryPageModule' },
   { path: 'juego', loadChildren: './pages/juego/juego.module#JuegoPageModule' },
   { path: 'encuesta/:object', loadChildren: './pages/encuesta/encuesta.module#EncuestaPageModule' },
+  { path: 'modal-menu-detalle', loadChildren: './pages/modal-menu-detalle/modal-menu-detalle.module#ModalMenuDetallePageModule' },
+  { path: 'consulta/:object', loadChildren: './pages/consulta/consulta.module#ConsultaPageModule' },
+
 
 
 

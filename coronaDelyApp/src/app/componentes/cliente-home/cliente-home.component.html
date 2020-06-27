@@ -22,6 +22,12 @@
            <h2 class="long-name">Realizar Pedido (local)</h2>
          </ion-card>
       </ion-col>
+      <ion-col col-6  *ngIf="(usuario?.estado == 'atendido' || usuario?.estado == 'mesaAsignada')">
+        <ion-card [routerLink]="['/consulta', 'cliente']" class="ion-text-center ion-padding" color="000">
+          <ion-icon name="timer"></ion-icon>          
+          <h2 class="long-name">Realizar Consulta</h2>
+        </ion-card>
+     </ion-col>
       <ion-col col-6 *ngIf="(usuario?.estado == 'atendido' || usuario?.estado == 'esperandoOrden' 
                              || usuario?.estado == 'mesaAsignada') ">
         <ion-card routerLink="/menu" class="ion-text-center ion-padding" color="000">

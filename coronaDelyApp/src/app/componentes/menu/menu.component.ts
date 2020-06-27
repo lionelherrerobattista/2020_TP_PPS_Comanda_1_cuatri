@@ -1,8 +1,13 @@
-import { Component,EventEmitter , OnInit, Output } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { Component,EventEmitter , OnInit, Output, Input } from '@angular/core';
+import { AlertController, ModalController } from '@ionic/angular';
 import { Producto } from 'src/app/clases/producto';
 import { CamaraService } from 'src/app/servicios/camara.service';
 import { ProductoService } from 'src/app/servicios/producto.service';
+import { ModalMenuDetallePageModule } from 'src/app/pages/modal-menu-detalle/modal-menu-detalle.module';
+import { UsuarioService } from 'src/app/servicios/usuario.service';
+import { AuthService } from 'src/app/servicios/auth.service';
+import { TagPlaceholder } from '@angular/compiler/src/i18n/i18n_ast';
+import { ModalMenuDetallePage } from 'src/app/pages/modal-menu-detalle/modal-menu-detalle.page';
 
 @Component({
   selector: 'app-menu',
@@ -11,10 +16,12 @@ import { ProductoService } from 'src/app/servicios/producto.service';
 })
 export class MenuComponent implements OnInit {
 
-  public  productos: Array<Producto>  = new Array<Producto>();
-  private total: number = 0;
-  private menu: Array<Producto> = new Array<Producto>();
-  @Output() menuEnvio: EventEmitter<object> = new EventEmitter<object>();
+  productosMenu:Producto[];
+  total:number;
+  menu:Producto[];
+  idUsuario:string;
+  @Input()idMesa:string;
+  // @Output() menuEnvio: EventEmitter<object> = new EventEmitter<object>();
 
   slideOpts = {
     slidesPerView: 1,
@@ -25,47 +32,52 @@ export class MenuComponent implements OnInit {
   constructor(
     private productoService: ProductoService,
     private alertController: AlertController,
-    private camaraService: CamaraService
+    // private camaraService: CamaraService
+    private modalController:ModalController,
+    private authService:AuthService,
   ) { 
-    this.productoService.getAllProductos('productos').subscribe(elementos => {
-      console.log("elementos ",elementos )
-      for (let i = 0; i < elementos.length; i++) {
-        console.log("elementos[i],i ",elementos[i],i )
-          this.productos[i] = elementos[i] as Producto;
-      }
-      console.log("this.productos",this.productos)
-    });
+    
+    this.productosMenu = [];
+    this.menu = [];  
+    this.total = 0; 
   }
 
 
   ngOnInit() {
+
+    this.idUsuario = this.authService.getCurrentUser().uid;
+    this.productoService.getAllProductos('productos').subscribe(elementos => {     
+      for (let i = 0; i < elementos.length; i++) {      
+        this.productosMenu[i] = elementos[i] as Producto;
+      }    
+    });
   }
 
+  ///Filtra la lista de productos según la categoría seleccionada
   filtrarLista(event) {
     let filtro = event.target.value;
 
-    console.log(filtro);
-    
-    this.productoService.getProductosFiltrados(filtro).subscribe( productosFiltrados => {
-      console.log(productosFiltrados)
-      this.productos = productosFiltrados;
+    this.productoService.getProductosFiltrados(filtro).subscribe( productosFiltrados => {    
+      this.productosMenu = productosFiltrados;
     })
   }
 
 
-  verDetalles(producto: Producto){
-    console.log("verDetalles")
-    this.showAlert(producto).then(response => {
-      console.log("response", response)
+  verDetalles(producto: Producto){  
+    this.showAlert(producto).then(response => {   
       var cantidad = (response.data) ? response.data.cantidad : "";
+      //Agregar el producto a la lista del cliente
       if(cantidad){
-        console.log("cantidad", cantidad)
-        for(let i = 0; i < cantidad; i++){
-          this.menu.push(producto);
-        }
-        let reducer = ( acumulador, currentProduct ) => acumulador + currentProduct.precio;
+        producto.cantidad = Number.parseInt(cantidad);       
+        this.menu.push(producto);
+        //Calcular total
+        this.total += (producto.precio * producto.cantidad);
 
-        this.total = this.menu.reduce(reducer, 0)
+        // for(let i = 0; i < cantidad; i++){
+        //   this.menu.push(producto);
+        // }
+        // let reducer = ( acumulador, currentProduct ) => acumulador + currentProduct.precio;
+        // this.total = this.menu.reduce(reducer, 0)
       }
     });
   }
@@ -115,8 +127,24 @@ export class MenuComponent implements OnInit {
     })
   }
 
-  sendMenu(){
-    this.menuEnvio.emit({"menu":this.menu, "precio": this.total});
+  // sendMenu(){
+  //   this.menuEnvio.emit({"menu":this.menu, "precio": this.total});
+  // }
+
+  visualizarPedido() {
+    this.mostrarModal(this.menu);
+  }
+
+  async mostrarModal(datos) {
+    const modal = await this.modalController.create({
+      component: ModalMenuDetallePage,
+      componentProps: {
+        productos: datos,
+        idCliente: this.idUsuario,
+        idMesa: '1',
+      }
+    });
+    return await modal.present();
   }
 
 }
