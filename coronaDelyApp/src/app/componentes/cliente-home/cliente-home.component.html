@@ -15,6 +15,7 @@
         </ion-card>
       </ion-col>
     </ion-row>
+
     <ion-row>
       <ion-col col-6  *ngIf="(usuario?.estado == 'atendido' || usuario?.estado == 'mesaAsignada')">
          <ion-card routerLink="/pedido" class="ion-text-center ion-padding" color="000">
@@ -24,18 +25,19 @@
       </ion-col>
       <ion-col col-6  *ngIf="(usuario?.estado == 'atendido' || usuario?.estado == 'mesaAsignada')">
         <ion-card [routerLink]="['/consulta', 'cliente']" class="ion-text-center ion-padding" color="000">
-          <ion-icon name="timer"></ion-icon>          
+          <ion-icon name="help-circle-outline"></ion-icon>         
           <h2 class="long-name">Realizar Consulta</h2>
         </ion-card>
      </ion-col>
-      <ion-col col-6 *ngIf="(usuario?.estado == 'atendido' || usuario?.estado == 'esperandoOrden' 
+      <!-- <ion-col col-6 *ngIf="(usuario?.estado == 'atendido' || usuario?.estado == 'esperandoOrden' 
                              || usuario?.estado == 'mesaAsignada') ">
         <ion-card routerLink="/menu" class="ion-text-center ion-padding" color="000">
           <ion-icon name="list"></ion-icon>
           <h2 class="long-name">Ver Menu</h2>
         </ion-card>
-      </ion-col>
+      </ion-col> -->
     </ion-row>
+
     <ion-row>
       <ion-col col-6 *ngIf="(usuario?.estado != 'pagando' && usuario?.estado != 'pendienteAprobacion')">
         <ion-card routerLink="/encuestas" class="ion-text-center ion-padding" color="000">
@@ -51,6 +53,7 @@
         </ion-card>
       </ion-col>
     </ion-row>
+
     <ion-row>
       <ion-col col-6  *ngIf="(usuario?.estado == 'sinAtender' || usuario?.estado == 'finalizado'
                            || usuario?.estado == 'tieneReserva')">
@@ -73,5 +76,6 @@
           </ion-card>
         </ion-col>
       </ion-row>
+
   </ion-grid>
 </section>
