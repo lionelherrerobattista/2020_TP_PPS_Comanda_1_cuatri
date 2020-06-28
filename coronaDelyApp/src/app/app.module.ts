@@ -21,6 +21,7 @@ import { FormsModule } from '@angular/forms'
 import { ReactiveFormsModule} from '@angular/forms' 
 import { firebaseConfig } from 'src/environments/environment';
 import { ModalModifUsuarioPageModule } from './pages/modal-modif-usuario/modal-modif-usuario.module';
+import { ModalMenuDetallePageModule } from './pages/modal-menu-detalle/modal-menu-detalle.module';
 
 
 @NgModule({
@@ -29,11 +30,12 @@ import { ModalModifUsuarioPageModule } from './pages/modal-modif-usuario/modal-m
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
-    FormsModule   ,
+    FormsModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
     ModalModifUsuarioPageModule,
+    ModalMenuDetallePageModule,
     HttpClientModule
     
   ],

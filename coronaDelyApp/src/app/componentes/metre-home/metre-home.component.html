@@ -1,0 +1,23 @@
+<section class="ion-text-center ion-margin-bottom">
+  <ion-grid>
+    <ion-row>
+
+      <ion-col col-4 >
+        <ion-card routerLink="/registro/mesa"  class="ion-text-center ion-padding" color="000">
+          <ion-icon name="book"></ion-icon>
+          <h2 class="long-name">Alta Mesa</h2>
+        </ion-card>
+      </ion-col>
+      
+      <ion-col col-4>
+        <ion-card [routerLink]="['/listas', 'listaEspera']" class="ion-text-center ion-padding" color="000">
+          <ion-icon name="man"></ion-icon>
+          <h2 class="long-name">Clientes en Lista de Espera</h2>
+        </ion-card>
+      </ion-col> 
+  
+    </ion-row>
+
+    
+  </ion-grid>
+</section>

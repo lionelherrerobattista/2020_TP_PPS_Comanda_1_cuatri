@@ -35,8 +35,12 @@ export class MetreListaEsperaComponent implements OnInit {
     })
   }
 
-  aceptarCliente(cliente) {
-    this.mostrarModal(cliente);
+  ///Modifica el estado del cliente para que pueda tomar una mesa
+  aceptarCliente(cliente:Usuario) {
+    cliente.estado = Estados.puedeTomarMesa ;
+    this.usuarioService.updateUser('usuarios', cliente.id, cliente);
+    this.mostrarToast("El cliente puede tomar una mesa");
+    //Asignar mesa al cliente
   }
 
   async rechazarCliente(cliente:Usuario) {
@@ -44,24 +48,17 @@ export class MetreListaEsperaComponent implements OnInit {
     let resultado;
     //Configurar el alert
     const alert = await this.alertController.create({
-      header: 'Eliminar usuario',
+      header: 'Rechazar cliente',
       message: '¿Está seguro que desea rechazar a este cliente?',    
       buttons: [
         {
           text: 'Cancelar',
           role: 'cancel',
-          handler: () => {
-            resultado = 'cancelado';
-          }
         },
         {
           text: 'Confirmar',
-          role: 'Confirmar',
+          role: 'confirmar',
           cssClass: '.danger-alert-btn',
-          handler: () => {
-            this.usuarioService.deleteDocument('usuarios', cliente);
-            resultado = 'eliminado';
-          }
         },
       ]
     });
@@ -69,21 +66,22 @@ export class MetreListaEsperaComponent implements OnInit {
     await alert.present();
     resultado = await alert.onDidDismiss();
 
-    if(resultado == 'eliminado') {
-      this.mostrarToast('Empleado eliminado')
+    //Verificar el role del botón presionado
+    if(resultado.role == 'confirmar') {
+      cliente.estado = Estados.rechazado;
+      this.usuarioService.updateUser('usuarios', cliente.id, cliente);
+      this.mostrarToast('Cliente rechazado');
     } else {
-      console.log('cancelado');
+      this.mostrarToast('El cliente continúa en la lista de espera');
     }
-
   }
 
-  ///Funciones que llaman al toast y al alert
+  ///Funciones que llaman al toast y al modal
   async mostrarToast(mensaje:string) {
     const toast = await this.toastController.create({
       message: mensaje,
       duration: 2000
     });
-
     toast.present();
   }
 

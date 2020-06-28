@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Lista de {{object}}</ion-title>
+    <ion-title>{{titulo}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -11,4 +11,5 @@
   <app-usuario-lista *ngIf="object == 'usuario'"></app-usuario-lista>
   <app-supervisor-lista-espera *ngIf="object == 'listaEspera'"></app-supervisor-lista-espera>
   <app-producto-lista *ngIf="object == 'producto'"></app-producto-lista> 
+  <app-metre-lista-espera *ngIf="object == 'listaEsperaMetre'"></app-metre-lista-espera>
 </ion-content>

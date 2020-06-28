@@ -7,6 +7,8 @@ import { HomePage } from './home.page';
 import { ClienteHomeComponent } from 'src/app/componentes/cliente-home/cliente-home.component';
 import { SupervisorHomeComponent } from 'src/app/componentes/supervisor-home/supervisor-home.component';
 
+import { EmpleadosHomeComponent } from '../../componentes/empleados-home/empleados-home.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -19,6 +21,6 @@ import { SupervisorHomeComponent } from 'src/app/componentes/supervisor-home/sup
       }
     ])
   ],
-  declarations: [HomePage, ClienteHomeComponent, SupervisorHomeComponent] // aca agrego las otras opciones
+  declarations: [HomePage, ClienteHomeComponent, SupervisorHomeComponent, EmpleadosHomeComponent ] // aca agrego las otras opciones
 })
 export class HomePageModule {}

@@ -9,7 +9,7 @@ export enum TipoEncuesta{
 export interface Pregunta {
     pregunta:string;
     respuesta:string;
-  }
+}
   
 
 export class Encuesta {
