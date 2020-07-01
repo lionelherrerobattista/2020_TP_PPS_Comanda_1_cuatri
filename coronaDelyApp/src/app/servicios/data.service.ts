@@ -8,6 +8,7 @@ import { Producto } from '../clases/producto';
 import { Pedido } from '../clases/pedido';
 import { Encuesta } from '../clases/encuesta';
 import { Consulta } from '../clases/consulta';
+import { Dispositivo } from '../clases/dispositivo';
 
 @Injectable({
   providedIn: 'root'
@@ -114,6 +115,18 @@ getOneEncuesta(collection, id){
   return this.db.collection(collection).snapshotChanges().pipe(map(res =>{
     return res.map(i => {
       let data = i.payload.doc.data() as Encuesta;
+      if (id==i.payload.doc.id){
+         data.id = i.payload.doc.id;
+         console.log("data", data)
+      }
+      return data;
+    })
+  })); 
+}
+getOneDispositivo(collection, id){
+  return this.db.collection(collection).snapshotChanges().pipe(map(res =>{
+    return res.map(i => {
+      let data = i.payload.doc.data() as Dispositivo;
       if (id==i.payload.doc.id){
          data.id = i.payload.doc.id;
          console.log("data", data)

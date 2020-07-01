@@ -8,7 +8,7 @@ export enum Elementos {
     EncuestasClientes = 'encuestas_clientes',
     Encuestas= 'encuestas',
     EmailPlantilla = "email_plantilla",
-    Pedidos = 'pedidos',
-    ServicioDeMesa = 'servicioDeMesa'   
-    // Dispositivos = 'dispositivos',
+    Pedidos = 'pedidos',   
+    ServicioDeMesa = 'servicioDeMesa' ,  
+    Dispositivos = 'dispositivos',
 }
