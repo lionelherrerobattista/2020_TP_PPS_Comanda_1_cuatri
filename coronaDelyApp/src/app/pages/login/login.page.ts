@@ -6,6 +6,8 @@ import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Usuario } from 'src/app/clases/usuario';
 import { LoadingService } from 'src/app/servicios/loading.service';
 import { timer } from 'rxjs';
+import { Perfiles } from 'src/app/clases/enums/perfiles';
+import { Estados } from 'src/app/clases/enums/estados';
 
 @Component({
   selector: 'app-login',
@@ -85,7 +87,18 @@ export class LoginPage implements OnInit {
     console.log(form.email, form.password)
     this.authService.logIn(form.email, form.password)
       .then(res => {
-        this.loadingService.closeLoadingAndRedirect("/home");
+        this.userService.getUserById(res.user.uid)
+          .subscribe(usuario => { 
+            if (usuario[0] != undefined) {
+              console.log(usuario[0].estado);
+              if(usuario[0].perfil == Perfiles.cliente && usuario[0].estado == Estados.pendienteDeAprobacion) {
+                this.loadingService.closeLoading("Error", "Todavía no se aprobó su cuenta", 'error');     
+              } else {
+                this.loadingService.closeLoadingAndRedirect("/home");
+              }
+            }
+          });
+        
       })
       .catch(err => {
         console.log("error",err)

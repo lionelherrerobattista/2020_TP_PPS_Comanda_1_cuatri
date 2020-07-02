@@ -1,5 +1,5 @@
 export enum Perfiles {
-    Cliente    = 'cliente',
+    cliente    = 'cliente',
     mozo    = 'mozo',
     dueño     = 'dueño',
     cocinero      = 'cocinero',

@@ -5,6 +5,8 @@ import { Usuario } from '../../clases/usuario';
 import { QrScannerService } from '../../servicios/qrscanner.service';
 import { CamaraService } from '../../servicios/camara.service';
 import { AuthService } from 'src/app/servicios/auth.service';
+import { Estados } from 'src/app/clases/enums/estados';
+import { Perfiles } from 'src/app/clases/enums/perfiles';
 
 
 @Component({
@@ -25,50 +27,55 @@ export class UsuarioFormComponent implements OnInit {
     private qrscannerService: QrScannerService,
   ) { 
     this.usuario = new Usuario();
+    this.usuario.nombre = "";
+    this.usuario.apellido = "";
   }
 
   ngOnInit() {}
 
+  ///Guarda al cliente (pendiente de aprobación) o empleado en firebase
+  ///y redirecciona al log in (cliente) o al home (empleado)
   async registro(){ 
 
     if(this.esCliente){
-      this.usuario.perfil = "cliente";
-      this.usuario.estado = "sinAtender";
+      this.usuario.perfil = Perfiles.cliente;
+      this.usuario.estado = Estados.pendienteDeAprobacion;
     }
     
-    //Esto funciona y uso la función original:
     await this.userService.saveUserWithLogin(this.usuario);
 
     //Redireccionar
     if(this.esCliente){
-      this.router.navigate(['/home']);
+      this.router.navigate(['/login']);
     }
     else{
-      // this.router.navigateByUrl('/listado/usuarios');
-      this.router.navigateByUrl('/home');
+      this.router.navigate(['/home']);
     }
-    
-    //Lionel: Con esto no me guarda los datos en la BD (la dejo por las dudas)
-    
-    // this.userService.saveUserWithLogin(this.usuario).then(response =>{
-    //   if(this.esCliente){
-    //     this.router.navigate(['/home']);
-    //   }
-    //   else{
-    //     // this.router.navigateByUrl('/listado/usuarios');
-    //     this.router.navigateByUrl('/home');
-    //   }
-    // });
-
   }  
 
   tomarFoto(){
-    this.camaraService.tomarFoto('clientes', Date.now());
+    this.camaraService.tomarFoto('clientes', Date.now()).then( urlFoto => {
+      //Guardar la url en el objeto usuario
+      this.usuario.foto = urlFoto;
+    });   
   }
 
+  ///Escanea el código QR del DNI y guarda los datos
   scan(){
-    let dniData = this.qrscannerService.scanDni();
-    alert(dniData);
+    this.qrscannerService.scanDni().then(dniData => {     
+      this.usuario.apellido = this.fromatearTitleCase(dniData[1].toLowerCase());
+      this.usuario.nombre = this.fromatearTitleCase(dniData[2].toLowerCase());
+      this.usuario.dni = Number.parseInt(dniData[4]);
+    });
+  }
+
+  ///Convierte una string a titlecase
+  fromatearTitleCase(dato:string)
+  {
+    let arrStr = dato.toLowerCase().split(' ');
+    let titleCaseStr = arrStr.map((str) => (str.charAt(0).toUpperCase() + str.slice(1))).join(' ');
+
+    return titleCaseStr;
   }
 
 }
