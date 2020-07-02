@@ -28,6 +28,7 @@ export class SupervisorListaEsperaComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.filtro)
     this.usuarioService.getUsuariosFiltrados(this.filtro).subscribe( usuarios => {
       this.listaClientes = usuarios.filter(cliente => cliente.estado == Estados.pendienteDeAprobacion);
       console.log(this.listaClientes);

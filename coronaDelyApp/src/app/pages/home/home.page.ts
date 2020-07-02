@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { isNullOrUndefined } from 'util';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Usuario } from 'src/app/clases/usuario';
 import { AuthService } from 'src/app/servicios/auth.service';
@@ -16,27 +16,46 @@ import { LoadingService } from 'src/app/servicios/loading.service';
 })
 export class HomePage {
   usuario: Usuario;
+  idAnonimo:string;
   
 
   constructor(
     private authService: AuthService,
     private usuarioService: UsuarioService,
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     private loadingService: LoadingService
   ) {
-    let user = this.authService.getCurrentUser();
-    if (isNullOrUndefined(user)) {
-      this.router.navigateByUrl("/login");
-    }
-    this.usuarioService.getUserById(user.uid)
-    .subscribe(userData => { this.usuario=userData[0];
-    console.log(this.usuario)
-      
-    })
-
 
     
+    
+    }
+
+  ngOnInit() {
+    this.activatedRoute.paramMap.subscribe(params => {
+
+    let userId = params.get('usuarioAnonimo');
+
+    if(userId != null) {
+      console.log(userId);
+    } else {
+      userId = this.authService.getCurrentUser().uid;
+    }
+
+    // if (isNullOrUndefined(userId)) {
+    //   this.router.navigateByUrl("/login");
+    // }
+
+    this.usuarioService.getUserById(userId)
+      .subscribe(userData => { 
+        
+        this.usuario=userData[0];
+        console.log(this.usuario)
+        
+      });
+    });
   }
+
 
 
   showAlert() {

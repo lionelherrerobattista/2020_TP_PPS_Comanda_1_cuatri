@@ -1,0 +1,14 @@
+
+<form class="form">
+  <ion-item>
+    <ion-label position="floating">Nombre</ion-label>
+    <ion-input type="text" required [(ngModel)]="usuario.nombre" name="nombre"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Apellido</ion-label>
+    <ion-input type="text" required [(ngModel)]="usuario.apellido" name="apellido"></ion-input>
+  </ion-item>
+
+  <ion-button color="medium" (click)="crearUsuarioAnonimo()">Continuar</ion-button>
+</form>
+

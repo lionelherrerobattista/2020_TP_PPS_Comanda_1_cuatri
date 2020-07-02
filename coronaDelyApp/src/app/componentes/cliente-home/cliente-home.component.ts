@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { isNullOrUndefined } from 'util';
 import { QrScannerService } from 'src/app/servicios/qrscanner.service';
@@ -23,7 +23,7 @@ import { Perfiles } from 'src/app/clases/enums/perfiles';
 })
 export class ClienteHomeComponent implements OnInit {
 
-  usuario: Usuario;
+  @Input()usuario: Usuario;
   tieneReserva:boolean;
 
   constructor(
@@ -36,15 +36,15 @@ export class ClienteHomeComponent implements OnInit {
     private dataService: DataService,
 
   ) {
-    let user = this.authService.getCurrentUser();
-    if (isNullOrUndefined(user)) {
-      this.router.navigateByUrl("/login");
-    }
-    this.usuarioService.getUserById(user.uid)
-    .subscribe(userData => { this.usuario=userData[0];
-    console.log(this.usuario)
+    // let user = this.authService.getCurrentUser();
+    // if (isNullOrUndefined(user)) {
+    //   this.router.navigateByUrl("/login");
+    // }
+    // this.usuarioService.getUserById(user.uid)
+    // .subscribe(userData => { this.usuario=userData[0];
+    // console.log(this.usuario)
       
-    })
+    // })
   }
 
   ngOnInit(){}
@@ -52,7 +52,7 @@ export class ClienteHomeComponent implements OnInit {
   irAListaEspera() {
     this.usuarioService.setDocument(Elementos.ListaDeEspera, this.usuario.id.toString(),
        { 'id': this.usuario.id, 'date' : Date.now(), 'name': this.usuario.nombre
-        + " " + this.usuario.apellido, 'dni' : this.usuario.dni
+        + " " + this.usuario.apellido, 'dni' : this.usuario.dni? this.usuario.dni : '-'
        });
     this.dataService.setStatus(Elementos.Usuarios, this.usuario.id, Estados.enEspera)
       .then(() => {

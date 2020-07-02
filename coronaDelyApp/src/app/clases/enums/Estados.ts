@@ -1,6 +1,7 @@
 export enum  Estados {
     // cliente
-    pendienteDeAprobacion = 'pendienteAprobacion', 
+    pendienteDeAprobacion = 'pendienteAprobacion', //el dueño/supervisor todavía no aprobó el registro
+    aprobado = 'aprobado', //el dueño/supervisor aprobó el registro
     sinAtender = 'sinAtender',
     enEspera = 'enEspera', //en lista de espera
     puedeTomarMesa = 'puedeTomarMesa',
