@@ -2,7 +2,7 @@
 <section class="ion-text-center ion-margin-bottom">
   <ion-grid>
     <ion-row>
-      <ion-col col-6 *ngIf="(usuario?.estado == undefined || usuario?.estado == 'sinAtender')">
+      <ion-col col-6 *ngIf="(usuario?.estado == undefined || usuario?.estado == 'aprobado')">
         <ion-card (click)="scanQr()"  class="ion-text-center ion-padding" color="000">
           <ion-icon name="list"></ion-icon>
           <h2 class="long-name">Ir a Lista de Espera</h2>
@@ -39,7 +39,7 @@
     </ion-row>
 
     <ion-row>
-      <ion-col col-6 *ngIf="(usuario?.estado != 'pagando' && usuario?.estado != 'pendienteAprobacion')">
+      <ion-col col-6 *ngIf="(usuario?.estado != 'pagando')">
         <ion-card routerLink="/encuesta/cliente" class="ion-text-center ion-padding" color="000">
           <ion-icon name="clipboard"></ion-icon>          
           <h2 class="long-name">Ver Encuestas</h2>
@@ -55,8 +55,7 @@
     </ion-row>
 
     <ion-row>
-      <ion-col col-6  *ngIf="(usuario?.estado == 'sinAtender' || usuario?.estado == 'finalizado'
-                           || usuario?.estado == 'tieneReserva')">
+      <ion-col col-6  *ngIf="(usuario?.perfil == 'cliente delivery')">
          <ion-card routerLink="/delivery" class="ion-text-center ion-padding" color="000">
           <ion-icon name="timer"></ion-icon>          
           <h2 class="long-name">Realizar Pedido (delivery)</h2>
@@ -69,7 +68,7 @@
             <h2 class="long-name">Realizar Encuesta</h2>
           </ion-card>
         </ion-col>
-        <ion-col col-6 *ngIf="(usuario?.estado != 'pagando' && usuario?.estado != 'pendienteAprobacion')">
+        <ion-col col-6 *ngIf="(usuario?.estado != 'pagando')">
           <ion-card routerLink="/juego" class="ion-text-center ion-padding" color="000">
             <ion-icon name="timer"></ion-icon>          
             <h2 class="long-name">Jugar</h2>

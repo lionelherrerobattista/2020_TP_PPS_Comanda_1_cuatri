@@ -8,8 +8,8 @@
           <img [src]="[cliente.foto]">
         </ion-avatar>
         <ion-label>
-          <h2>{{cliente.nombre}} {{cliente.apellido}}</h2>
-          <h3>Dni: {{cliente.dni}}</h3>
+          <h2>{{cliente.nombre | titlecase}} {{cliente.apellido | titlecase}}</h2>
+          <h3 *ngIf="cliente.dni != undefined">Dni: {{cliente.dni}}</h3>
         </ion-label>
       </ion-item>
       <ion-item-options side="start">

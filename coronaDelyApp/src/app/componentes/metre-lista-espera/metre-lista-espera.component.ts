@@ -25,7 +25,7 @@ export class MetreListaEsperaComponent implements OnInit {
     public modalController: ModalController,
   ) { 
     this.listaClientes = [];
-    this.filtro = 'cliente';
+    this.filtro = 'clientes';
   }
 
   ngOnInit() {

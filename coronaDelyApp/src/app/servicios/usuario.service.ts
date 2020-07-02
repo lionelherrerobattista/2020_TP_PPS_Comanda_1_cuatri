@@ -64,8 +64,6 @@ export class UsuarioService {
   }
 
   ///Filtra la lista de usuarios de firebase
-  ///'Filtro == empleados' para mostrar solo empleados
-  ///para los demás casos filtro == nombreperfil
   getUsuariosFiltrados(filtro): Observable<Usuario[]> {
     return this.dataService.getAll('usuarios')
       .pipe(
@@ -74,9 +72,13 @@ export class UsuarioService {
           let filtrar = false;
 
           if(filtro == 'empleados') {
-            filtrar = usuario.perfil != 'cliente' //para mostrar todos los empleados
+            filtrar = usuario.perfil != 'cliente' && usuario.perfil != 'cliente anonimo' //para mostrar todos los empleados
+          } else if (filtro == 'clientes') {
+
+            filtrar = usuario.perfil == 'cliente' || usuario.perfil == 'cliente anonimo' //para mostrar todos los clientes
+
           } else {
-            filtrar = usuario.perfil == filtro;
+            filtrar = usuario.perfil == filtro; //para mostrar algo en particular
           }
 
           return filtrar
