@@ -22,6 +22,13 @@
           <h2 class="long-name">Clientes en Lista de Espera</h2>
         </ion-card>
       </ion-col> 
+
+      <ion-col col-4 *ngIf="usuario?.perfil == 'mozo'">
+        <ion-card [routerLink]="['/consulta', usuario.perfil, usuario.id]" class="ion-text-center ion-padding" color="000">
+          <ion-icon name="man"></ion-icon>
+          <h2 class="long-name">Responder Consultas</h2>
+        </ion-card>
+      </ion-col> 
     </ion-row>
 
     <ion-row>

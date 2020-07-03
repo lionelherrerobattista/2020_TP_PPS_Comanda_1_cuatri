@@ -32,6 +32,7 @@ export class ModalMenuDetallePage implements OnInit {
     }
   }
 
+  ///Guarda el pedido en Firebase
   async crearPedido() {
 
     let pedido = new Pedido(this.productos, this.idCliente, this.idMesa);

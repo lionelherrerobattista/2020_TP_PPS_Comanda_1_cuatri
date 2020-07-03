@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/servicios/auth.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { Usuario } from 'src/app/clases/usuario';
 import { first } from 'rxjs/operators';
+import { Perfiles } from 'src/app/clases/enums/perfiles';
 
 @Component({
   selector: 'app-consulta',
@@ -12,26 +13,26 @@ import { first } from 'rxjs/operators';
 })
 export class ConsultaPage implements OnInit {
 
-  object;
+  tipoUsuario;
+  id;
   usuarioActual:Usuario;
   
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private authService:AuthService,
     private usuarioService:UsuarioService,
   ) { }
 
   ngOnInit() {
-    this.object = this.activatedRoute.snapshot.paramMap.get('object');
+    this.tipoUsuario = this.activatedRoute.snapshot.paramMap.get('tipoUsuario');
+    this.id = this.activatedRoute.snapshot.paramMap.get('id');
     this.getUsuario();
-    
+  
   }
 
   ///Recupera el usuario actual de la base de datos
   async getUsuario(){
-    let usuarioAuth = this.authService.getCurrentUser();
-    this.usuarioService.getUserById(usuarioAuth.uid).subscribe(usuario => {
+    this.usuarioService.getUserById(this.id).subscribe(usuario => {
       this.usuarioActual = usuario[0];
     });
     

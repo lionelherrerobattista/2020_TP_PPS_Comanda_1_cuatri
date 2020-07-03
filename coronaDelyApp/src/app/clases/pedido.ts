@@ -9,6 +9,7 @@ export class Pedido {
     idCliente:string;
     precioTotal?:number;
     estado?:Estados;
+    horaPedido:any;
 
     constructor(productos:Producto[], idCliente:string, idMesa:string) {
         
@@ -20,6 +21,8 @@ export class Pedido {
         this.precioTotal = Pedido.calcularPrecioTotal(productos);
         this.idCliente = idCliente;
         this.idMesa = idMesa;
+        this.horaPedido = new Date();
+        this.estado = Estados.enPreparacion; //Si están todos los productos listos, cambiar a "listo para entregar"
 
     }
 

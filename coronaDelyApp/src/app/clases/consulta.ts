@@ -8,6 +8,8 @@ export enum EstadoConsulta {
 export class Consulta {
     id:string;
     idMesa:string;
+    idCliente:string;
+    nroMesa:number;
     textoConsulta:string;
     respuesta:string;
     estado:string;

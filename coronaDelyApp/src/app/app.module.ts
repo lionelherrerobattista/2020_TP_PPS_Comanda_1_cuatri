@@ -22,6 +22,7 @@ import { ReactiveFormsModule} from '@angular/forms'
 import { firebaseConfig } from 'src/environments/environment';
 import { ModalModifUsuarioPageModule } from './pages/modal-modif-usuario/modal-modif-usuario.module';
 import { ModalMenuDetallePageModule } from './pages/modal-menu-detalle/modal-menu-detalle.module';
+import { ModalConsultaPageModule } from './pages/modal-consulta/modal-consulta.module';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { ModalMenuDetallePageModule } from './pages/modal-menu-detalle/modal-men
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
     ModalModifUsuarioPageModule,
+    ModalConsultaPageModule,
     ModalMenuDetallePageModule,
     HttpClientModule
     

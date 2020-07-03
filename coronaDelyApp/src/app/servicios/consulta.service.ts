@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { DataService } from './data.service';
 import { Consulta } from '../clases/consulta';
 import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,7 @@ export class ConsultaService {
     return this.dataService.update(collection, id, object);
   }
 
-  getConsultas(){
+  getConsultas():Observable<Consulta[]>{
     return this.dataService.getAll('consultas');
   }
 
