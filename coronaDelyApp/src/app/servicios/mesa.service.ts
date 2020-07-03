@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, DocumentChangeAction } from "@angular/fire/firestore";
 import { DataService } from './data.service';
+import { Observable } from 'rxjs';
+import { Mesa } from '../clases/mesa';
 
 @Injectable({
   providedIn: 'root'
@@ -35,8 +37,12 @@ export class MesaService {
   }
 
   
-  getTableById(tableId){
-    return this.dataService.getOneMesa('mesas', tableId);
+  // getTableById(tableId){
+  //   return this.dataService.getOneMesa('mesas', tableId);
+  // }
+
+  getTableById(tableId):Observable<Mesa>{
+    return this.dataService.getOne('mesas', tableId);
   }
   
 }

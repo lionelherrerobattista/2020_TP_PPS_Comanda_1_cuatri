@@ -13,6 +13,8 @@ import { TipoDeNotificacion } from 'src/app/clases/enums/tipo-de-notificacion';
 import { DataService } from 'src/app/servicios/data.service';
 import { Elementos } from 'src/app/clases/enums/elementos';
 import { Perfiles } from 'src/app/clases/enums/perfiles';
+import { first } from 'rxjs/operators';
+import { PedidoService } from 'src/app/servicios/pedido.service';
 
 
 
@@ -25,6 +27,7 @@ export class ClienteHomeComponent implements OnInit {
 
   @Input()usuario: Usuario;
   tieneReserva:boolean;
+  recepcionPedidoConfirmada:boolean;
 
   constructor(
     private authService: AuthService,
@@ -34,8 +37,11 @@ export class ClienteHomeComponent implements OnInit {
     private mesaService: MesaService,
     private router: Router,
     private dataService: DataService,
+    private pedidoService:PedidoService,
 
   ) {
+
+    this.recepcionPedidoConfirmada = false;
     // let user = this.authService.getCurrentUser();
     // if (isNullOrUndefined(user)) {
     //   this.router.navigateByUrl("/login");
@@ -92,40 +98,96 @@ export class ClienteHomeComponent implements OnInit {
   }
  //QR para seleccionar la mesa
   scanQRMesa(){
-    if(this.usuario.estado == Estados.puedeTomarMesa){
+    // if(this.usuario.estado == Estados.puedeTomarMesa){
       if(this.qrscannerService.dispositivo == "mobile"){
         this.qrscannerService.scanQr().then(tableId => {
-          this.asignarMesa(tableId, this.usuario.id);
+          
+          //Diferentes respuestas segun el estado del cliente
+          switch(this.usuario.estado) {
+            case Estados.puedeTomarMesa:
+              this.asignarMesa(tableId, this.usuario.id);
+              break;
+            case Estados.atendido:
+              this.mostrarEstadoPedido();
+              break;
+          }
         });
       }
       else{
+        switch(this.usuario.estado) {
+          case Estados.puedeTomarMesa:
+            this.asignarMesa("oZMjb6EkSIyZ9yXAEWXY", this.usuario.id);
+            break;
+          case Estados.atendido:
+            this.mostrarEstadoPedido();
+            break;
+        }
         // paso el id de la mesa 1 para probar en web
-        this.asignarMesa("oZMjb6EkSIyZ9yXAEWXY", this.usuario.id);
+        // this.asignarMesa("oZMjb6EkSIyZ9yXAEWXY", this.usuario.id);
       }
-    }
-    else {
-      this.notificacionService.mostrarToast("Su solicitud aún no ha sido aprobada por el metre", TipoDeNotificacion.warning, "top");
-    }
-    
+    // }
+    // else {
+    //   this.notificacionService.mostrarToast("Su solicitud aún no ha sido aprobada por el metre", TipoDeNotificacion.warning, "top");
+    // } 
   }
 
   // asignar mesa a cliente
-  asignarMesa(mesaId, usuarioId){
-    // this.mesaService.getTableById(mesaId).then(element => {
-      this.mesaService.getTableById(mesaId).subscribe(element => {
-      // let mesaActual = Object.assign(new Mesa, element.data());
-      let mesaActual = element[0];
-      if (mesaActual.estado != Estados.disponible) {
-        this.notificacionService.mostrarToast(`Mesa N.° ${mesaActual.numero} ${mesaActual.estado}`, "danger", "top");
-      }
-      else{
-        this.dataService.setStatus(Elementos.Mesas, mesaId, Estados.ocupada);
-        this.dataService.setStatus(Elementos.Usuarios, usuarioId, Estados.atendido);
-        this.dataService.deleteDocument(Elementos.ListaDeEspera, usuarioId);
-        var mesaService = { mesaId: mesaId, usuarioId: usuarioId };
-        this.dataService.setData(Elementos.ServicioDeMesa, usuarioId, mesaService);
-        this.notificacionService.mostrarToast(`Mesa N.° ${mesaActual.numero} asignada`, "success", "top");
-      }
-    });
+  // asignarMesa(mesaId, usuarioId){
+  //   // this.mesaService.getTableById(mesaId).then(element => {
+  //     this.mesaService.getTableById(mesaId).subscribe(element => {
+  //     // let mesaActual = Object.assign(new Mesa, element.data());
+  //     let mesaActual = element[0];
+  //     if (mesaActual.estado != Estados.disponible) {
+  //       this.notificacionService.mostrarToast(`Mesa N.° ${mesaActual.numero} ${mesaActual.estado}`, "danger", "top");
+  //     }
+  //     else{
+  //       this.dataService.setStatus(Elementos.Mesas, mesaId, Estados.ocupada);
+  //       this.dataService.setStatus(Elementos.Usuarios, usuarioId, Estados.atendido);
+  //       this.dataService.deleteDocument(Elementos.ListaDeEspera, usuarioId);
+  //       var mesaService = { mesaId: mesaId, usuarioId: usuarioId };
+  //       this.dataService.setData(Elementos.ServicioDeMesa, usuarioId, mesaService);
+  //       this.notificacionService.mostrarToast(`Mesa N.° ${mesaActual.numero} asignada`, "success", "top");
+  //     }
+  //   });
+  // }
+
+  //Convierto el observable a promesa para ver si solo me toma la primera:
+  async asignarMesa(mesaId, usuarioId){
+    
+    //Recuperar la mesa escaneada
+    let mesaActual = await this.mesaService.getTableById(mesaId).pipe(first()).toPromise();
+      
+    //Comprobar el estado
+    if (mesaActual.estado != Estados.disponible) {
+      this.notificacionService.mostrarToast(`Mesa N.° ${mesaActual.numero} ${mesaActual.estado}`, "danger", "top");
+    } else {
+      this.dataService.setStatus(Elementos.Mesas, mesaId, Estados.ocupada);
+      this.dataService.setStatus(Elementos.Usuarios, usuarioId, Estados.atendido);
+      this.dataService.deleteDocument(Elementos.ListaDeEspera, usuarioId);
+      var mesaService = { mesaId: mesaId, usuarioId: usuarioId };
+      this.dataService.setData(Elementos.ServicioDeMesa, usuarioId, mesaService);
+      this.notificacionService.mostrarToast(`Mesa N.° ${mesaActual.numero} asignada`, "success", "top");
+    } 
   }
+
+  ///El cliente confirma la recepción del pedido
+  ///Cambia el estado del pedido
+  confirmarRecepcion() {
+    //Comprobar que el mozo indicó que el cliente recibió el pedido
+    //pedido.estado = "confirmado por mozo"(?)
+    // if()
+    this.usuario.estado = Estados.atendido;
+    this.usuarioService.updateUser('usuarios', this.usuario.id, this.usuario);
+    this.recepcionPedidoConfirmada = true;
+  }
+
+  mostrarEstadoPedido(){
+    console.log('muestro el estado');
+
+  }
+
+  pedirCuenta(){
+
+  }
+  
 }
