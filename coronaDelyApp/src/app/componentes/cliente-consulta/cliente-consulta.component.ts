@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Consulta } from 'src/app/clases/consulta';
+import { Consulta, EstadoConsulta } from 'src/app/clases/consulta';
 import { ConsultaService } from 'src/app/servicios/consulta.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { Usuario } from 'src/app/clases/usuario';
@@ -25,6 +25,15 @@ export class ClienteConsultaComponent implements OnInit {
   }
 
   ngOnInit() {
+    let cliente = <Cliente>this.usuario;
+    let consulta:Consulta;
+
+    //Comprobar si consulto antes
+    if(cliente.consulta != undefined) {
+      consulta = cliente.consulta[0];
+      this.consulta = consulta
+      this.consultaCreada = true;
+    }
  
   }
 

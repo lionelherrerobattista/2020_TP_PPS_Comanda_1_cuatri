@@ -9,6 +9,7 @@
         <ion-label slot="start">0</ion-label>
         <ion-label slot="end">10</ion-label>
       </ion-range>
+      <ion-label id="lbl-limpieza">{{limpieza}}</ion-label>
     </ion-item>
 
     <ion-label>Predisposición del supervisor:</ion-label>
@@ -43,7 +44,7 @@
     </ion-list>
   
     <ion-item>
-      <ion-label>¿Elementos de trabajo disponibles?</ion-label>
+      <ion-label>¿Elementos disponibles?</ion-label>
       <ion-checkbox [(ngModel)]="elementosDisponibles" name="elementosDisponibles" color="danger">Sí</ion-checkbox>
     </ion-item>
     
