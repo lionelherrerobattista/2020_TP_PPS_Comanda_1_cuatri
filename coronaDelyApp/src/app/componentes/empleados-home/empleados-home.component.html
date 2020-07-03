@@ -45,9 +45,9 @@
           <h2 class="long-name">Alta Mesa</h2>
         </ion-card>
   
-        <ion-card routerLink="/pedidos" class="ion-text-center ion-padding" color="000">
+        <ion-card [routerLink]="['/listas', 'listaPedidos']" class="ion-text-center ion-padding" color="000">
           <ion-icon name="clipboard"></ion-icon>
-          <h2 class="long-name">Pedidos</h2>
+          <h2 class="long-name">Lista Pedidos</h2>
         </ion-card>
       </ion-col>    
     </ion-row>

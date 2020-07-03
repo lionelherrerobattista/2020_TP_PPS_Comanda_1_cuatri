@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Elementos } from '../clases/enums/elementos';
 import { DataService } from './data.service';
 import { Pedido } from '../clases/pedido';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class PedidoService {
     return this.dataService.setData(this.pedidos, id, pedido);
   }
 
-  getAllOrders(){
+  getAllOrders():Observable<Pedido[]>{
     return this.dataService.getAll(this.pedidos);
   }
 

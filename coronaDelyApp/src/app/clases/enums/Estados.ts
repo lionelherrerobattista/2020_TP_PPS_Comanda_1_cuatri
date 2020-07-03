@@ -22,8 +22,9 @@ export enum  Estados {
      pedidoTerminado = 'pedidoTerminado',
 
       // pedido
-      entregado = 'pedidoAceptado',
+      entregado = 'entregado', //se lo da al cliente y espera que lo acepte
       listoParaEntregar = 'listo para entregar',
       enPreparacion = 'en preparacion',
+      aceptadoPorCliente = 'aceptado por cliente',
     
 }

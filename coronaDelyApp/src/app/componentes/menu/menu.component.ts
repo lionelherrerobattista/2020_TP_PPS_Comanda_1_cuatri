@@ -141,7 +141,7 @@ export class MenuComponent implements OnInit {
       componentProps: {
         productos: datos,
         idCliente: this.cliente.id,
-        idMesa: this.cliente.mesa.id,
+        mesa: this.cliente.mesa,
       }
     });
     return await modal.present();

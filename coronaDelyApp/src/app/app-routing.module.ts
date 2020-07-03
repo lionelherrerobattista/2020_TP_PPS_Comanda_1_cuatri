@@ -17,6 +17,8 @@ const routes: Routes = [
   { path: 'pedido', loadChildren: './pages/pedido/pedido.module#PedidoPageModule' },
   { path: 'inicio', loadChildren: './pages/home/home.module#HomePageModule' },
   // { path: 'menu', loadChildren: './pages/menu/menu.module#MenuPageModule' }
+
+  
  
   // accesos cliente
   { path: 'delivery', loadChildren: './pages/delivery/delivery.module#DeliveryPageModule' },
@@ -26,7 +28,8 @@ const routes: Routes = [
   { path: 'modal-menu-detalle', loadChildren: './pages/modal-menu-detalle/modal-menu-detalle.module#ModalMenuDetallePageModule' },
   { path: 'consulta/:object', loadChildren: './pages/consulta/consulta.module#ConsultaPageModule'},
   { path: 'consulta/:tipoUsuario/:id', loadChildren: './pages/consulta/consulta.module#ConsultaPageModule'},
-  { path: 'modal-consulta', loadChildren: './pages/modal-consulta/modal-consulta.module#ModalConsultaPageModule' },
+  { path: 'modal-consulta', loadChildren: './pages/modal-consulta/modal-consulta.module#ModalConsultaPageModule' },  { path: 'modal-detalle-pedido', loadChildren: './pages/modal-detalle-pedido/modal-detalle-pedido.module#ModalDetallePedidoPageModule' },
+
 
 
 
