@@ -6,6 +6,8 @@ import { ToastController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { ModalModifUsuarioPage } from 'src/app/pages/modal-modif-usuario/modal-modif-usuario.page';
 import { Estados } from 'src/app/clases/enums/estados';
+import { MesaService } from 'src/app/servicios/mesa.service';
+import { Mesa } from 'src/app/clases/mesa';
 
 
 @Component({
@@ -16,16 +18,23 @@ import { Estados } from 'src/app/clases/enums/estados';
 export class MetreListaEsperaComponent implements OnInit {
 
   listaClientes:Usuario[];
+  listaMesas:Mesa[];
   filtro:string;
+  filtroMesa:string;
+  aceptacion: boolean;
 
   constructor(
     private usuarioService:UsuarioService,
+    private mesasService: MesaService,
     public alertController: AlertController,
     public toastController: ToastController,
-    public modalController: ModalController,
+    public modalController: ModalController
   ) { 
     this.listaClientes = [];
+    this.listaMesas=[];
     this.filtro = 'cliente';
+    this.filtroMesa = 'mesas';
+    this.aceptacion=false;
   }
 
   ngOnInit() {
@@ -33,6 +42,11 @@ export class MetreListaEsperaComponent implements OnInit {
       this.listaClientes = usuarios.filter(cliente => cliente.estado == Estados.enEspera);
       console.log(this.listaClientes);
     })
+    this.mesasService.getAllTables(this.filtroMesa).subscribe(elementos => {     
+     this.listaMesas = elementos.filter(mesa => mesa.estado == Estados.disponible);
+     console.log(this.listaMesas);
+    });
+    //this.mesasService.getAllTables()
   }
 
   ///Modifica el estado del cliente para que pueda tomar una mesa
@@ -41,6 +55,8 @@ export class MetreListaEsperaComponent implements OnInit {
     this.usuarioService.updateUser('usuarios', cliente.id, cliente);
     this.mostrarToast("El cliente puede tomar una mesa");
     //Asignar mesa al cliente
+    this.aceptacion=true;
+
   }
 
   async rechazarCliente(cliente:Usuario) {
