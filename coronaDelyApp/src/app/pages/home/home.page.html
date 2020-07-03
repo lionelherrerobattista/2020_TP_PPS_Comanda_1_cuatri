@@ -24,7 +24,7 @@
       </ion-grid>
     </section> -->
     
-    <app-cliente-home *ngIf="usuario?.perfil == 'cliente'"></app-cliente-home>
+    <app-cliente-home [usuario]="usuario" *ngIf="usuario?.perfil == 'cliente' || usuario?.perfil == 'cliente anonimo'"></app-cliente-home>
     <!-- Agregar los otros componentes -->
     <app-supervisor-home [usuario]="usuario"  *ngIf="usuario?.perfil == 'supervisor' || usuario?.perfil == 'dueño'"></app-supervisor-home>
     

@@ -1,0 +1,17 @@
+<div id="contenedor">
+  <h1>Pedidos:</h1>
+  <ion-select [(ngModel)]="filtro"  (ionChange)="filtrarPedidos($event)" name="filtro" placeholder="Seleccione categoría">
+    <ion-select-option value="todos">Todos</ion-select-option>
+    <ion-select-option value="en preparacion">En preparación</ion-select-option>
+    <ion-select-option value="listo para entregar">Listo para entregar</ion-select-option>
+  </ion-select>
+  <ion-list> 
+      <ion-item (click)="servir(pedido)" *ngFor="let pedido of listaParaMostrar">
+        <ion-label>
+          <h2>Mesa: {{pedido.mesa.numero}}</h2>
+          <ion-label>Estado: {{pedido.estado | titlecase}}</ion-label>
+          <ion-label>Hora: {{pedido.horaPedido.toDate() | date:'dd/MM/yyyy HH:mm'}}</ion-label>
+        </ion-label>
+      </ion-item> 
+  </ion-list>
+</div>

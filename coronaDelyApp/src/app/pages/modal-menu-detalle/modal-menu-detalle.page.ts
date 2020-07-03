@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { PedidoService } from 'src/app/servicios/pedido.service';
 import { Producto } from 'src/app/clases/producto';
 import { Pedido } from 'src/app/clases/pedido';
+import { Mesa } from 'src/app/clases/mesa';
 
 @Component({
   selector: 'app-modal-menu-detalle',
@@ -12,7 +13,7 @@ import { Pedido } from 'src/app/clases/pedido';
 export class ModalMenuDetallePage implements OnInit {
 
   @Input()productos:Producto[];
-  @Input()idMesa: string;
+  @Input()mesa: Mesa;
   @Input()idCliente:string;
   total:number;
 
@@ -32,9 +33,10 @@ export class ModalMenuDetallePage implements OnInit {
     }
   }
 
+  ///Guarda el pedido en Firebase
   async crearPedido() {
 
-    let pedido = new Pedido(this.productos, this.idCliente, this.idMesa);
+    let pedido = new Pedido(this.productos, this.idCliente, this.mesa);
 
     await this.pedidoService.createPedido(pedido);
 

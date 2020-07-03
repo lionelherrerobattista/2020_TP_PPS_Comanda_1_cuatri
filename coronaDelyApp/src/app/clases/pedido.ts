@@ -1,16 +1,18 @@
 import { Producto } from './producto';
 import { Estados } from './enums/estados';
 import { ProductoService } from '../servicios/producto.service';
+import { Mesa } from './mesa';
 
 export class Pedido {
     id?: string;
     productos:Producto[];
-    idMesa:string;
+    mesa:Mesa;
     idCliente:string;
     precioTotal?:number;
     estado?:Estados;
+    horaPedido:any;
 
-    constructor(productos:Producto[], idCliente:string, idMesa:string) {
+    constructor(productos:Producto[], idCliente:string, mesa:Mesa) {
         
         productos.map(producto => {
             producto.estado = Estados.enPreparacion;
@@ -19,7 +21,9 @@ export class Pedido {
         this.productos = productos;
         this.precioTotal = Pedido.calcularPrecioTotal(productos);
         this.idCliente = idCliente;
-        this.idMesa = idMesa;
+        this.mesa = mesa;
+        this.horaPedido = new Date();
+        this.estado = Estados.enPreparacion; //Si están todos los productos listos, cambiar a "listo para entregar"
 
     }
 

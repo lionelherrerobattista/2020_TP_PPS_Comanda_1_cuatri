@@ -15,7 +15,7 @@ export class AuthService {
      }
 
   ///Login del usuario registrado con email y password
-  logIn(email: string, password: string) {
+  logIn(email: string, password: string):Promise<firebase.auth.UserCredential> {
    console.log("auth-login")
     return new Promise((resolve, reject) => {
 

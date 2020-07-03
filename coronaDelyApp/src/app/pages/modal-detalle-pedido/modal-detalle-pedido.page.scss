@@ -1,0 +1,20 @@
+
+#contenedor {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 2vh 5vw 2vh 5vw;
+    height: 100vh;
+
+}
+
+h1 {
+    text-align: center;
+}
+
+#div-botones {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+}

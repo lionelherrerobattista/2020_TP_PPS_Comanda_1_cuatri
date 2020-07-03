@@ -8,6 +8,7 @@ import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { AuthService } from 'src/app/servicios/auth.service';
 import { TagPlaceholder } from '@angular/compiler/src/i18n/i18n_ast';
 import { ModalMenuDetallePage } from 'src/app/pages/modal-menu-detalle/modal-menu-detalle.page';
+import { Cliente } from 'src/app/clases/cliente';
 
 @Component({
   selector: 'app-menu',
@@ -19,8 +20,7 @@ export class MenuComponent implements OnInit {
   productosMenu:Producto[];
   total:number;
   menu:Producto[];
-  idUsuario:string;
-  @Input()idMesa:string;
+  @Input()cliente:Cliente;
   // @Output() menuEnvio: EventEmitter<object> = new EventEmitter<object>();
 
   slideOpts = {
@@ -45,12 +45,12 @@ export class MenuComponent implements OnInit {
 
   ngOnInit() {
 
-    this.idUsuario = this.authService.getCurrentUser().uid;
-    this.productoService.getAllProductos('productos').subscribe(elementos => {     
-      for (let i = 0; i < elementos.length; i++) {      
-        this.productosMenu[i] = elementos[i] as Producto;
-      }    
-    });
+    // this.idUsuario = this.authService.getCurrentUser().uid;
+    // this.productoService.getAllProductos('productos').subscribe(elementos => {     
+    //   for (let i = 0; i < elementos.length; i++) {      
+    //     this.productosMenu[i] = elementos[i] as Producto;
+    //   }    
+    // });
   }
 
   ///Filtra la lista de productos según la categoría seleccionada
@@ -140,8 +140,8 @@ export class MenuComponent implements OnInit {
       component: ModalMenuDetallePage,
       componentProps: {
         productos: datos,
-        idCliente: this.idUsuario,
-        idMesa: '1',
+        idCliente: this.cliente.id,
+        mesa: this.cliente.mesa,
       }
     });
     return await modal.present();

@@ -1,6 +1,7 @@
 export enum  Estados {
     // cliente
-    pendienteDeAprobacion = 'pendienteAprobacion', 
+    pendienteDeAprobacion = 'pendienteAprobacion', //el dueño/supervisor todavía no aprobó el registro
+    aprobado = 'aprobado', //el dueño/supervisor aprobó el registro
     sinAtender = 'sinAtender',
     enEspera = 'enEspera', //en lista de espera
     puedeTomarMesa = 'puedeTomarMesa',
@@ -21,8 +22,9 @@ export enum  Estados {
      pedidoTerminado = 'pedidoTerminado',
 
       // pedido
-      entregado = 'pedidoAceptado',
+      entregado = 'entregado', //se lo da al cliente y espera que lo acepte
       listoParaEntregar = 'listo para entregar',
       enPreparacion = 'en preparacion',
+      aceptadoPorCliente = 'aceptado por cliente',
     
 }

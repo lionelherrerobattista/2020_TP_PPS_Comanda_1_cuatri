@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { EncuestaPage } from './encuesta.page';
 import { EncuestaEmpleadoComponent } from 'src/app/componentes/encuesta-empleado/encuesta-empleado.component';
+import { EncuestaClienteComponent } from 'src/app/componentes/encuesta-cliente/encuesta-cliente.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [EncuestaPage, EncuestaEmpleadoComponent]
+  declarations: [EncuestaPage, EncuestaEmpleadoComponent,EncuestaClienteComponent]
 })
 export class EncuestaPageModule {}

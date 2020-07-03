@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, DocumentChangeAction } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { map} from "rxjs/operators";
+import { map, take} from "rxjs/operators";
 import { Usuario } from '../clases/usuario';
 import { Mesa } from '../clases/mesa';
 import { Producto } from '../clases/producto';
 import { Pedido } from '../clases/pedido';
 import { Encuesta } from '../clases/encuesta';
 import { Consulta } from '../clases/consulta';
+import { Dispositivo } from '../clases/dispositivo';
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +48,16 @@ export class DataService {
 
   add(collection, object){
     return this.db.collection(collection).add(Object.assign({}, object));
+  }
+
+  getOne(collection:string, id:string): Observable<any> {
+    return this.db.collection(collection).doc<any>(id).valueChanges().pipe(
+      take(1),
+      map(element => {
+        element.id = id;
+        return element
+      })
+    );
   }
 
 //Traer un usuario
@@ -114,6 +125,18 @@ getOneEncuesta(collection, id){
   return this.db.collection(collection).snapshotChanges().pipe(map(res =>{
     return res.map(i => {
       let data = i.payload.doc.data() as Encuesta;
+      if (id==i.payload.doc.id){
+         data.id = i.payload.doc.id;
+         console.log("data", data)
+      }
+      return data;
+    })
+  })); 
+}
+getOneDispositivo(collection, id){
+  return this.db.collection(collection).snapshotChanges().pipe(map(res =>{
+    return res.map(i => {
+      let data = i.payload.doc.data() as Dispositivo;
       if (id==i.payload.doc.id){
          data.id = i.payload.doc.id;
          console.log("data", data)

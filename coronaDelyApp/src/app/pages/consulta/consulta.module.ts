@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { ConsultaPage } from './consulta.page';
 import { ClienteConsultaComponent } from 'src/app/componentes/cliente-consulta/cliente-consulta.component';
+import { MozoConsultaComponent } from 'src/app/componentes/mozo-consulta/mozo-consulta.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ConsultaPage, ClienteConsultaComponent]
+  declarations: [ConsultaPage, ClienteConsultaComponent, MozoConsultaComponent]
 })
 export class ConsultaPageModule {}
