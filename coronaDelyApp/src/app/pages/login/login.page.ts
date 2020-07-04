@@ -16,8 +16,8 @@ import { Estados } from 'src/app/clases/enums/estados';
 })
 export class LoginPage implements OnInit {
 
-  private email: string;
-  private password: string;
+  public email: string;
+  public password: string;
   form: FormGroup;
   defaultUsers: Array<any> = [];
   usuario: Usuario;
