@@ -23,7 +23,9 @@ export class MetreListaEsperaComponent implements OnInit {
   filtroMesa:string;
   aceptacion: boolean;
   
-  
+  clienteEstadoAux:Estados;
+  clienteIdAux:string;
+  clienteAux:Usuario;
 
   constructor(
     private usuarioService:UsuarioService,
@@ -38,6 +40,7 @@ export class MetreListaEsperaComponent implements OnInit {
     this.filtroMesa = 'mesas';
     this.aceptacion=false;
     this.filtro = 'clientes';
+    
     
   }
 
@@ -55,17 +58,22 @@ export class MetreListaEsperaComponent implements OnInit {
 
   ///Modifica el estado del cliente para que pueda tomar una mesa
   aceptarCliente(cliente:Usuario) {
-    //cliente.estado = Estados.puedeTomarMesa ;
+
+    this.clienteAux=cliente;
+    cliente.estado = Estados.puedeTomarMesa ;
+    this.clienteAux.estado=cliente.estado;
+    this.clienteAux.id=cliente.id;
    // this.usuarioService.updateUser('usuarios', cliente.id, cliente);
     //this.mostrarToast("El cliente puede tomar una mesa");
     //Asignar mesa al cliente
     this.aceptacion=true;
+    console.log(this.clienteAux.id, this.clienteAux.estado, this.clienteAux);
 
   }
-  asignarMesa(mesa:Mesa, cliente:Usuario) {
-    cliente.estado = Estados.puedeTomarMesa ;
-    this.usuarioService.updateUser('usuarios', cliente.id, cliente);
-    
+  asignarMesa(mesa:Mesa) {
+    this.clienteAux.estado = Estados.puedeTomarMesa ;
+    this.usuarioService.updateUser('usuarios', this.clienteAux.id, this.clienteAux);
+    console.log(this.clienteAux.id, this.clienteAux.estado, this.clienteAux);
     mesa.estado = Estados.ocupada;
     this.mesasService.updateTable('mesas',mesa.id,mesa.tipo);
     this.mostrarToast("El cliente puede tomar una mesa");
