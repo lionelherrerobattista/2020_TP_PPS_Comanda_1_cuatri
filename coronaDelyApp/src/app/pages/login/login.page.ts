@@ -70,12 +70,13 @@ export class LoginPage implements OnInit {
   };
 
   addDefaultUser() {
-    this.defaultUsers.push({ "email": "admin@admin.com", "password": "123456" });
-    this.defaultUsers.push({ "email": "cliente@cliente.com", "password": "123456" });
-    this.defaultUsers.push({ "email": "mozo@mozo.com", "password": "123456" });
-    this.defaultUsers.push({ "email": "bartender@bartender.com", "password": "123456" });
-    this.defaultUsers.push({ "email": "cocinero@cocinero.com", "password": "123456" });
-    this.defaultUsers.push({ "email": "anonimo@anonimo.com", "password": "123456" });
+    this.defaultUsers.push({ "email": "supervisor@coronadely.com", "password": "123456" });
+    this.defaultUsers.push({ "email": "cliente@coronadely.com", "password": "123456" });
+    this.defaultUsers.push({ "email": "mozo@coronadely.com", "password": "123456" });
+    this.defaultUsers.push({ "email": "bartender@coronadely.com", "password": "123456" });
+    this.defaultUsers.push({ "email": "cocinero@coronadely.com", "password": "123456" });
+    this.defaultUsers.push({ "email": "anonimo@coronadely.com", "password": "123456" });
+    this.defaultUsers.push({ "email": "metre@coronadely.com", "password": "123456" });
   }
 
   setDefaultUser() {

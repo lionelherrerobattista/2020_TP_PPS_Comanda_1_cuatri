@@ -13,7 +13,7 @@ import { NotificacionesService } from 'src/app/servicios/notificaciones.service'
 })
 export class ProductoFormComponent implements OnInit {
 
-  private dispositivo="web";
+  private dispositivo="mobile";
 
   @Input() idProducto: string = "";
   private producto:Producto;
