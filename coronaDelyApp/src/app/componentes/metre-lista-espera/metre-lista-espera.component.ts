@@ -22,6 +22,8 @@ export class MetreListaEsperaComponent implements OnInit {
   filtro:string;
   filtroMesa:string;
   aceptacion: boolean;
+  
+  
 
   constructor(
     private usuarioService:UsuarioService,
@@ -31,14 +33,12 @@ export class MetreListaEsperaComponent implements OnInit {
     public modalController: ModalController
   ) { 
     this.listaClientes = [];
-<<<<<<< HEAD
     this.listaMesas=[];
     this.filtro = 'cliente';
     this.filtroMesa = 'mesas';
     this.aceptacion=false;
-=======
     this.filtro = 'clientes';
->>>>>>> 639b422bc16fe5f908bb17c3e7392bdf3d048811
+    
   }
 
   ngOnInit() {
@@ -46,21 +46,29 @@ export class MetreListaEsperaComponent implements OnInit {
       this.listaClientes = usuarios.filter(cliente => cliente.estado == Estados.enEspera);
       console.log(this.listaClientes);
     })
-    this.mesasService.getAllTables(this.filtroMesa).subscribe(elementos => {     
-     this.listaMesas = elementos.filter(mesa => mesa.estado == Estados.disponible);
+    this.mesasService.getAllTables(this.filtroMesa).subscribe(mesas => {     
+     this.listaMesas = mesas.filter(mesa => mesa.estado == Estados.disponible);
      console.log(this.listaMesas);
     });
-    //this.mesasService.getAllTables()
+    
   }
 
   ///Modifica el estado del cliente para que pueda tomar una mesa
   aceptarCliente(cliente:Usuario) {
-    cliente.estado = Estados.puedeTomarMesa ;
-    this.usuarioService.updateUser('usuarios', cliente.id, cliente);
-    this.mostrarToast("El cliente puede tomar una mesa");
+    //cliente.estado = Estados.puedeTomarMesa ;
+   // this.usuarioService.updateUser('usuarios', cliente.id, cliente);
+    //this.mostrarToast("El cliente puede tomar una mesa");
     //Asignar mesa al cliente
     this.aceptacion=true;
 
+  }
+  asignarMesa(mesa:Mesa, cliente:Usuario) {
+    cliente.estado = Estados.puedeTomarMesa ;
+    this.usuarioService.updateUser('usuarios', cliente.id, cliente);
+    
+    mesa.estado = Estados.ocupada;
+    this.mesasService.updateTable('mesas',mesa.id,mesa.tipo);
+    this.mostrarToast("El cliente puede tomar una mesa");
   }
 
   async rechazarCliente(cliente:Usuario) {
@@ -96,6 +104,8 @@ export class MetreListaEsperaComponent implements OnInit {
     }
   }
 
+  
+
   ///Funciones que llaman al toast y al modal
   async mostrarToast(mensaje:string) {
     const toast = await this.toastController.create({
@@ -116,5 +126,6 @@ export class MetreListaEsperaComponent implements OnInit {
     return await modal.present();
   }
 
+  
 
 }
