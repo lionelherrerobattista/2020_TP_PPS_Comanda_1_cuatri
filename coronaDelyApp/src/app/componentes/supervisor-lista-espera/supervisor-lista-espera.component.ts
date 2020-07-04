@@ -70,7 +70,7 @@ export class SupervisorListaEsperaComponent implements OnInit {
     resultado = await alert.onDidDismiss();
 
     if(resultado == 'eliminado') {
-      this.mostrarToast('Empleado eliminado')
+      this.mostrarToast('Cliente rechazado')
     } else {
       console.log('cancelado');
     }
