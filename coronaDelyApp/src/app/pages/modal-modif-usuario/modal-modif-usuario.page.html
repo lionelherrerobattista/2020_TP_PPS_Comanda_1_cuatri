@@ -61,6 +61,10 @@
     <ion-label>Correo Electrónico:</ion-label>
     <ion-input type="email" class="input-cliente" disabled name="email">{{usuario.email}}</ion-input>
   </div>
+  <div class="item-cliente" *ngIf="usuario.foto != undefined">
+    <ion-label>Foto:</ion-label>
+    <img id="foto-cliente" [src]="usuario.foto">
+  </div>
 
   <div>
     <ion-button color="danger" (click)="cerrarModal()">Cancelar</ion-button>
