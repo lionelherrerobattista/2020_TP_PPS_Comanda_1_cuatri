@@ -4,3 +4,26 @@ form{
 main{
    background-color: aquamarine
 }
+
+.item-cliente {
+    display:flex;
+    flex-direction: column;
+}
+
+.form-cliente{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+    padding: 5vh 5vw 5vh 5vw;
+
+}
+
+.input-cliente {
+    font-style: italic!important;
+}
+
+#foto-cliente{
+    width: 150px;
+    height: auto;
+}

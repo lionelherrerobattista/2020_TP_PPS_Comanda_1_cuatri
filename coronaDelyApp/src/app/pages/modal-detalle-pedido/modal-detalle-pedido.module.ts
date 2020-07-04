@@ -5,14 +5,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ConsultaPage } from './consulta.page';
-import { ClienteConsultaComponent } from 'src/app/componentes/cliente-consulta/cliente-consulta.component';
-import { MozoConsultaComponent } from 'src/app/componentes/mozo-consulta/mozo-consulta.component';
+import { ModalDetallePedidoPage } from './modal-detalle-pedido.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: ConsultaPage
+    component: ModalDetallePedidoPage
   }
 ];
 
@@ -23,6 +21,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ConsultaPage, ClienteConsultaComponent, MozoConsultaComponent]
+  declarations: [ModalDetallePedidoPage]
 })
-export class ConsultaPageModule {}
+export class ModalDetallePedidoPageModule {}

@@ -15,6 +15,7 @@ import { Elementos } from 'src/app/clases/enums/elementos';
 import { Perfiles } from 'src/app/clases/enums/perfiles';
 import { first } from 'rxjs/operators';
 import { PedidoService } from 'src/app/servicios/pedido.service';
+import { Cliente } from 'src/app/clases/cliente';
 
 
 
@@ -156,16 +157,23 @@ export class ClienteHomeComponent implements OnInit {
     
     //Recuperar la mesa escaneada
     let mesaActual = await this.mesaService.getTableById(mesaId).pipe(first()).toPromise();
+    let cliente = <Cliente>this.usuario;
       
     //Comprobar el estado
     if (mesaActual.estado != Estados.disponible) {
       this.notificacionService.mostrarToast(`Mesa N.° ${mesaActual.numero} ${mesaActual.estado}`, "danger", "top");
     } else {
       this.dataService.setStatus(Elementos.Mesas, mesaId, Estados.ocupada);
-      this.dataService.setStatus(Elementos.Usuarios, usuarioId, Estados.atendido);
+      // this.dataService.setStatus(Elementos.Usuarios, usuarioId, Estados.atendido);
       this.dataService.deleteDocument(Elementos.ListaDeEspera, usuarioId);
       var mesaService = { mesaId: mesaId, usuarioId: usuarioId };
       this.dataService.setData(Elementos.ServicioDeMesa, usuarioId, mesaService);
+
+      //Guardar datos de mesa asignada en el cliente
+      cliente.mesa = mesaActual;
+      cliente.estado = Estados.atendido;
+      this.usuarioService.updateUser(Elementos.Usuarios, cliente.id, cliente);
+      
       this.notificacionService.mostrarToast(`Mesa N.° ${mesaActual.numero} asignada`, "success", "top");
     } 
   }

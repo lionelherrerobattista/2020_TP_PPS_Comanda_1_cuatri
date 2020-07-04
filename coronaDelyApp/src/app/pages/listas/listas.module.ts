@@ -10,6 +10,7 @@ import { UsuarioListaComponent } from 'src/app/componentes/usuario-lista/usuario
 import { SupervisorListaEsperaComponent } from 'src/app/componentes/supervisor-lista-espera/supervisor-lista-espera.component';
 import { ProductoListaComponent } from 'src/app/componentes/producto-lista/producto-lista.component';
 import { MetreListaEsperaComponent } from '../../componentes/metre-lista-espera/metre-lista-espera.component';
+import { MozoListaPedidosComponent } from 'src/app/componentes/mozo-lista-pedidos/mozo-lista-pedidos.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ListasPage, UsuarioListaComponent, SupervisorListaEsperaComponent, ProductoListaComponent, MetreListaEsperaComponent]
+  declarations: [ListasPage, UsuarioListaComponent, SupervisorListaEsperaComponent, ProductoListaComponent, MetreListaEsperaComponent, MozoListaPedidosComponent]
 })
 export class ListasPageModule {}

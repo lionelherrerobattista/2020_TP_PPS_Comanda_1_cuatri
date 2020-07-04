@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Pedido } from 'src/app/clases/pedido';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { UsuarioService } from 'src/app/servicios/usuario.service';
+import { Cliente } from 'src/app/clases/cliente';
 
 @Component({
   selector: 'app-pedido',
@@ -11,14 +13,28 @@ export class PedidoPage implements OnInit {
 
   public pedido: Pedido;
   public pedidoTomado: boolean = false;
+  idCliente:string;
+  cliente:Cliente;
 
   constructor(
-    private router:Router
+    private router:Router,
+    private activatedRoute:ActivatedRoute,
+    private usuarioService:UsuarioService,
   ) { 
     console.log("pedido-page")
   }
 
   ngOnInit() {
+    this.idCliente = this.activatedRoute.snapshot.paramMap.get('idCliente');
+    this.getUsuario();
+  }
+
+   ///Recupera el usuario actual de la base de datos
+  async getUsuario(){
+    this.usuarioService.getUser(this.idCliente)
+      .subscribe(usuario => {
+        this.cliente = <Cliente>usuario;
+      }); 
   }
 
   consultarMenu() {

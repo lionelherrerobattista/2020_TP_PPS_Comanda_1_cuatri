@@ -1,5 +1,5 @@
 
-<form class="form">
+<form class="form" *ngIf="usuario.perfil != 'cliente'">
   <ion-item>
     <ion-label position="floating">Nombre</ion-label>
     <ion-input type="text" required [(ngModel)]="usuario.nombre" name="nombre"></ion-input>
@@ -37,4 +37,38 @@
   <!-- <ion-button color="medium" (click)="tomarFoto()">Sacar Foto</ion-button> -->
   <ion-button color="medium" (click)="cerrarModal()">Cancelar</ion-button>
   <ion-button color="medium" (click)="actualizarUsuario()">Actualizar Datos</ion-button>
+</form>
+
+
+<form class="form-cliente" *ngIf="usuario.perfil == 'cliente'">
+  <div class="item-cliente">
+    <ion-label>Nombre:</ion-label>
+    <ion-input type="text" disabled class="input-cliente" name="nombre">{{usuario.nombre | titlecase}}</ion-input>
+  </div>
+  <div class="item-cliente">
+    <ion-label>Apellido:</ion-label>
+    <ion-input type="text" disabled class="input-cliente" name="apellido">{{usuario.apellido | titlecase}}</ion-input>
+  </div>
+  <div class="item-cliente">
+    <ion-label>DNI:</ion-label>
+    <ion-input type="number" class="input-cliente" minlength="8" maxlength="8" disabled  name="dni">{{usuario.dni}}</ion-input>
+  </div>
+  <div class="item-cliente">
+    <ion-label>CUIL:</ion-label>
+    <ion-input type="number" class="input-cliente" minlength="11" maxlength="11" disabled name="cuil">{{usuario.cuil}}</ion-input>
+  </div>
+  <div class="item-cliente">
+    <ion-label>Correo Electrónico:</ion-label>
+    <ion-input type="email" class="input-cliente" disabled name="email">{{usuario.email}}</ion-input>
+  </div>
+  <div class="item-cliente" *ngIf="usuario.foto != undefined">
+    <ion-label>Foto:</ion-label>
+    <img id="foto-cliente" [src]="usuario.foto">
+  </div>
+
+  <div>
+    <ion-button color="danger" (click)="cerrarModal()">Cancelar</ion-button>
+    <ion-button color="success" (click)="aprobarCliente()">Aprobar cliente</ion-button>
+  </div>
+  
 </form>

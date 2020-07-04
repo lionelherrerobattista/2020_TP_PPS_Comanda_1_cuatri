@@ -50,6 +50,10 @@ export class UsuarioService {
     this.db.collection(collection).doc(id).set(object);
   }
 
+  getUser(userId):Observable<Usuario>{
+    return this.dataService.getOne('usuarios', userId);
+  }
+
   getUserById(userId) {
     return this.db.collection<Usuario>('usuarios', (ref) =>  ref.where ('id', '==', userId).limit(1)). valueChanges();   
   }

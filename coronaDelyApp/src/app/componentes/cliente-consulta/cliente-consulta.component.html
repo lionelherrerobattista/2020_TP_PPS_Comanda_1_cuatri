@@ -10,6 +10,7 @@
   <ion-label class="ion-text-right" *ngIf="consultaCreada == true && consulta != undefined">Estado de la consulta: {{consulta.estado}}</ion-label>
   
   <ion-button color="success" *ngIf="!consultaCreada" (click)="crearConsulta()">Enviar</ion-button>
+  <ion-button color="danger" *ngIf="consultaCreada" (click)="nuevaConsulta()">Nueva Consulta</ion-button>
 
   <h1>Respuesta del mozo:</h1>
   <ion-item *ngIf="consultaCreada && consulta.estado == 'respondida'">

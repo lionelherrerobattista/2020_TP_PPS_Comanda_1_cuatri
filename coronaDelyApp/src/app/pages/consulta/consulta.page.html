@@ -8,5 +8,6 @@
 </ion-header>
 
 <ion-content>
-  <app-cliente-consulta [usuario]="usuarioActual" *ngIf="object == 'cliente' && usuarioActual != undefined"></app-cliente-consulta>
+  <app-cliente-consulta [usuario]="usuarioActual" *ngIf="(tipoUsuario == 'cliente' || tipoUsuario == 'cliente anonimo') && usuarioActual != undefined"></app-cliente-consulta>
+  <app-mozo-consulta [usuario]="usuarioActual" *ngIf="tipoUsuario == 'mozo' && usuarioActual != undefined"></app-mozo-consulta>
 </ion-content>
