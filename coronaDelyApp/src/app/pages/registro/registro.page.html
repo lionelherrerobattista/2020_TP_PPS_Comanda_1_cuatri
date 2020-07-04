@@ -9,7 +9,17 @@
 
 <ion-content>
   <app-usuario-form *ngIf="(object == 'cliente' || object == 'usuario' )" [perfilEmpleado]="perfilEmpleado" [esCliente]="object == 'cliente'"></app-usuario-form>
+<<<<<<< HEAD
+
+  <!-- <app-mesa-form *ngIf="object == 'mesa'"></app-mesa-form>-->
+
   <app-mesa-form *ngIf="object == 'mesa'"></app-mesa-form>
+
+  <app-mesa-form *ngIf="object == 'mesa'"></app-mesa-form>
+
+=======
+  <app-mesa-form *ngIf="object == 'mesa'"></app-mesa-form>
+>>>>>>> 639b422bc16fe5f908bb17c3e7392bdf3d048811
   <app-producto-form *ngIf="object == 'producto'"></app-producto-form> 
   <app-anonimo-form *ngIf="object == 'clienteAnonimo'"></app-anonimo-form>
 </ion-content>
