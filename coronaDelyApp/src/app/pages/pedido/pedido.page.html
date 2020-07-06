@@ -13,6 +13,7 @@
 </ion-header>
 
 <ion-content>
-  <app-menu *ngIf="!pedidoTomado" [cliente]="cliente" (enviarPedido)="setMenuPedido($event)"></app-menu>
+  <app-menu *ngIf="usuario != undefined && !pedidoTomado && (usuario.perfil == 'cliente'|| usuario.perfil == 'cliente anonimo')" [cliente]="usuario" (enviarPedido)="setMenuPedido($event)"></app-menu>
+  <app-empleado-preparar-pedido *ngIf="usuario != undefined && (usuario.perfil == 'bartender'|| usuario.perfil == 'cocinero')" [empleado]="usuario"></app-empleado-preparar-pedido>
   <!-- <app-entrega-pedido *ngIf="pedidoTomado" [order]="pedido"></app-entrega-pedido> -->
 </ion-content>

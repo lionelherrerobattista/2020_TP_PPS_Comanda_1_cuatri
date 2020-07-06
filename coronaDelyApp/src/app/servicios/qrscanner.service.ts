@@ -6,7 +6,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 })
 export class QrScannerService {
   
-  dispositivo = "mobile"; //cambiar a mobile para las pruebas en el celu, cualq. otro nombre para el navegador
+  dispositivo = "web"; //cambiar a mobile para las pruebas en el celu, cualq. otro nombre para el navegador
   constructor(private scanner: BarcodeScanner) { }
   
   scanQr(options?){

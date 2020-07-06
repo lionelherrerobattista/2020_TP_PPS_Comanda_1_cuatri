@@ -1,3 +1,5 @@
+import { Sectores } from './enums/sectores';
+
 export enum TipoProducto {
     comida,
     bebida,
@@ -11,8 +13,9 @@ export class Producto {
     tiempoPreparacion:number;
     precio:number;
     fotos:string[];
-    sector:string;
+    sector:Sectores;
     tipo:TipoProducto;
     estado?:string;
     cantidad?:number;
+    idPedido?:string;
 }
