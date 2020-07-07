@@ -12,19 +12,22 @@ export enum  Estados {
     finalizado = 'finalizado', // ya pago
     tieneReserva = 'tieneReserva',
     rechazado = 'rechazado', //lo hace el metre o el supervisor/dueño
+    
     // mesa  
     disponible = 'disponible',
     ocupada = 'ocupada',
     reservada = 'reservada',
 
-     // mozo - bartender - cocinero 
-     pedidoAceptado = 'pedidoAceptado',
-     pedidoTerminado = 'pedidoTerminado',
+    // mozo - bartender - cocinero 
+    pedidoAceptado = 'pedidoAceptado',
+    pedidoTerminado = 'pedidoTerminado',
 
-      // pedido
-      entregado = 'entregado', //se lo da al cliente y espera que lo acepte
-      listoParaEntregar = 'listo para entregar',
-      enPreparacion = 'en preparacion',
-      aceptadoPorCliente = 'aceptado por cliente',
+    // pedido
+    entregado = 'entregado', //se lo da al cliente y espera que lo acepte
+    listoParaEntregar = 'listo para entregar',
+    enPreparacion = 'en preparacion',
+    aceptadoPorCliente = 'aceptado por cliente',
+    confirmarPago= 'confirmar pago',
+    abonado = 'abonado',
     
 }

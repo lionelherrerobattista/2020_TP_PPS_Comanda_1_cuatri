@@ -16,6 +16,8 @@ import { Perfiles } from 'src/app/clases/enums/perfiles';
 import { first } from 'rxjs/operators';
 import { PedidoService } from 'src/app/servicios/pedido.service';
 import { Cliente } from 'src/app/clases/cliente';
+import { ModalDetallePedidoPage } from 'src/app/pages/modal-detalle-pedido/modal-detalle-pedido.page';
+import { ModalController, ToastController } from '@ionic/angular';
 
 
 
@@ -27,6 +29,7 @@ import { Cliente } from 'src/app/clases/cliente';
 export class ClienteHomeComponent implements OnInit {
 
   @Input()usuario: Usuario;
+  cliente:Cliente;
   tieneReserva:boolean;
   recepcionPedidoConfirmada:boolean;
 
@@ -36,25 +39,20 @@ export class ClienteHomeComponent implements OnInit {
     private notificacionService: NotificacionesService,
     private qrscannerService: QrScannerService,
     private mesaService: MesaService,
-    private router: Router,
     private dataService: DataService,
     private pedidoService:PedidoService,
-
+    private modalController:ModalController,
+    public toastController: ToastController,
   ) {
-
     this.recepcionPedidoConfirmada = false;
-    // let user = this.authService.getCurrentUser();
-    // if (isNullOrUndefined(user)) {
-    //   this.router.navigateByUrl("/login");
-    // }
-    // this.usuarioService.getUserById(user.uid)
-    // .subscribe(userData => { this.usuario=userData[0];
-    // console.log(this.usuario)
-      
-    // })
+    
   }
 
-  ngOnInit(){}
+  ngOnInit(){
+    console.log(this.usuario);
+    this.cliente = <Cliente>this.usuario;
+    console.log(this.cliente);
+  }
 
   irAListaEspera() {
     this.usuarioService.setDocument(Elementos.ListaDeEspera, this.usuario.id.toString(),
@@ -132,27 +130,6 @@ export class ClienteHomeComponent implements OnInit {
     // } 
   }
 
-  // asignar mesa a cliente
-  // asignarMesa(mesaId, usuarioId){
-  //   // this.mesaService.getTableById(mesaId).then(element => {
-  //     this.mesaService.getTableById(mesaId).subscribe(element => {
-  //     // let mesaActual = Object.assign(new Mesa, element.data());
-  //     let mesaActual = element[0];
-  //     if (mesaActual.estado != Estados.disponible) {
-  //       this.notificacionService.mostrarToast(`Mesa N.° ${mesaActual.numero} ${mesaActual.estado}`, "danger", "top");
-  //     }
-  //     else{
-  //       this.dataService.setStatus(Elementos.Mesas, mesaId, Estados.ocupada);
-  //       this.dataService.setStatus(Elementos.Usuarios, usuarioId, Estados.atendido);
-  //       this.dataService.deleteDocument(Elementos.ListaDeEspera, usuarioId);
-  //       var mesaService = { mesaId: mesaId, usuarioId: usuarioId };
-  //       this.dataService.setData(Elementos.ServicioDeMesa, usuarioId, mesaService);
-  //       this.notificacionService.mostrarToast(`Mesa N.° ${mesaActual.numero} asignada`, "success", "top");
-  //     }
-  //   });
-  // }
-
-  //Convierto el observable a promesa para ver si solo me toma la primera:
   async asignarMesa(mesaId, usuarioId){
     
     //Recuperar la mesa escaneada
@@ -164,7 +141,6 @@ export class ClienteHomeComponent implements OnInit {
       this.notificacionService.mostrarToast(`Mesa N.° ${mesaActual.numero} ${mesaActual.estado}`, "danger", "top");
     } else {
       this.dataService.setStatus(Elementos.Mesas, mesaId, Estados.ocupada);
-      // this.dataService.setStatus(Elementos.Usuarios, usuarioId, Estados.atendido);
       this.dataService.deleteDocument(Elementos.ListaDeEspera, usuarioId);
       var mesaService = { mesaId: mesaId, usuarioId: usuarioId };
       this.dataService.setData(Elementos.ServicioDeMesa, usuarioId, mesaService);
@@ -181,21 +157,49 @@ export class ClienteHomeComponent implements OnInit {
   ///El cliente confirma la recepción del pedido
   ///Cambia el estado del pedido
   confirmarRecepcion() {
-    //Comprobar que el mozo indicó que el cliente recibió el pedido
-    //pedido.estado = "confirmado por mozo"(?)
-    // if()
-    this.usuario.estado = Estados.atendido;
-    this.usuarioService.updateUser('usuarios', this.usuario.id, this.usuario);
-    this.recepcionPedidoConfirmada = true;
+     
+    // Comprobar que el mozo indicó que el cliente recibió el pedido
+    if(this.cliente.pedido.estado == Estados.entregado) {
+      this.cliente.estado = Estados.atendido;
+      this.cliente.pedido.estado = Estados.aceptadoPorCliente;
+    
+      //Actualizar el pedido en el cliente y en la lista pedidos
+      this.usuarioService.updateUser('usuarios', this.cliente.id, this.cliente);
+      this.pedidoService.updateOrder(this.cliente.pedido.id, this.cliente.pedido);
+      
+      this.recepcionPedidoConfirmada = true;
+    }
+    
   }
 
   mostrarEstadoPedido(){
     console.log('muestro el estado');
-
   }
 
-  pedirCuenta(){
-
+  pedirCuenta(){ 
+    this.mostrarModal(this.usuario);
   }
+
+  async mostrarModal(cliente:Cliente) {
+    const modal = await this.modalController.create({
+      component: ModalDetallePedidoPage,
+      componentProps: {
+        pedido: cliente.pedido,
+        perfil: cliente.perfil,
+        cliente: cliente,
+      }
+    });
+    return await modal.present();
+  }
+
+    ///Funciones que llaman al toast y al alert
+    async mostrarToast(mensaje:string) {
+      const toast = await this.toastController.create({
+        message: mensaje,
+        duration: 2000
+      });
+      toast.present();
+    }
+  
   
 }

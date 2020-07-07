@@ -15,7 +15,7 @@ export class PedidoService {
   ) { }
 
   createPedido(pedido:Pedido) {
-    this.dataService.add('pedidos', pedido);
+    this.dataService.add('pedidos', Object.assign({},pedido));
   }
 
   saveOrder(id, pedido){
@@ -26,8 +26,8 @@ export class PedidoService {
     return this.dataService.getAll(this.pedidos);
   }
 
-  updateOrder(id, pedido){
-    this.dataService.update(this.pedidos, id, pedido);
+  updateOrder(id, object:Pedido){
+    this.dataService.update(this.pedidos, id, Object.assign({},object));
   }
 
   getOrderById(id){

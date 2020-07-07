@@ -27,8 +27,8 @@ export class MesaService {
     return this.dataService.getAll(collection);
   }
   
-  updateTable(collection: string, id: string, tipo: string) {
-    return this.dataService.update(collection, id, tipo);
+  updateTable(collection: string, id: string, object: Mesa) {
+    return this.dataService.update(collection, id, Object.assign({},object));
   }
 
 

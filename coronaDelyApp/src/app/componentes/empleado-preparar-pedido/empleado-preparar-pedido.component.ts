@@ -1,14 +1,16 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Pedido } from 'src/app/clases/pedido';
 import { PedidoService } from 'src/app/servicios/pedido.service';
-import { ToastController, ModalController, AlertController } from '@ionic/angular';
+import { ToastController, AlertController } from '@ionic/angular';
 import { Estados } from 'src/app/clases/enums/estados';
 import { Usuario } from 'src/app/clases/usuario';
 import { Perfiles } from 'src/app/clases/enums/perfiles';
 import { Producto } from 'src/app/clases/producto';
-import { ProductoService } from 'src/app/servicios/producto.service';
-import { identifierModuleUrl } from '@angular/compiler';
 import { Sectores } from 'src/app/clases/enums/sectores';
+import { UsuarioService } from 'src/app/servicios/usuario.service';
+import { Cliente } from 'src/app/clases/cliente';
+import { first } from 'rxjs/operators';
+import { Elementos } from 'src/app/clases/enums/elementos';
 
 @Component({
   selector: 'app-empleado-preparar-pedido',
@@ -26,7 +28,7 @@ export class EmpleadoPrepararPedidoComponent implements OnInit {
   constructor(
     private pedidoService:PedidoService,
     public toastController: ToastController,
-    private modalController:ModalController,
+    private usuarioService: UsuarioService,
     private alertController: AlertController,
   ) { 
     this.productosParaPreparar = [];
@@ -109,8 +111,9 @@ export class EmpleadoPrepararPedidoComponent implements OnInit {
   ///Comprueba el estado de los productos del pedido
   ///Si todos los productos están listos para servir,
   ///Cambia el estado del pedido
-  comprobarEstadoPedido(pedido:Pedido) {
+  async comprobarEstadoPedido(pedido:Pedido) {
     let estaListo = true;
+    let cliente:Cliente;
 
     for(let producto of pedido.productos) {
       if(producto.estado == Estados.enPreparacion) {
@@ -122,6 +125,12 @@ export class EmpleadoPrepararPedidoComponent implements OnInit {
     if(estaListo){
       
       pedido.estado = Estados.listoParaEntregar;
+      cliente = <Cliente> await this.usuarioService.getUser(pedido.idCliente).pipe(first()).toPromise();
+      
+      cliente.pedido = pedido;
+
+      this.usuarioService.updateUser(Elementos.Usuarios, cliente.id, cliente);
+      this.pedidoService.updateOrder(pedido.id, pedido);
       this.mostrarToast('El pedido está listo para entregar');
     }
   }
