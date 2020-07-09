@@ -30,6 +30,8 @@ export class UsuarioService {
   // Uso el async, si no, no me funciona. Esta función hace lo mismo que la original
   async saveUserWithLogin(user) {
     let credenciales = await this.authService.createUser(user);
+
+    credenciales.user.sendEmailVerification();
     user.id = credenciales.user.uid;
 
     await this.saveUser(user);

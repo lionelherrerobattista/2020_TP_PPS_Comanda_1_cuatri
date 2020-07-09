@@ -91,15 +91,19 @@ export class LoginPage implements OnInit {
         this.userService.getUserById(res.user.uid)
           .subscribe(usuario => { 
             if (usuario[0] != undefined) {
-              console.log(usuario[0].estado);
-              if(usuario[0].perfil == Perfiles.cliente && usuario[0].estado == Estados.pendienteDeAprobacion) {
-                this.loadingService.closeLoading("Error", "Todavía no se aprobó su cuenta", 'error');     
+              //Dejo solo la verificación del email para el cliente
+              if(usuario[0].perfil == Perfiles.cliente && res.user.emailVerified != true) {
+                res.user.sendEmailVerification();
+                this.loadingService.closeLoading("Error", "Debe verificar su email", 'error');     
               } else {
-                this.loadingService.closeLoadingAndRedirect("/home");
-              }
+                if(usuario[0].perfil == Perfiles.cliente && usuario[0].estado == Estados.pendienteDeAprobacion) {
+                  this.loadingService.closeLoading("Error", "Todavía no se aprobó su cuenta", 'error');     
+                } else {
+                  this.loadingService.closeLoadingAndRedirect("/home");
+                }
+              }   
             }
-          });
-        
+        });
       })
       .catch(err => {
         console.log("error",err)

@@ -101,7 +101,7 @@ export class UsuarioFormComponent implements OnInit {
       this.usuario.perfil = Perfiles.cliente;
       this.usuario.estado = Estados.pendienteDeAprobacion;
     }
-    // falta la logica para la modificacion
+    
     await this.userService.saveUserWithLogin(this.usuario);
 
     //Redireccionar
