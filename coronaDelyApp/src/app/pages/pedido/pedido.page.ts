@@ -3,6 +3,7 @@ import { Pedido } from 'src/app/clases/pedido';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { Cliente } from 'src/app/clases/cliente';
+import { Usuario } from 'src/app/clases/usuario';
 
 @Component({
   selector: 'app-pedido',
@@ -13,8 +14,8 @@ export class PedidoPage implements OnInit {
 
   public pedido: Pedido;
   public pedidoTomado: boolean = false;
-  idCliente:string;
-  cliente:Cliente;
+  idUsuario:string;
+  usuario:Usuario;
 
   constructor(
     private router:Router,
@@ -25,15 +26,15 @@ export class PedidoPage implements OnInit {
   }
 
   ngOnInit() {
-    this.idCliente = this.activatedRoute.snapshot.paramMap.get('idCliente');
+    this.idUsuario = this.activatedRoute.snapshot.paramMap.get('idUsuario');
     this.getUsuario();
   }
 
    ///Recupera el usuario actual de la base de datos
   async getUsuario(){
-    this.usuarioService.getUser(this.idCliente)
+    this.usuarioService.getUser(this.idUsuario)
       .subscribe(usuario => {
-        this.cliente = <Cliente>usuario;
+        this.usuario = usuario;
       }); 
   }
 
@@ -49,6 +50,9 @@ export class PedidoPage implements OnInit {
   clearComponent() {
     this.pedido = undefined;
     this.pedidoTomado = false;
+  }
+  inicio(){
+    this.router.navigate([`/home`]);
   }
 
 }

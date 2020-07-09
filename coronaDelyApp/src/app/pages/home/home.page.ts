@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { isNullOrUndefined } from 'util';
 import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Usuario } from 'src/app/clases/usuario';
 import { AuthService } from 'src/app/servicios/auth.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
-import { ClienteHomeComponent } from 'src/app/componentes/cliente-home/cliente-home.component';
-import { LoadingService } from 'src/app/servicios/loading.service';
 
 
 @Component({
@@ -22,9 +19,7 @@ export class HomePage {
   constructor(
     private authService: AuthService,
     private usuarioService: UsuarioService,
-    private router: Router,
     private activatedRoute: ActivatedRoute,
-    private loadingService: LoadingService
   ) {
 
     
@@ -41,10 +36,6 @@ export class HomePage {
     } else {
       userId = this.authService.getCurrentUser().uid;
     }
-
-    // if (isNullOrUndefined(userId)) {
-    //   this.router.navigateByUrl("/login");
-    // }
 
     this.usuarioService.getUserById(userId)
       .subscribe(userData => { 

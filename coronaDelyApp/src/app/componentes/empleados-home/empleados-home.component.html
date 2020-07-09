@@ -1,10 +1,10 @@
 <section class="ion-text-center ion-margin-bottom">
   <ion-grid>
     <ion-row >
-      <ion-col col-4 *ngIf="usuario?.perfil == 'cocinero'">
-        <ion-card routerLink="/pedidos" class="ion-text-center ion-padding" color="000">
+      <ion-col col-4 *ngIf="usuario?.perfil == 'cocinero' || usuario?.perfil == 'bartender'">
+        <ion-card [routerLink]="['/pedido', usuario.id]" class="ion-text-center ion-padding" color="000">
           <ion-icon name="clipboard"></ion-icon>
-          <h2 class="long-name">Pedidos</h2>
+          <h2 class="long-name">Preparar Pedidos</h2>
         </ion-card>
       </ion-col>
       
@@ -48,6 +48,11 @@
         <ion-card [routerLink]="['/listas', 'listaPedidos']" class="ion-text-center ion-padding" color="000">
           <ion-icon name="clipboard"></ion-icon>
           <h2 class="long-name">Lista Pedidos</h2>
+        </ion-card>
+
+        <ion-card routerLink="/consultas" class="ion-text-center ion-padding" color="000">
+          <ion-icon name="chatboxes"></ion-icon>
+          <h2 class="long-name">Consultas</h2>
         </ion-card>
       </ion-col>    
     </ion-row>

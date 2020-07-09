@@ -1,0 +1,13 @@
+<div id="contenedor">
+  <h1>Productos a preparar:</h1>
+
+  <ion-list> 
+      <ion-item (click)="prepararProducto(producto)" *ngFor="let producto of productosParaPreparar">
+        <ion-label>
+          <h2>Producto: {{producto.nombre | titlecase}}</h2>
+          <ion-label>Cantidad: {{producto.cantidad}}</ion-label>
+          <ion-label>Estado: {{producto.estado | titlecase}}</ion-label>
+        </ion-label>
+      </ion-item> 
+  </ion-list>
+</div>

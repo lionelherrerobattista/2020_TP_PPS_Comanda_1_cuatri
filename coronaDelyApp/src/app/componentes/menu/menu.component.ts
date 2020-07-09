@@ -21,7 +21,6 @@ export class MenuComponent implements OnInit {
   total:number;
   menu:Producto[];
   @Input()cliente:Cliente;
-  // @Output() menuEnvio: EventEmitter<object> = new EventEmitter<object>();
 
   slideOpts = {
     slidesPerView: 1,
@@ -32,9 +31,7 @@ export class MenuComponent implements OnInit {
   constructor(
     private productoService: ProductoService,
     private alertController: AlertController,
-    // private camaraService: CamaraService
     private modalController:ModalController,
-    private authService:AuthService,
   ) { 
     
     this.productosMenu = [];
@@ -43,15 +40,7 @@ export class MenuComponent implements OnInit {
   }
 
 
-  ngOnInit() {
-
-    // this.idUsuario = this.authService.getCurrentUser().uid;
-    // this.productoService.getAllProductos('productos').subscribe(elementos => {     
-    //   for (let i = 0; i < elementos.length; i++) {      
-    //     this.productosMenu[i] = elementos[i] as Producto;
-    //   }    
-    // });
-  }
+  ngOnInit() {}
 
   ///Filtra la lista de productos según la categoría seleccionada
   filtrarLista(event) {
@@ -72,12 +61,6 @@ export class MenuComponent implements OnInit {
         this.menu.push(producto);
         //Calcular total
         this.total += (producto.precio * producto.cantidad);
-
-        // for(let i = 0; i < cantidad; i++){
-        //   this.menu.push(producto);
-        // }
-        // let reducer = ( acumulador, currentProduct ) => acumulador + currentProduct.precio;
-        // this.total = this.menu.reduce(reducer, 0)
       }
     });
   }
@@ -127,10 +110,6 @@ export class MenuComponent implements OnInit {
     })
   }
 
-  // sendMenu(){
-  //   this.menuEnvio.emit({"menu":this.menu, "precio": this.total});
-  // }
-
   visualizarPedido() {
     this.mostrarModal(this.menu);
   }
@@ -140,7 +119,7 @@ export class MenuComponent implements OnInit {
       component: ModalMenuDetallePage,
       componentProps: {
         productos: datos,
-        idCliente: this.cliente.id,
+        cliente: this.cliente,
         mesa: this.cliente.mesa,
       }
     });

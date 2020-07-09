@@ -5,6 +5,7 @@ import { AuxiliarModule } from '../../componentes/auxiliar/auxiliar.component';
 import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { PedidoPage } from './pedido.page';
+import { EmpleadoPrepararPedidoComponent } from 'src/app/componentes/empleado-preparar-pedido/empleado-preparar-pedido.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,6 @@ const routes: Routes = [
     AuxiliarModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [PedidoPage]
+  declarations: [PedidoPage, EmpleadoPrepararPedidoComponent]
 })
 export class PedidoPageModule {}

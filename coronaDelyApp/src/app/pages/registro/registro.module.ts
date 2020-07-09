@@ -8,7 +8,7 @@ import { UsuarioFormComponent } from 'src/app/componentes/usuario-form/usuario-f
 import { ProductoFormComponent } from 'src/app/componentes/producto-form/producto-form.component';
 import { MesaFormComponent } from 'src/app/componentes/mesa-form/mesa-form.component';
 import { AnonimoFormComponent } from 'src/app/componentes/anonimo-form/anonimo-form.component';
-
+import {ReactiveFormsModule} from '@angular/forms';
 const routes: Routes = [
   {
     path: '',
@@ -21,6 +21,7 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
+    ReactiveFormsModule,
     RouterModule.forChild(routes)
   ],
   declarations: [RegistroPage, UsuarioFormComponent, MesaFormComponent, ProductoFormComponent, AnonimoFormComponent,

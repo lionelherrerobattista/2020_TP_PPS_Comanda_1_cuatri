@@ -1,6 +1,17 @@
 form{
      padding: 40px; 
 }
-main{
-    background-color: aquamarine
+
+.validation-errors{
+    color:red;
+    text-transform:none;
+}
+
+ion-item-group {
+    text-align: center;
+}
+
+ion-button{
+    padding-left: 32%;
+    position: inherit;
 }

@@ -5,6 +5,7 @@ import { Estados } from 'src/app/clases/enums/estados';
 import { ToastController, ModalController } from '@ionic/angular';
 import { ModalMenuDetallePage } from 'src/app/pages/modal-menu-detalle/modal-menu-detalle.page';
 import { ModalDetallePedidoPage } from 'src/app/pages/modal-detalle-pedido/modal-detalle-pedido.page';
+import { Perfiles } from 'src/app/clases/enums/perfiles';
 
 @Component({
   selector: 'app-mozo-lista-pedidos',
@@ -27,12 +28,13 @@ export class MozoListaPedidosComponent implements OnInit {
 
   ngOnInit() {
     this.pedidoService.getAllOrders().subscribe(pedidos => {
-      this.listaPedidos = pedidos.filter(pedido => pedido.estado == Estados.enPreparacion || pedido.estado == Estados.listoParaEntregar);
+      this.listaPedidos = pedidos;
       this.listaParaMostrar = this.listaPedidos;
     });
   }
 
   filtrarPedidos(filtro) {
+    console.log(this.filtro);
     if(this.filtro == "todos") {
       this.listaParaMostrar = this.listaPedidos;
     } else {
@@ -43,10 +45,10 @@ export class MozoListaPedidosComponent implements OnInit {
 
   servir(pedido:Pedido){
 
-    if(pedido.estado == Estados.listoParaEntregar){
-      this.mostrarModal(pedido);
+    if(pedido.estado == Estados.enPreparacion){
+      this.mostrarToast('El pedido todavía no está listo.');      
     } else {
-      this.mostrarToast('El pedido todavía no está listo.');
+      this.mostrarModal(pedido);
     }
   }
 
@@ -64,6 +66,7 @@ export class MozoListaPedidosComponent implements OnInit {
       component: ModalDetallePedidoPage,
       componentProps: {
         pedido: pedido,
+        perfil: Perfiles.mozo,
       }
     });
     return await modal.present();

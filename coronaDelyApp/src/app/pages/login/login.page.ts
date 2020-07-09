@@ -16,8 +16,8 @@ import { Estados } from 'src/app/clases/enums/estados';
 })
 export class LoginPage implements OnInit {
 
-  private email: string;
-  private password: string;
+  public email: string;
+  public password: string;
   form: FormGroup;
   defaultUsers: Array<any> = [];
   usuario: Usuario;
@@ -70,12 +70,13 @@ export class LoginPage implements OnInit {
   };
 
   addDefaultUser() {
-    this.defaultUsers.push({ "email": "admin@admin.com", "password": "123456" });
-    this.defaultUsers.push({ "email": "cliente@cliente.com", "password": "123456" });
-    this.defaultUsers.push({ "email": "mozo@mozo.com", "password": "123456" });
-    this.defaultUsers.push({ "email": "bartender@bartender.com", "password": "123456" });
-    this.defaultUsers.push({ "email": "cocinero@cocinero.com", "password": "123456" });
-    this.defaultUsers.push({ "email": "anonimo@anonimo.com", "password": "123456" });
+    this.defaultUsers.push({ "email": "supervisor@coronadely.com", "password": "123456" });
+    this.defaultUsers.push({ "email": "cliente@coronadely.com", "password": "123456" });
+    this.defaultUsers.push({ "email": "mozo@coronadely.com", "password": "123456" });
+    this.defaultUsers.push({ "email": "bartender@coronadely.com", "password": "123456" });
+    this.defaultUsers.push({ "email": "cocinero@coronadely.com", "password": "123456" });
+    this.defaultUsers.push({ "email": "anonimo@coronadely.com", "password": "123456" });
+    this.defaultUsers.push({ "email": "metre@coronadely.com", "password": "123456" });
   }
 
   setDefaultUser() {
@@ -90,21 +91,26 @@ export class LoginPage implements OnInit {
         this.userService.getUserById(res.user.uid)
           .subscribe(usuario => { 
             if (usuario[0] != undefined) {
-              console.log(usuario[0].estado);
-              if(usuario[0].perfil == Perfiles.cliente && usuario[0].estado == Estados.pendienteDeAprobacion) {
-                this.loadingService.closeLoading("Error", "Todavía no se aprobó su cuenta", 'error');     
+              //Dejo solo la verificación del email para el cliente
+              if(usuario[0].perfil == Perfiles.cliente && res.user.emailVerified != true) {
+                res.user.sendEmailVerification();
+                this.loadingService.closeLoading("Error", "Debe verificar su email", 'error');     
               } else {
-                this.loadingService.closeLoadingAndRedirect("/home");
-              }
+                if(usuario[0].perfil == Perfiles.cliente && usuario[0].estado == Estados.pendienteDeAprobacion) {
+                  this.loadingService.closeLoading("Error", "Todavía no se aprobó su cuenta", 'error');     
+                } else {
+                  this.loadingService.closeLoadingAndRedirect("/home");
+                }
+              }   
             }
-          });
-        
+        });
       })
       .catch(err => {
         console.log("error",err)
         this.loadingService.closeLoading("Error", "Verifique usuario y contraseña", 'error');
       });
   }
-
+ 
+ 
 
 }

@@ -1,8 +1,12 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Encuesta de {{object}}</ion-title>
-  </ion-toolbar>
-</ion-header>
+    <ion-toolbar color="titulo">
+        <ion-button slot="start" fill="clear" (click)="inicio()"> 
+            <ion-icon name="arrow-back"></ion-icon>
+        </ion-button>
+      <ion-title>Encuesta {{object}}</ion-title>  
+    </ion-toolbar>
+  </ion-header>
+
 
 <ion-content>
   <app-encuesta-empleado *ngIf="object == 'empleado'"></app-encuesta-empleado>

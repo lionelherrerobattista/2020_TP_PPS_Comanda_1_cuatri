@@ -1,20 +1,35 @@
 <div id="contenedor">
-  <h1>Su pedido</h1>
 
-  <ion-list>
-    <ion-item *ngFor="let producto of pedido.productos" >
-      <ion-icon name="restaurant"></ion-icon>
-      <ion-label>{{producto.nombre | titlecase}}</ion-label>
-      <ion-label class="ion-text-right">${{producto.precio}}</ion-label>
-      <ion-label class="ion-text-right">x {{producto.cantidad}}</ion-label>
+  <app-pedido-detalle [pedido]="pedido"></app-pedido-detalle>
+  <div *ngIf="perfil == 'cliente' || perfil == 'cliente anonimo'">
+    <ion-label>
+      Grado de Satisfacción (propina):
+    </ion-label>
+    <ion-item id="range">
+     
+      <ion-range [(ngModel)]="gradoSatisfaccion" name="gradoSatisfaccion" min="0" max="100" color="secondary">
+        <ion-label slot="start">0</ion-label>
+        <ion-label slot="end">100</ion-label>
+      </ion-range>
+      <ion-label id="lbl-limpieza">$ {{gradoSatisfaccion}}</ion-label>
     </ion-item>
-  </ion-list>
+    
+  </div>
+  <ion-button color="primary"  *ngIf="!mostrarTotal && perfil != 'mozo'" (click)="calcularTotal()">Calcular total</ion-button>
   
-  <ion-label class="ion-text-right">Total: ${{total}}</ion-label>
+  <div id="div-total"*ngIf="mostrarTotal || perfil == 'mozo'">
+    <ion-label id="total" >Total $ {{total}}</ion-label>
+  </div>
+    
+  
+  
+ 
   
   <div id="div-botones">
     <ion-button color="danger" (click)="cerrarModal()">Cancelar</ion-button>
-    <ion-button color="success" (click)="entregarPedido()">Entregar Pedido</ion-button>
+    <ion-button *ngIf="perfil == 'mozo' && pedido.estado == 'listo para entregar'" color="success" (click)="entregarPedido()">Entregar Pedido</ion-button>
+    <ion-button *ngIf="perfil == 'mozo' && pedido.estado == 'confirmar pago'" color="success" (click)="confirmarPago()">Confirmar Pago</ion-button>
+    <ion-button *ngIf="mostrarTotal && (perfil == 'cliente' || perfil == 'cliente anonimo')" color="success" (click)="pagarPedido()">Pagar Pedido</ion-button>
   </div>
 </div>
   

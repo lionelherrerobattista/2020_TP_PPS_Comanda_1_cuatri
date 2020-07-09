@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { auth } from 'firebase';
 
 
 @Injectable({
@@ -19,8 +20,11 @@ export class AuthService {
    console.log("auth-login")
     return new Promise((resolve, reject) => {
 
+      
       this.AFauth.auth.signInWithEmailAndPassword(email, password)
        .then(respuesta => {  
+
+          
           
           resolve(respuesta);
         }).catch(error => {reject(error)});

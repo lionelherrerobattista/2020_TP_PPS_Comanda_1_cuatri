@@ -3,6 +3,12 @@ import { ModalController, ToastController } from '@ionic/angular';
 import { Pedido } from 'src/app/clases/pedido';
 import { Estados } from 'src/app/clases/enums/estados';
 import { PedidoService } from 'src/app/servicios/pedido.service';
+import { Usuario } from 'src/app/clases/usuario';
+import { Cliente } from 'src/app/clases/cliente';
+import { UsuarioService } from 'src/app/servicios/usuario.service';
+import { Elementos } from 'src/app/clases/enums/elementos';
+import { first } from 'rxjs/operators';
+import { MesaService } from 'src/app/servicios/mesa.service';
 
 @Component({
   selector: 'app-modal-detalle-pedido',
@@ -11,40 +17,72 @@ import { PedidoService } from 'src/app/servicios/pedido.service';
 })
 export class ModalDetallePedidoPage implements OnInit {
 
+  perfil:string;
+  cliente:Cliente;
   pedido:Pedido;
   total:number;
+  gradoSatisfaccion:number;
+  mostrarTotal:boolean;
 
   constructor(
     private modalController:ModalController,
     private pedidoService:PedidoService,
-    public toastController: ToastController,
+    private usuarioService:UsuarioService,
+    private toastController: ToastController,
+    private mesaService: MesaService,
   ) {
-    this.total = 0;
+    this.gradoSatisfaccion = 0;
+    this.mostrarTotal = false;
+    
    }
 
   ngOnInit() {
-    for(let auxProducto of this.pedido.productos) {
-
-      this.total += (auxProducto.precio * auxProducto.cantidad);
-
-    }
+    this.total = this.pedido.precioTotal;
   }
 
   async entregarPedido() {
-    this.pedido.estado = Estados.entregado;
+    this.cliente = await this.usuarioService.getUser(this.pedido.idCliente).pipe(first()).toPromise();
+    this.cliente.pedido.estado = Estados.entregado;
 
-    this.pedidoService.updateOrder(this.pedido.id, this.pedido);
+    await this.pedidoService.updateOrder(this.cliente.pedido.id, this.cliente.pedido);
+    await this.usuarioService.updateUser(Elementos.Usuarios, this.cliente.id, this.cliente);
 
-    this.mostrarToast('Pedido entregado. Esperando que el cliente lo acepte');
+    this.mostrarToast('Pedido entregado. Esperando que el cliente lo acepte...');
 
     this.cerrarModal();
   }
 
+  async pagarPedido() {
+    this.cliente.estado = Estados.pagando;
+    this.cliente.pedido.estado = Estados.confirmarPago;
+
+    await this.usuarioService.updateUser(Elementos.Usuarios, this.cliente.id, this.cliente);
+    await this.pedidoService.updateOrder(this.cliente.pedido.id, this.cliente.pedido);
+
+    this.mostrarToast('Pagando... Esperando la confirmación del mozo.');
+
+    this.cerrarModal();
+  }
+
+  async confirmarPago() {
+    this.cliente = await this.usuarioService.getUser(this.pedido.idCliente).pipe(first()).toPromise();
+    this.cliente.estado = Estados.finalizado;
+    this.cliente.mesa.estado = Estados.disponible;
+    this.cliente.pedido.estado = Estados.abonado;
+
+    await this.mesaService.updateTable(Elementos.Mesas, this.cliente.mesa.id, this.cliente.mesa);
+    await this.usuarioService.updateUser(Elementos.Usuarios, this.cliente.id, this.cliente);
+    await this.pedidoService.updateOrder(this.pedido.id, this.cliente.pedido);
+
+    this.mostrarToast('Confirmó el pago');
+
+    this.cerrarModal();
+
+  }
 
   async cerrarModal() {
     await this.modalController.dismiss();
   }
-
 
   async mostrarToast(mensaje:string) {
     const toast = await this.toastController.create({
@@ -52,6 +90,15 @@ export class ModalDetallePedidoPage implements OnInit {
       duration: 2000
     });
     toast.present();
+  }
+
+  calcularTotal() {
+
+    this.mostrarTotal = true;
+    this.total = this.pedido.precioTotal + this.gradoSatisfaccion;
+
+    this.cliente.pedido.precioTotal = this.total;
+
   }
 
 }

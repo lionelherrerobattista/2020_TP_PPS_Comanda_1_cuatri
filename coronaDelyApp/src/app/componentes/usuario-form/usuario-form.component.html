@@ -1,34 +1,110 @@
-<ion-button color="medium" (click)="scan()">Escanear DNI</ion-button>
-<form class="form">
+<ion-button color="scanner" (click)="scan()">Escanear DNI</ion-button>
+<form class="form" [formGroup]="form" (ngSubmit)="registro(form.value)">
+  
+  <!-- NOMBRE -->
   <ion-item>
     <ion-label position="floating">Nombre</ion-label>
-    <ion-input type="text" required [(ngModel)]="usuario.nombre" name="nombre"></ion-input>
+    <ion-input type="text" formControlName="nombre" ></ion-input>
   </ion-item>
+  <div class="validation-errors">
+    <ng-container *ngFor="let validation of mensajesValidacion.nombre">
+      <small *ngIf="form.get('nombre').hasError(validation.type) && 
+             (form.get('nombre').dirty || form.get('nombre').touched)">
+             {{ validation.message }}
+      </small>
+    </ng-container>
+  </div>
+
+<!-- APELLIDO -->
   <ion-item>
     <ion-label position="floating">Apellido</ion-label>
-    <ion-input type="text" required [(ngModel)]="usuario.apellido" name="apellido"></ion-input>
+    <ion-input type="text" formControlName="apellido"  ></ion-input>
   </ion-item>
+  <div class="validation-errors">
+    <ng-container *ngFor="let validation of mensajesValidacion.apellido">
+      <small *ngIf="form.get('apellido').hasError(validation.type) &&
+           (form.get('apellido').dirty || form.get('apellido').touched)">
+           {{ validation.message }}
+      </small>
+    </ng-container>
+  </div>
+
+  <!-- DNI -->
   <ion-item>
-    <ion-label position="floating">DNI</ion-label>
-    <!-- <ion-input type="number" minlength="8" maxlength="8" required [(ngModel)]="usuario.dni" name="dni"></ion-input> -->
-    <ion-input type="tel" minlength="8" maxlength="8" required [(ngModel)]="usuario.dni" name="dni"></ion-input>
+    <ion-label position="floating">DNI</ion-label>    
+    <ion-input type="text" formControlName="dni" ></ion-input>
   </ion-item>
-  <ion-item>
+  <div class="validation-errors">
+    <ng-container *ngFor="let validation of mensajesValidacion.dni">
+      <small *ngIf="form.get('dni').hasError(validation.type) && 
+      (form.get('dni').dirty || form.get('dni').touched)">
+        {{ validation.message }}
+      </small>
+    </ng-container>
+  </div>
+
+<!-- CUIL -->
+  <ion-item  *ngIf="!esCliente">
     <ion-label position="floating">CUIL</ion-label>
-    <!-- <ion-input type="number" minlength="11" maxlength="11" required [(ngModel)]="usuario.cuil" name="cuil"></ion-input> -->
-    <ion-input type="tel" minlength="11" maxlength="11" required [(ngModel)]="usuario.cuil" name="cuil"></ion-input>
+    <ion-input type="text" formControlName="cuil" ></ion-input>
   </ion-item>
+  <div class="validation-errors">
+    <ng-container *ngFor="let validation of mensajesValidacion.cuil">
+      <small *ngIf="form.get('cuil').hasError(validation.type) &&
+       (form.get('cuil').dirty || form.get('cuil').touched)">
+        {{ validation.message }}
+      </small>
+    </ng-container>
+  </div>
+
+  <!-- EMAIL -->
   <ion-item>
     <ion-label position="floating">Correo Electrónico</ion-label>
-    <ion-input type="email" required [(ngModel)]="usuario.email" name="email"></ion-input>
+    <ion-input type="text" formControlName="email" ></ion-input>
   </ion-item>
+  <div class="validation-errors">
+    <ng-container *ngFor="let validation of mensajesValidacion.email">
+      <small
+        *ngIf="form.get('email').hasError(validation.type) && 
+        (form.get('email').dirty || form.get('email').touched)">
+        {{ validation.message }}
+      </small>
+    </ng-container>
+  </div>
+
+<!-- PASSWORD -->
   <ion-item>
     <ion-label position="floating">Clave</ion-label>
-    <ion-input type="password" minlength="6" required [(ngModel)]="usuario.password" name="password"></ion-input>
+    <ion-input type="password"  formControlName="password" ></ion-input>
   </ion-item>
+  <div class="validation-errors">
+    <ng-container *ngFor="let validation of mensajesValidacion.password">
+      <small
+        *ngIf="form.get('password').hasError(validation.type) &&
+         (form.get('password').dirty || form.get('password').touched)">
+        {{ validation.message }}
+      </small>
+    </ng-container>
+  </div>
+
+
+  <ion-item >
+    <ion-label position="floating">Repita su clave</ion-label>
+    <ion-input type="password" formControlName="passConfirmada"></ion-input>
+  </ion-item>
+  <div class="validation-errors">
+    <ng-container *ngFor="let validation of mensajesValidacion.passConfirmada">
+      <small
+        *ngIf="form.get('passConfirmada').hasError(validation.type) && 
+        (form.get('passConfirmada').dirty || form.get('passConfirmada').touched)">
+        {{ validation.message }}
+      </small>
+    </ng-container>
+  </div>
+
   <ion-item *ngIf="!esCliente">
     <ion-label position="floating">Perfil</ion-label>
-    <ion-select [(ngModel)]="usuario.perfil" name="profile" placeholder="Seleccione perfil" required>
+    <ion-select formControlName="perfil" placeholder="Seleccione perfil" >
       <ion-select-option value="mozo">Mozo</ion-select-option>
       <ion-select-option *ngIf="perfilEmpleado == 'supervisor'" value="metre">Metre</ion-select-option>
       <ion-select-option value="cocinero">Cocinero</ion-select-option>
@@ -37,6 +113,7 @@
       <ion-select-option *ngIf="perfilEmpleado == 'supervisor' || perfilEmpleado == 'dueño'" value="supervisor">Supervisor</ion-select-option>
     </ion-select>
   </ion-item>
-  <ion-button color="medium" (click)="tomarFoto()">Sacar Foto</ion-button>
-  <ion-button color="medium" (click)="registro()">Registrar</ion-button>
+  <!-- <ion-button color="medium" (click)="tomarFoto()">Sacar Foto</ion-button> -->
+  <!-- <ion-button color="medium" type="submit" [disabled]="!form.valid" >Registrar</ion-button> -->
+  <ion-button color="success" type="submit" [disabled]="!form.valid" >Registrar</ion-button>
 </form>

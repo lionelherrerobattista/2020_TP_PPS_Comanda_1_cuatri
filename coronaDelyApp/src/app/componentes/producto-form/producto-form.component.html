@@ -1,4 +1,4 @@
-<ion-button color="medium" (click)="scannearQR()">Escanear QR</ion-button>
+<ion-button color="scanner" (click)="scannearQR()">Escanear QR</ion-button>
 <form class="form">
   <ion-list lines="full" class="ion-no-margin ion-no-padding">
     <ion-item class="group">
@@ -33,8 +33,8 @@
   <ion-button color="medium" (click)="tomarFoto()" [disabled]="producto.nombre == undefined || producto.nombre == ''">Tomar
     Foto</ion-button>
 
-  <ion-button color="medium" (click)="registro()" *ngIf="!esModificacion">Registrar</ion-button>
-  <ion-button color="medium" (click)="registro()" *ngIf="esModificacion">Modificar</ion-button>
+  <ion-button color="success" (click)="registro()" *ngIf="!esModificacion">Registrar</ion-button>
+  <ion-button color="success" (click)="registro()" *ngIf="esModificacion">Modificar</ion-button>
 
   <br>
 
