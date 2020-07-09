@@ -51,5 +51,8 @@ export class PedidoPage implements OnInit {
     this.pedido = undefined;
     this.pedidoTomado = false;
   }
+  inicio(){
+    this.router.navigate([`/home`]);
+  }
 
 }

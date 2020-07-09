@@ -106,6 +106,7 @@ export class LoginPage implements OnInit {
         this.loadingService.closeLoading("Error", "Verifique usuario y contraseña", 'error');
       });
   }
-
+ 
+ 
 
 }

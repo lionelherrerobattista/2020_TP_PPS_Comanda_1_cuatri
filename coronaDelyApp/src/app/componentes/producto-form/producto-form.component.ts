@@ -13,7 +13,7 @@ import { NotificacionesService } from 'src/app/servicios/notificaciones.service'
 })
 export class ProductoFormComponent implements OnInit {
 
-  private dispositivo="mobile";
+  private dispositivo="mobile";//cambiar para probar en web
 
   @Input() idProducto: string = "";
   private producto:Producto;
@@ -99,6 +99,6 @@ export class ProductoFormComponent implements OnInit {
 
   scannearQR(){
     let data = this.qrscannerService.scanQr();
-    alert(data);
+    // alert(data);
   }
 }
