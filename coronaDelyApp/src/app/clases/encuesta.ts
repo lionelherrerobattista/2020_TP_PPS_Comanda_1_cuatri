@@ -18,7 +18,7 @@ export class Encuesta {
     tipo:TipoEncuesta;
     usuario:Usuario;
 
-    constructor(preguntas:Pregunta[], usuario:Usuario, tipo:TipoEncuesta) {
+    constructor(preguntas:Pregunta[], tipo:TipoEncuesta, usuario?:Usuario) {
         this.preguntas = preguntas;
         this.usuario = usuario;
         this.tipo = tipo;

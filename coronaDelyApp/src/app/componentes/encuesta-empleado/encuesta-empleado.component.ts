@@ -88,7 +88,7 @@ export class EncuestaEmpleadoComponent implements OnInit {
     this.preguntas.push(preguntaCuatro);
     this.preguntas.push(preguntaCinco);
     
-    encuesta = new Encuesta(this.preguntas, this.empleado, TipoEncuesta.empleado);
+    encuesta = new Encuesta(this.preguntas, TipoEncuesta.empleado,  this.empleado);
 
     //Guardar encuesta en firebase
     this.encuestaService.createEncuesta(encuesta).then( referecia => {

@@ -23,12 +23,14 @@ const routes: Routes = [
   { path: 'delivery', loadChildren: './pages/delivery/delivery.module#DeliveryPageModule' },
   { path: 'juego', loadChildren: './pages/juego/juego.module#JuegoPageModule' },
   { path: 'encuesta/:object', loadChildren: './pages/encuesta/encuesta.module#EncuestaPageModule'},
+  // { path: 'encuesta/:idUsuario', loadChildren: './pages/encuesta/encuesta.module#EncuestaPageModule'},
   { path: 'pedido/:idUsuario', loadChildren: './pages/pedido/pedido.module#PedidoPageModule' },
   { path: 'modal-menu-detalle', loadChildren: './pages/modal-menu-detalle/modal-menu-detalle.module#ModalMenuDetallePageModule' },
   { path: 'consulta/:object', loadChildren: './pages/consulta/consulta.module#ConsultaPageModule'},
   { path: 'consulta/:tipoUsuario/:id', loadChildren: './pages/consulta/consulta.module#ConsultaPageModule'},
   { path: 'modal-consulta', loadChildren: './pages/modal-consulta/modal-consulta.module#ModalConsultaPageModule' },
-  { path: 'modal-detalle-pedido', loadChildren: './pages/modal-detalle-pedido/modal-detalle-pedido.module#ModalDetallePedidoPageModule' },  { path: 'modal-modif-mesa', loadChildren: './pages/modal-modif-mesa/modal-modif-mesa.module#ModalModifMesaPageModule' },
+  { path: 'modal-detalle-pedido', loadChildren: './pages/modal-detalle-pedido/modal-detalle-pedido.module#ModalDetallePedidoPageModule' },
+  { path: 'modal-modif-mesa', loadChildren: './pages/modal-modif-mesa/modal-modif-mesa.module#ModalModifMesaPageModule' },
 
 
 
