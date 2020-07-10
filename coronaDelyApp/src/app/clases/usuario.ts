@@ -9,4 +9,5 @@ export class Usuario {
         dni:number;
         cuil:number;
         estado:string;
+        token?:string;
     }

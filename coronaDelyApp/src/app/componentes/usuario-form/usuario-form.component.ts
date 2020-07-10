@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/servicios/auth.service';
 import { Estados } from 'src/app/clases/enums/estados';
 import { Perfiles } from 'src/app/clases/enums/perfiles';
 import { FormControl,ValidatorFn, FormGroup, FormBuilder, Validators } from '@angular/forms'; 
+import { FcmService } from 'src/app/servicios/fcm.service';
 
 @Component({
   selector: 'app-usuario-form',
@@ -30,6 +31,7 @@ export class UsuarioFormComponent implements OnInit {
     private userService: UsuarioService,
     private camaraService: CamaraService,
     private qrscannerService: QrScannerService,
+    private fcm:FcmService,
   ) { 
     this.usuario = new Usuario();
     this.limpiarInputs();
@@ -94,12 +96,21 @@ export class UsuarioFormComponent implements OnInit {
   ///Guarda al cliente (pendiente de aprobación) o empleado en firebase
   ///y redirecciona al log in (cliente) o al home (empleado)
   async registro(formValues){ 
+    let token;
     console.log("registro", formValues)
     this.formUsuario(formValues);
 
     if(this.esCliente){
       this.usuario.perfil = Perfiles.cliente;
       this.usuario.estado = Estados.pendienteDeAprobacion;
+    }
+
+    //Guardo el token del dispositivo
+    token = await this.fcm.getToken();
+
+    if(token != undefined) {
+      console.log(token)
+      this.usuario.token = token;
     }
     
     await this.userService.saveUserWithLogin(this.usuario);

@@ -26,6 +26,8 @@ import { ModalConsultaPageModule } from './pages/modal-consulta/modal-consulta.m
 import { ModalDetallePedidoPageModule } from './pages/modal-detalle-pedido/modal-detalle-pedido.module';
 
 
+import { FirebaseX } from "@ionic-native/firebase-x/ngx";
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -50,6 +52,7 @@ import { ModalDetallePedidoPageModule } from './pages/modal-detalle-pedido/modal
     Camera,
     SplashScreen, 
     SplashScreen,
+    FirebaseX,
 
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
