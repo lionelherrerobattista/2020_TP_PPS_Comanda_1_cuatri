@@ -25,9 +25,18 @@ export class MozoConsultaComponent implements OnInit {
     //Cargar la lista de consultas por responder
     this.consultaService.getConsultas()
       .subscribe(consultas  => {
-      this.listaConsultas = consultas.filter(consulta => consulta.estado == EstadoConsulta.enviada);
+      this.listaConsultas = consultas.filter(consulta => consulta.estado == EstadoConsulta.enviada).sort(this.comparar);
+
     });
 
+  }
+
+  comparar(a, b) {
+    //ordeno de mayor a menor
+    if (a.hora > b.hora) return -1; 
+    if (b.hora > a.hora) return 1; //Cambio de lugar
+  
+    return 0;
   }
 
   responderConsulta(consulta) {

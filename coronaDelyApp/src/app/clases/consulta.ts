@@ -13,6 +13,7 @@ export class Consulta {
     textoConsulta:string;
     respuesta:string;
     estado:string;
+    hora:any;
 
     constructor() {
         this.textoConsulta = '';

@@ -42,6 +42,7 @@ export class EmpleadoPrepararPedidoComponent implements OnInit {
     this.pedidoService.getAllOrders().subscribe(pedidos => {
       this.productosParaPreparar = [];
       this.listaPedidos = pedidos.filter(pedido => pedido.estado == Estados.enPreparacion);
+      this.listaPedidos.sort(this.comparar);
       
       //Mostrar la lista correspondiente a cada empleado
       switch(this.tipoEmpleado) {
@@ -63,6 +64,14 @@ export class EmpleadoPrepararPedidoComponent implements OnInit {
         }
       }
     });
+  }
+
+  comparar(a, b) {
+    //ordeno de mayor a menor
+    if (a.horaPedido > b.horaPedido) return -1; 
+    if (b.horaPedido > a.horaPedido) return 1; //Cambio de lugar
+  
+    return 0;
   }
 
   async prepararProducto(producto:Producto){

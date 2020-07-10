@@ -8,6 +8,9 @@ import { LoadingService } from 'src/app/servicios/loading.service';
 import { timer } from 'rxjs';
 import { Perfiles } from 'src/app/clases/enums/perfiles';
 import { Estados } from 'src/app/clases/enums/estados';
+import { FcmService } from 'src/app/servicios/fcm.service';
+
+
 
 @Component({
   selector: 'app-login',
@@ -15,7 +18,7 @@ import { Estados } from 'src/app/clases/enums/estados';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-
+  
   public email: string;
   public password: string;
   form: FormGroup;
@@ -30,7 +33,8 @@ export class LoginPage implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private userService: UsuarioService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private fcm: FcmService,
    
   ) { }
 
@@ -84,12 +88,15 @@ export class LoginPage implements OnInit {
   }
 
   onSubmitLogin(form) {   
+
+    let token:string;
+
     this.loadingService.showLoading("Espere..");
-    console.log(form.email, form.password)
+    
     this.authService.logIn(form.email, form.password)
       .then(res => {
         this.userService.getUserById(res.user.uid)
-          .subscribe(usuario => { 
+          .subscribe(async usuario => { 
             if (usuario[0] != undefined) {
               //Dejo solo la verificación del email para el cliente
               if(usuario[0].perfil == Perfiles.cliente && res.user.emailVerified != true) {
@@ -99,6 +106,15 @@ export class LoginPage implements OnInit {
                 if(usuario[0].perfil == Perfiles.cliente && usuario[0].estado == Estados.pendienteDeAprobacion) {
                   this.loadingService.closeLoading("Error", "Todavía no se aprobó su cuenta", 'error');     
                 } else {
+                  //Guardo el token del dispositivo cuando inicia sesión
+                  token = await this.fcm.getToken();
+                                
+                  if(token != undefined) {
+                    console.log(token)
+                    usuario[0].token = token;
+                    this.userService.updateUser('usuarios',usuario[0].id, usuario[0]);
+                  }
+    
                   this.loadingService.closeLoadingAndRedirect("/home");
                 }
               }   

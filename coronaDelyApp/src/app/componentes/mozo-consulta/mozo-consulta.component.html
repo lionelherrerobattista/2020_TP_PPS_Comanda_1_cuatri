@@ -5,6 +5,7 @@
         <ion-label>
           <h2>Mesa: {{consulta.nroMesa}}</h2>
           <ion-label>Consulta: {{consulta.textoConsulta | slice:0:10}}{{consulta.textoConsulta.length > 10 ? '...' : ''}}</ion-label>
+          <ion-label *ngIf="consulta.hora != undefined">Hora: {{consulta.hora.toDate() | date:'dd/MM/yyyy HH:mm'}}</ion-label>
         </ion-label>
       </ion-item> 
   </ion-list>
