@@ -29,7 +29,7 @@ exports.notificacionNuevoCliente = functions.firestore
                 notification: {
                     title:'Nuevo cliente',
                     body:  `${perfil} esperando aprobación` ,
-                    icon:'https://firebasestorage.googleapis.com/v0/b/coronadelyapp.appspot.com/o/icon.png?alt=media&token=e46394bd-a2c8-4b75-8dcb-0fb58316928b'
+                    icon:'drawable-xxxhdpi-icon'
                 }
             }
 

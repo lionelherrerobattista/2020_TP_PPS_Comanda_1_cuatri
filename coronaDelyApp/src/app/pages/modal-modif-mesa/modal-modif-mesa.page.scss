@@ -5,12 +5,12 @@ main{
    background-color: aquamarine
 }
 
-.item-cliente {
+.item-mesa {
     display:flex;
     flex-direction: column;
 }
 
-.form-cliente{
+.form-mesa{
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -19,7 +19,7 @@ main{
 
 }
 
-.input-cliente {
+.input-mesa {
     font-style: italic!important;
 }
 

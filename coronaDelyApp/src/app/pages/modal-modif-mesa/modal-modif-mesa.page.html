@@ -1,0 +1,30 @@
+
+<form class="form" *ngIf="mesa.estado != 'ocupada'">
+    <ion-item>
+      <ion-label position="floating">Número</ion-label>
+      <ion-input type="text" required [(ngModel)]="mesa.numero" name="numero" disabled></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Número de Comensales</ion-label>
+      <ion-input type="text" required [(ngModel)]="mesa.nroComensales" name="nroComensales"></ion-input>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label position="floating">Tipo</ion-label>
+      <ion-input type="text" required [(ngModel)]="mesa.tipo" name="tipo"></ion-input>
+    </ion-item>
+   
+    <!-- <ion-item >
+      <ion-label position="floating">Estado</ion-label>
+      <ion-select [(ngModel)]="mesa.estado" name="estado" placeholder="Seleccione estado" required>
+        <ion-select-option value="disponile">Disponible</ion-select-option>
+        <ion-select-option value="ocupada">Ocupada</ion-select-option>
+      </ion-select>
+    </ion-item> -->
+    <!-- <ion-button color="medium" (click)="tomarFoto()">Sacar Foto</ion-button> -->
+    <ion-button color="success" (click)="cerrarModal()">Cancelar</ion-button>
+    <ion-button color="success" (click)="actualizarMesa()">Actualizar Datos</ion-button>
+  </form>
+  
+  
+ 
