@@ -113,7 +113,7 @@
       <ion-select-option *ngIf="perfilEmpleado == 'supervisor' || perfilEmpleado == 'dueño'" value="supervisor">Supervisor</ion-select-option>
     </ion-select>
   </ion-item>
-  <!-- <ion-button color="medium" (click)="tomarFoto()">Sacar Foto</ion-button> -->
+  <ion-button color="success" [disabled]="!form.valid" (click)="tomarFoto()">Sacar Foto</ion-button>
   <!-- <ion-button color="medium" type="submit" [disabled]="!form.valid" >Registrar</ion-button> -->
   <ion-button color="success" type="submit" [disabled]="!form.valid" >Registrar</ion-button>
 </form>

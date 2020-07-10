@@ -1,7 +1,15 @@
+<ion-header>
+    <ion-toolbar color="titulo"> 
+        <ion-button slot="start" fill="clear"> 
+            <ion-icon name="list"></ion-icon>
+        </ion-button>     
+      <ion-title>Detalle Pedido</ion-title>  
+    </ion-toolbar>
+  </ion-header>
 
 <div id="contenedor">
   <h1>Su pedido</h1>
-
+  
   <ion-list>
     <ion-item *ngFor="let producto of productos" >
       <ion-icon name="restaurant"></ion-icon>
@@ -15,7 +23,7 @@
   
   <div id="div-botones">
     <ion-button color="danger" (click)="cerrarModal()">Cancelar</ion-button>
-    <ion-button color="success" (click)="crearPedido()">Pedir</ion-button>
+    <ion-button color="success" (click)="crearPedido()">Confirmar</ion-button>
   </div>
 </div>
   

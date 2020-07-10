@@ -91,7 +91,7 @@ export class SupervisorListaEsperaComponent implements OnInit {
     const modal = await this.modalController.create({
       component: ModalModifUsuarioPage,
       componentProps: {
-        usuario: datos,
+         usuario: datos,
       }
     });
 
