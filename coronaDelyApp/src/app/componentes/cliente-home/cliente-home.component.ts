@@ -31,7 +31,6 @@ export class ClienteHomeComponent implements OnInit {
   @Input()usuario: Usuario;
   cliente:Cliente;
   tieneReserva:boolean;
-  recepcionPedidoConfirmada:boolean;
 
   constructor(
     private authService: AuthService,
@@ -44,7 +43,6 @@ export class ClienteHomeComponent implements OnInit {
     private modalController:ModalController,
     public toastController: ToastController,
   ) {
-    this.recepcionPedidoConfirmada = false;
     
   }
 
@@ -166,8 +164,6 @@ export class ClienteHomeComponent implements OnInit {
       //Actualizar el pedido en el cliente y en la lista pedidos
       this.usuarioService.updateUser('usuarios', this.cliente.id, this.cliente);
       this.pedidoService.updateOrder(this.cliente.pedido.id, this.cliente.pedido);
-      
-      this.recepcionPedidoConfirmada = true;
     }
     
   }
