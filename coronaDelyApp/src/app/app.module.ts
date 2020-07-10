@@ -21,6 +21,8 @@ import { FormsModule } from '@angular/forms'
 import { ReactiveFormsModule} from '@angular/forms' 
 import { firebaseConfig } from 'src/environments/environment';
 import { ModalModifUsuarioPageModule } from './pages/modal-modif-usuario/modal-modif-usuario.module';
+import { ModalModifMesaPageModule } from './pages/modal-modif-mesa/modal-modif-mesa.module';
+
 import { ModalMenuDetallePageModule } from './pages/modal-menu-detalle/modal-menu-detalle.module';
 import { ModalConsultaPageModule } from './pages/modal-consulta/modal-consulta.module';
 import { ModalDetallePedidoPageModule } from './pages/modal-detalle-pedido/modal-detalle-pedido.module';
@@ -39,6 +41,7 @@ import { FirebaseX } from "@ionic-native/firebase-x/ngx";
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
     ModalModifUsuarioPageModule,
+    ModalModifMesaPageModule,
     ModalConsultaPageModule,
     ModalMenuDetallePageModule,
     ModalDetallePedidoPageModule,

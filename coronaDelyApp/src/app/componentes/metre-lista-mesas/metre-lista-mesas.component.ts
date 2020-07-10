@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { UsuarioService } from 'src/app/servicios/usuario.service';
-import { Usuario } from 'src/app/clases/usuario';
 import { AlertController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
-import { ModalModifUsuarioPage } from 'src/app/pages/modal-modif-usuario/modal-modif-usuario.page';
 import { Mesa } from 'src/app/clases/mesa';
 import { MesaService } from 'src/app/servicios/mesa.service';
+import { ModalModifMesaPage } from 'src/app/pages/modal-modif-mesa/modal-modif-mesa.page';
 
 @Component({
   selector: 'app-metre-lista-mesas',
@@ -94,14 +92,15 @@ export class MetreListaMesasComponent implements OnInit {
   }
 
   async mostrarModal(datos) {
-    const modal = await this.modalController.create({
-      component: ModalModifUsuarioPage,
-      componentProps: {
-        usuario: datos,
-      }
-    });
-
-    return await modal.present();
+    if (datos.estado!='ocupada'){
+      const modal = await this.modalController.create({
+        component: ModalModifMesaPage,
+        componentProps: {
+          mesa: datos,
+        }
+      });
+      return await modal.present();
+    }
   }
 
 }

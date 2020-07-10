@@ -32,7 +32,7 @@ export class MesaFormComponent implements OnInit {
     });
   }  
 
-  takePhoto(){   
+  tomarFoto(){   
     this.camaraService.tomarFoto('mesas', Date.now());
   }
 
