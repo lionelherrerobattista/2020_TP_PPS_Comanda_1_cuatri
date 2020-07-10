@@ -9,6 +9,7 @@ import { Estados } from 'src/app/clases/enums/estados';
 import { Perfiles } from 'src/app/clases/enums/perfiles';
 import { FormControl,ValidatorFn, FormGroup, FormBuilder, Validators } from '@angular/forms'; 
 import { FcmService } from 'src/app/servicios/fcm.service';
+import { Pedido } from 'src/app/clases/pedido';
 
 @Component({
   selector: 'app-usuario-form',
