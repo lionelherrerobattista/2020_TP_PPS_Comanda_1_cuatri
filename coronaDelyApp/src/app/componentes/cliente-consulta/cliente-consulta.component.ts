@@ -50,6 +50,7 @@ export class ClienteConsultaComponent implements OnInit {
     this.consulta.textoConsulta = this.textoCliente;
     this.consulta.nroMesa = this.cliente.mesa.numero;
     this.consulta.idCliente = this.usuario.id;
+    this.consulta.hora = new Date();
     let idConsulta = await this.consultaService.createConsulta(this.consulta);
     let indice:number;
     let encontroConsulta = false;

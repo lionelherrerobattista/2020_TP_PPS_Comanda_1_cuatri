@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "453398416579",
+    "firebase_url": "https://coronadelyapp.firebaseio.com",
+    "project_id": "coronadelyapp",
+    "storage_bucket": "coronadelyapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:453398416579:android:27369d1e6140c3dc622676",
+        "android_client_info": {
+          "package_name": "com.corona.coronaDely"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "453398416579-vrvlqpr14noghql1rffhb95hc9rvdne0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWA-WCswZq1N8mqH5G7nJRYI9Rn52Fg9Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "453398416579-vrvlqpr14noghql1rffhb95hc9rvdne0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

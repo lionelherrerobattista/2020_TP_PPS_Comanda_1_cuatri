@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/servicios/auth.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { Usuario } from 'src/app/clases/usuario';
@@ -20,6 +20,7 @@ export class ConsultaPage implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
+    private router:Router,
     private usuarioService:UsuarioService,
   ) { }
 
@@ -38,4 +39,7 @@ export class ConsultaPage implements OnInit {
     
   }
 
+  inicio(){
+    this.router.navigate([`/home`]);
+  }
 }

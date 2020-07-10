@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-encuesta',
@@ -12,10 +12,13 @@ export class EncuestaPage implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
+    private router:Router,
   ) { }
 
   ngOnInit() {
     this.object = this.activatedRoute.snapshot.paramMap.get('object');
   }
-
+  inicio(){
+    this.router.navigate([`/home`]);
+  }
 }

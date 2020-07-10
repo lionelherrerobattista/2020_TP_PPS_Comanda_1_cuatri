@@ -30,7 +30,17 @@ export class MozoListaPedidosComponent implements OnInit {
     this.pedidoService.getAllOrders().subscribe(pedidos => {
       this.listaPedidos = pedidos;
       this.listaParaMostrar = this.listaPedidos;
+      this.listaParaMostrar.sort(this.comparar);
     });
+  }
+
+  
+  comparar(a, b) {
+    //ordeno de mayor a menor
+    if (a.horaPedido > b.horaPedido) return -1; 
+    if (b.horaPedido > a.horaPedido) return 1; //Cambio de lugar
+  
+    return 0;
   }
 
   filtrarPedidos(filtro) {
@@ -39,8 +49,8 @@ export class MozoListaPedidosComponent implements OnInit {
       this.listaParaMostrar = this.listaPedidos;
     } else {
       this.listaParaMostrar = this.listaPedidos.filter(pedido => pedido.estado == this.filtro);
-    }
-    
+    }   
+    this.listaParaMostrar.sort(this.comparar);
   }
 
   servir(pedido:Pedido){

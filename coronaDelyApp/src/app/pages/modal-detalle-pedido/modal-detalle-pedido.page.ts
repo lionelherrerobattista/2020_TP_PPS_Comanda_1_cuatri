@@ -97,6 +97,7 @@ export class ModalDetallePedidoPage implements OnInit {
     this.mostrarTotal = true;
     this.total = this.pedido.precioTotal + this.gradoSatisfaccion;
 
+    this.cliente.pedido.propina = this.gradoSatisfaccion;
     this.cliente.pedido.precioTotal = this.total;
 
   }

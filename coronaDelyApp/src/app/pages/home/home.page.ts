@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import { Usuario } from 'src/app/clases/usuario';
 import { AuthService } from 'src/app/servicios/auth.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
+import { FcmService } from 'src/app/servicios/fcm.service';
 
 
 @Component({
@@ -20,11 +21,8 @@ export class HomePage {
     private authService: AuthService,
     private usuarioService: UsuarioService,
     private activatedRoute: ActivatedRoute,
-  ) {
-
     
-    
-    }
+  ) { }
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(params => {
@@ -42,6 +40,7 @@ export class HomePage {
         
         this.usuario=userData[0];
         console.log(this.usuario)
+       
         
       });
     });

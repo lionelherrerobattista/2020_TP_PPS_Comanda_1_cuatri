@@ -1,11 +1,11 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-title>Registro de {{object}}</ion-title>
-  </ion-toolbar>
-</ion-header>
+    <ion-toolbar color="titulo">
+        <ion-button slot="start" fill="clear" (click)="inicio()"> 
+            <ion-icon name="arrow-back"></ion-icon>
+        </ion-button>
+      <ion-title>Registro de {{object}}</ion-title>  
+    </ion-toolbar>
+  </ion-header>
 
 <ion-content>
   <app-usuario-form *ngIf="(object == 'cliente' || object == 'usuario' )" [perfilEmpleado]="perfilEmpleado" [esCliente]="object == 'cliente'"></app-usuario-form>

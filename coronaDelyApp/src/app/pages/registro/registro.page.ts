@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/servicios/auth.service';
 import { Usuario } from 'src/app/clases/usuario';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
@@ -18,6 +18,7 @@ export class RegistroPage implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private authService: AuthService,
+    private router:Router,
     private usuarioService: UsuarioService,
     
     ) { }
@@ -33,6 +34,10 @@ export class RegistroPage implements OnInit {
           this.perfilEmpleado=userData[0].perfil;         
         })
     }
+  }
+
+  inicio(){
+    this.router.navigate([`/home`]);
   }
 
 }

@@ -24,7 +24,7 @@ export class AuthService {
       this.AFauth.auth.signInWithEmailAndPassword(email, password)
        .then(respuesta => {  
 
-        // respuesta.user.sendEmailVerification()
+          
           
           resolve(respuesta);
         }).catch(error => {reject(error)});

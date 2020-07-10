@@ -1,4 +1,4 @@
-<ion-button color="medium" (click)="scan()">Escanear DNI</ion-button>
+<ion-button color="scanner" (click)="scan()">Escanear DNI</ion-button>
 <form class="form" [formGroup]="form" (ngSubmit)="registro(form.value)">
   
   <!-- NOMBRE -->
@@ -115,5 +115,5 @@
   </ion-item>
   <!-- <ion-button color="medium" (click)="tomarFoto()">Sacar Foto</ion-button> -->
   <!-- <ion-button color="medium" type="submit" [disabled]="!form.valid" >Registrar</ion-button> -->
-  <ion-button color="medium" type="submit" [disabled]="!form.valid" >Registrar</ion-button>
+  <ion-button color="success" type="submit" [disabled]="!form.valid" >Registrar</ion-button>
 </form>
