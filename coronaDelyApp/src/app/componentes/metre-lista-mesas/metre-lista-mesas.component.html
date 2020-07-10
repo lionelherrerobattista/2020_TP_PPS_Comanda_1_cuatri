@@ -1,0 +1,26 @@
+<div id="div-filtro-estados">
+    <ion-label position="floating">Estado a mostrar:</ion-label>
+    <ion-select [(ngModel)]="filtro" (ionChange)="filtrarLista()" name="filtro" placeholder="Seleccione estado" required>
+      <ion-select-option value="todas">Todos</ion-select-option>
+      <ion-select-option value="ocupada">Ocupada</ion-select-option>
+      <ion-select-option value="disponible">Disponible</ion-select-option>
+    </ion-select>
+  </div>
+  
+  <ion-list>
+    <ion-item-sliding  *ngFor="let mesa of listaMesas">
+      <ion-item (click)="modificarMesa(mesa)">
+        <ion-avatar *ngIf="mesa.foto != undefined" slot="start">
+          <img [src]="[mesa.foto]">
+        </ion-avatar>
+        <ion-label>
+          <h2>{{mesa.numero}}</h2>
+          <h3>{{mesa.nroComensales}}</h3>
+        </ion-label>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option (click)="eliminarMesa(mesa)">Eliminar</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+    
+  </ion-list>

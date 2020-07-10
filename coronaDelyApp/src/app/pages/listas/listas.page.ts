@@ -26,10 +26,13 @@ export class ListasPage implements OnInit {
     this.object = this.activatedRoute.snapshot.paramMap.get('object');
 
     switch(this.object) {
+  
       case "listaEsperaMetre":
-        this.titulo = "Lista de espera de clientes"
+        this.titulo = "Lista de espera de clientes";
+      case "mesas":
+        this.titulo = "Lista de Mesas"
     }
-
+    console.log(this.object);
     if(this. object != 'cliente') {
       let user = this.authService.getCurrentUser();
       this.usuarioService.getUserById(user.uid)

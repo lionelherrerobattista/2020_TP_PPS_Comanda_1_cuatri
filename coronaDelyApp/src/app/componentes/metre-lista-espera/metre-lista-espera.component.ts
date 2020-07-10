@@ -58,7 +58,7 @@ export class MetreListaEsperaComponent implements OnInit {
 
   ///Modifica el estado del cliente para que pueda tomar una mesa
   aceptarCliente(cliente:Usuario) {
-
+    console.log("aceptar cliente")
     this.clienteAux=cliente;
     cliente.estado = Estados.puedeTomarMesa ;
     this.clienteAux.estado=cliente.estado;

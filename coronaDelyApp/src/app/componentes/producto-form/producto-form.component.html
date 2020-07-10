@@ -18,9 +18,9 @@
       <ion-label for="precio" class="label" position="floating">Precio</ion-label>
       <ion-input type="number" class="input" [(ngModel)]="producto.precio" name="precio" required></ion-input>
     </ion-item>
-
     <ion-item class="group">
-      <ion-label for="pass" class="label" position="floating">Sector</ion-label>
+      <ion-label for="sector" class="label" position="floating">Sector</ion-label>
+      <br>
       <ion-select placeholder="Seleccione un sector" [(ngModel)]="producto.sector" name="sector">
         <ion-select-option value="cocinero">Cocina</ion-select-option>
         <ion-select-option value="bartender">Barra</ion-select-option>
@@ -30,7 +30,7 @@
 
   </ion-list>
   <br>
-  <ion-button color="medium" (click)="tomarFoto()" [disabled]="producto.nombre == undefined || producto.nombre == ''">Tomar
+  <ion-button color="success" (click)="tomarFoto()" [disabled]="producto.nombre == undefined || producto.nombre == ''">Tomar
     Foto</ion-button>
 
   <ion-button color="success" (click)="registro()" *ngIf="!esModificacion">Registrar</ion-button>

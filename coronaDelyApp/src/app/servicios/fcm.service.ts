@@ -9,7 +9,7 @@ import { Platform } from '@ionic/angular';
 })
 export class FcmService {
 
-  dispositivo = 'mobile';//cambiar a web si se quiere probar en celular
+  dispositivo = 'web';//cambiar a web si se quiere probar en celular
 
   constructor(
     private firebase: FirebaseX,
