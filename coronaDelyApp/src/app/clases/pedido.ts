@@ -11,6 +11,7 @@ export class Pedido {
     precioTotal?:number;
     estado?:Estados;
     horaPedido:any;
+    propina?:number;
 
     constructor(productos:Producto[], idCliente:string, mesa:Mesa) {
         

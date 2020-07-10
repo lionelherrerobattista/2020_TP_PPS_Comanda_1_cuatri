@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { PedidoService } from 'src/app/servicios/pedido.service';
 import { Producto } from 'src/app/clases/producto';
 import { Pedido } from 'src/app/clases/pedido';
@@ -21,6 +21,7 @@ export class ModalMenuDetallePage implements OnInit {
   total:number;
 
   constructor(
+    private toastController: ToastController,
     private modalController:ModalController,
     private pedidoService:PedidoService,
     private usuarioService:UsuarioService,
@@ -42,15 +43,26 @@ export class ModalMenuDetallePage implements OnInit {
 
     let pedido:Pedido = new Pedido(this.productos, this.cliente.id, this.mesa);
     this.cliente.pedido = Object.assign({}, pedido);
-    this.cliente.pedido.mesa = undefined;
+    
     
     await this.pedidoService.createPedido(pedido);
+    
+    delete this.cliente.pedido.mesa;//Para no guardar dos veces el mismo dato
     await this.usuarioService.updateUser(Elementos.Usuarios, this.cliente.id, this.cliente);
+
+    this.mostrarToast('Se creó la orden del pedido');
 
     this.cerrarModal();
 
   }
 
+  async mostrarToast(mensaje:string) {
+    const toast = await this.toastController.create({
+      message: mensaje,
+      duration: 2000
+    });
+    toast.present();
+  }
 
   async cerrarModal() {
     await this.modalController.dismiss();
