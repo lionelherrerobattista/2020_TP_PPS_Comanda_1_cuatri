@@ -1,23 +1,21 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Router } from '@angular/router';
-import { isNullOrUndefined } from 'util';
 import { QrScannerService } from 'src/app/servicios/qrscanner.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { AuthService } from 'src/app/servicios/auth.service';
 import { Usuario } from 'src/app/clases/usuario';
 import { Estados } from 'src/app/clases/enums/estados';
-import { Mesa } from 'src/app/clases/mesa';
 import { NotificacionesService } from 'src/app/servicios/notificaciones.service';
 import { MesaService } from 'src/app/servicios/mesa.service';
 import { TipoDeNotificacion } from 'src/app/clases/enums/tipo-de-notificacion';
 import { DataService } from 'src/app/servicios/data.service';
 import { Elementos } from 'src/app/clases/enums/elementos';
-import { Perfiles } from 'src/app/clases/enums/perfiles';
 import { first } from 'rxjs/operators';
 import { PedidoService } from 'src/app/servicios/pedido.service';
 import { Cliente } from 'src/app/clases/cliente';
 import { ModalDetallePedidoPage } from 'src/app/pages/modal-detalle-pedido/modal-detalle-pedido.page';
 import { ModalController, ToastController } from '@ionic/angular';
+import { Pedido } from 'src/app/clases/pedido';
+// import { ModalPedidoClientePage } from 'src/app/pages/modal-pedido-cliente/modal-pedido-cliente.page';
 
 
 
@@ -31,6 +29,10 @@ export class ClienteHomeComponent implements OnInit {
   @Input()usuario: Usuario;
   cliente:Cliente;
   tieneReserva:boolean;
+  
+  listaPedidos:Pedido[];
+  listaParaMostrar:Pedido[];
+  filtro:string;
 
   constructor(
     private authService: AuthService,
@@ -47,7 +49,9 @@ export class ClienteHomeComponent implements OnInit {
   }
 
   ngOnInit(){
-    
+    this.pedidoService.getAllOrders().subscribe(pedidos => {
+      this.listaPedidos = pedidos;      
+    });
 
     //A ver si funciona
     this.usuarioService.getUser(this.usuario.id).subscribe( usuario => {
@@ -57,6 +61,16 @@ export class ClienteHomeComponent implements OnInit {
     
     
   }
+  filtrarPedidos(cliente) {
+ 
+      this.listaParaMostrar = this.listaPedidos.filter(pedido => pedido.idCliente == cliente.id);
+      console.log( this.listaParaMostrar);  
+      // mostrarModal
+      this.mostrarModal(this.cliente);
+  }
+
+
+
 
   irAListaEspera() {
     this.usuarioService.setDocument(Elementos.ListaDeEspera, this.usuario.id.toString(),
@@ -111,7 +125,10 @@ export class ClienteHomeComponent implements OnInit {
               this.asignarMesa(tableId, this.usuario.id);
               break;
             case Estados.atendido:
-              this.mostrarEstadoPedido();
+              this.mostrarEstadoPedido(this.usuario);
+              break;
+            case Estados.mesaAsignada:
+              this.hacerPedido();
               break;
           }
         });
@@ -121,8 +138,8 @@ export class ClienteHomeComponent implements OnInit {
           case Estados.puedeTomarMesa:
             this.asignarMesa("oZMjb6EkSIyZ9yXAEWXY", this.usuario.id);
             break;
-          case Estados.atendido:
-            this.mostrarEstadoPedido();
+          case Estados.atendido: //usuario ptorrealba.utn@gmail.com
+            this.mostrarEstadoPedido("7jZ8daCBSgVDPxMSdZdDezHqaMZ2");
             break;
         }
         // paso el id de la mesa 1 para probar en web
@@ -174,10 +191,14 @@ export class ClienteHomeComponent implements OnInit {
     
   }
 
-  mostrarEstadoPedido(){
-    console.log('muestro el estado');
+  mostrarEstadoPedido(cliente){
+    console.log("clienteId",cliente)
+    this.filtrarPedidos(cliente);
   }
 
+  hacerPedido(){
+    console.log('voy a acer pedido');
+  }
   pedirCuenta(){ 
     this.mostrarModal(this.usuario);
   }

@@ -1,5 +1,6 @@
 <div id="contenedor">
 
+  <ion-label>{{pedido.estado}}</ion-label>
   <app-pedido-detalle [pedido]="pedido"></app-pedido-detalle>
   <div *ngIf="perfil == 'cliente' || perfil == 'cliente anonimo'">
     <ion-label>

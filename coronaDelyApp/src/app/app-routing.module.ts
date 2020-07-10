@@ -29,6 +29,7 @@ const routes: Routes = [
   { path: 'consulta/:tipoUsuario/:id', loadChildren: './pages/consulta/consulta.module#ConsultaPageModule'},
   { path: 'modal-consulta', loadChildren: './pages/modal-consulta/modal-consulta.module#ModalConsultaPageModule' },
   { path: 'modal-detalle-pedido', loadChildren: './pages/modal-detalle-pedido/modal-detalle-pedido.module#ModalDetallePedidoPageModule' },  { path: 'modal-modif-mesa', loadChildren: './pages/modal-modif-mesa/modal-modif-mesa.module#ModalModifMesaPageModule' },
+  { path: 'modal-pedido-cliente', loadChildren: './pages/modal-pedido-cliente/modal-pedido-cliente.module#ModalPedidoClientePageModule' },
 
 
 
