@@ -1,7 +1,6 @@
 <div id="div-filtro-estados">
     <ion-label position="floating">Estado a mostrar:</ion-label>
     <ion-select [(ngModel)]="filtro" (ionChange)="filtrarLista()" name="filtro" placeholder="Seleccione estado" required>
-      <ion-select-option value="todas">Todos</ion-select-option>
       <ion-select-option value="ocupada">Ocupada</ion-select-option>
       <ion-select-option value="disponible">Disponible</ion-select-option>
     </ion-select>
@@ -14,8 +13,9 @@
           <img [src]="[mesa.foto]">
         </ion-avatar>
         <ion-label>
-          <h2>{{mesa.numero}}</h2>
-          <h3>{{mesa.nroComensales}}</h3>
+          <h2>Numero de Mesa: {{mesa.numero}}</h2>
+          <h3>Cantidad de comensales: {{mesa.nroComensales}}</h3>
+          <h3>Estado: {{mesa.estado}}</h3>
         </ion-label>
       </ion-item>
       <ion-item-options side="end">
