@@ -41,19 +41,52 @@ export class ModalMenuDetallePage implements OnInit {
   ///Guarda el pedido en Firebase
   async crearPedido() {
 
-    let pedido:Pedido = new Pedido(this.productos, this.cliente.id, this.mesa);
-    this.cliente.pedido = Object.assign({}, pedido);
-    
-    
-    await this.pedidoService.createPedido(pedido);
-    
+    let pedido:Pedido;
+    let productoCargado;
+    let indice;
+    let precioTotal;
+
+    if(this.cliente.pedido == undefined) {
+      this.cliente.pedido = Object.assign({}, pedido);
+      pedido = new Pedido(this.productos, this.cliente.id, this.mesa);
+      await this.pedidoService.createPedido(pedido);
+      
+    } else {
+      //Agregar el producto a la lista ya creada
+      for(let producto of this.productos) {
+        productoCargado = false;
+
+        for(let productoPedido of this.cliente.pedido.productos) {
+
+          if(producto.id == productoPedido.id) {
+
+            indice = this.cliente.pedido.productos.indexOf(productoPedido);
+
+            this.cliente.pedido.productos[indice].cantidad += producto.cantidad;
+            productoCargado = true; 
+          }
+        }
+
+        if(productoCargado == false) {
+          this.cliente.pedido.productos.push(producto);
+        }
+        
+      }
+
+      //Vuelvo a calcular el precio
+      precioTotal = Pedido.calcularPrecioTotalPedido(this.cliente.pedido);
+
+      this.cliente.pedido.precioTotal = precioTotal;
+
+      await this.pedidoService.updateOrder(this.cliente.pedido.id, this.cliente.pedido);   
+    }
+
     delete this.cliente.pedido.mesa;//Para no guardar dos veces el mismo dato
     await this.usuarioService.updateUser(Elementos.Usuarios, this.cliente.id, this.cliente);
 
     this.mostrarToast('Se creó la orden del pedido');
 
     this.cerrarModal();
-
   }
 
   async mostrarToast(mensaje:string) {

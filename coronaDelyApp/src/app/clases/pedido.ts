@@ -39,4 +39,14 @@ export class Pedido {
 
         return total;
     }
+
+    static calcularPrecioTotalPedido(pedido:Pedido):number {
+        let total = 0;
+
+        for(let auxProducto of pedido.productos) {
+            total += (auxProducto.precio * auxProducto.cantidad);
+        }
+
+        return total;
+    }
 }
