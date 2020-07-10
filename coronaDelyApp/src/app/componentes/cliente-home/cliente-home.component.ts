@@ -47,9 +47,15 @@ export class ClienteHomeComponent implements OnInit {
   }
 
   ngOnInit(){
-    console.log(this.usuario);
-    this.cliente = <Cliente>this.usuario;
-    console.log(this.cliente);
+    
+
+    //A ver si funciona
+    this.usuarioService.getUser(this.usuario.id).subscribe( usuario => {
+      this.cliente = <Cliente>this.usuario;
+      console.log(this.cliente);
+    })
+    
+    
   }
 
   irAListaEspera() {

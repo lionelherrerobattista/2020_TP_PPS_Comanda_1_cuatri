@@ -16,8 +16,12 @@
     
   </div>
   <ion-button color="primary"  *ngIf="!mostrarTotal && perfil != 'mozo'" (click)="calcularTotal()">Calcular total</ion-button>
+  <div class="div-total" *ngIf="perfil == 'mozo' && pedido.estado == 'confirmar pago'">
+    <ion-label   id="lbl-limpieza">Propina: $ {{pedido.propina}}</ion-label>
+  </div>
   
-  <div id="div-total"*ngIf="mostrarTotal || perfil == 'mozo'">
+  
+  <div class="div-total" *ngIf="mostrarTotal || perfil == 'mozo'">
     <ion-label id="total" >Total $ {{total}}</ion-label>
   </div>
     

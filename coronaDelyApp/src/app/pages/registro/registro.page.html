@@ -7,8 +7,6 @@
     </ion-toolbar>
   </ion-header>
 
-
-
 <ion-content>
   <app-usuario-form *ngIf="(object == 'cliente' || object == 'usuario' )" [perfilEmpleado]="perfilEmpleado" [esCliente]="object == 'cliente'"></app-usuario-form>
   <app-mesa-form *ngIf="object == 'mesa'"></app-mesa-form>

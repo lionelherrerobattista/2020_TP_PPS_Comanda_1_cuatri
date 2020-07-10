@@ -7,9 +7,10 @@ import { Platform } from '@ionic/angular';
 @Injectable({
   providedIn: 'root'
 })
-export class FcmService {
+export class FcmService {  
 
-  dispositivo = 'web';//cambiar a web si se quiere probar en celular
+  dispositivo = 'mobile';//cambiar a web si se quiere probar en internet
+
 
   constructor(
     private firebase: FirebaseX,
