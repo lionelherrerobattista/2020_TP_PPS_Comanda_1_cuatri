@@ -76,7 +76,9 @@
 
 El cliente que ingresa al local puede descargar la aplicación puede registrarse o iniciar sesión como un usuario anónimo.
 
-![Alt text](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/blob/lherrerob/coronaDelyApp/src/assets/screens_readme/Screenshot_20200710-215536.png?raw=true)
+<p align="center">
+    <img src="coronaDelyApp\src\assets\screens_readme\Screenshot_20200710-215536.png" alt="drawing" width="400"/>
+</p>
 
 ### Registro cliente
 
