@@ -139,9 +139,6 @@ export class ClienteHomeComponent implements OnInit {
             case Estados.atendido:
               this.mostrarEstadoPedido(tableId,this.usuario.id);
               break;
-            case Estados.atendido:
-              this.mostrarEstadoPedido(tableId,this.usuario.id);
-              break;
             case Estados.mesaAsignada:
               this.hacerPedido();
               break;
@@ -159,13 +156,7 @@ export class ClienteHomeComponent implements OnInit {
             this.mostrarEstadoPedido(tableId,clienteId );
             break;
         }
-        // paso el id de la mesa 1 para probar en web
-        // this.asignarMesa("oZMjb6EkSIyZ9yXAEWXY", this.usuario.id);
       }
-    // }
-    // else {
-    //   this.notificacionService.mostrarToast("Su solicitud aún no ha sido aprobada por el metre", TipoDeNotificacion.warning, "top");
-    // } 
   }
 
   async asignarMesa(mesaId, usuarioId){
@@ -202,7 +193,7 @@ export class ClienteHomeComponent implements OnInit {
   confirmarRecepcion() {
 
     let cliente = <Cliente>this.usuario;
-     console.log(cliente.pedido.estado == Estados.entregado);
+     
     // Comprobar que el mozo indicó que el cliente recibió el pedido
     if(cliente.pedido.estado == Estados.entregado) {
       cliente.estado = Estados.atendido;
@@ -211,6 +202,8 @@ export class ClienteHomeComponent implements OnInit {
       //Actualizar el pedido en el cliente y en la lista pedidos
       this.usuarioService.updateUser('usuarios', cliente.id, cliente);
       this.pedidoService.updateOrder(cliente.pedido.id, cliente.pedido);
+
+      this.mostrarToast("Pedido confirmado");
     }
     
   }

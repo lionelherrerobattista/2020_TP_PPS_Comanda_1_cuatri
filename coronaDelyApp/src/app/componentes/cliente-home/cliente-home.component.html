@@ -1,4 +1,3 @@
-<!-- Este componente muestra el menu visible para un cliente logueado -->
 <section class="ion-text-center ion-margin-bottom">
   <ion-grid>
     <ion-row>
@@ -16,7 +15,8 @@
         </ion-card>
       </ion-col>
 
-      <ion-col col-6  *ngIf="usuario?.estado == 'atendido' && usuario?.pedido.estado == 'aceptado por cliente'">
+      <ion-col col-6  *ngIf="usuario?.pedido != undefined 
+                        && usuario?.estado == 'atendido' && usuario.pedido.estado == 'aceptado por cliente'">
         <ion-card (click)="pedirCuenta()" class="ion-text-center ion-padding" color="000">
          <ion-icon name="timer"></ion-icon>          
          <h2 class="long-name">Pedir la cuenta</h2>
@@ -41,13 +41,13 @@
     </ion-row>
 
     <ion-row>
-      <ion-col col-3 *ngIf="usuario?.estado == 'atendido'|| usuario?.estado == 'pagando'|| usuario?.estado == 'finalizado'">
+      <ion-col col-3 *ngIf="(usuario?.estado != 'pagando')">
         <ion-card [routerLink]="['/encuesta', usuario.id]" class="ion-text-center ion-padding" color="000">
           <ion-icon name="clipboard"></ion-icon>          
           <h2 class="long-name">Realizar Encuesta</h2>
         </ion-card>
       </ion-col>  
-      <ion-col col-3 *ngIf="usuario?.estado == 'para confirmar pedido'">
+      <ion-col col-3 *ngIf="usuario?.pedido != undefined && usuario?.pedido.estado == 'entregado'">
         <ion-card (click)="confirmarRecepcion()"class="ion-text-center ion-padding" color="000">
           <ion-icon name="checkbox-outline"></ion-icon>          
           <h2 class="long-name">Confirmar recepción pedido</h2>
@@ -70,8 +70,14 @@
           <h2 class="long-name">Realizar Pedido (delivery)</h2>
         </ion-card>
       </ion-col>   
-
-        <ion-col col-6 *ngIf="usuario?.estado == 'atendido'|| usuario?.estado == 'pagando'|| usuario?.estado == 'finalizado'">
+      <!-- <ion-col col-6  *ngIf="(usuario?.estado == 'atendido' || usuario?.estado == 'esperandoOrden'
+                               || usuario?.estado == 'finalizado' || usuario?.estado == 'pagando')">
+          <ion-card routerLink="/hacer-encuesta-cliente" class="ion-text-center ion-padding" color="000">
+            <ion-icon name="bookmarks"></ion-icon>          
+            <h2 class="long-name">Realizar Encuesta</h2>
+          </ion-card>
+        </ion-col> -->
+        <ion-col col-6 *ngIf="usuario?.estado != 'pagando'">
           <ion-card routerLink="/juego" class="ion-text-center ion-padding" color="000">
             <ion-icon name="timer"></ion-icon>          
             <h2 class="long-name">Jugar</h2>
