@@ -72,9 +72,10 @@ export class MetreListaEsperaComponent implements OnInit {
   }
   asignarMesa(mesa:Mesa) {
     this.clienteAux.estado = Estados.puedeTomarMesa ;
+    this.clienteAux.mesaAsignada = mesa.id;
     this.usuarioService.updateUser('usuarios', this.clienteAux.id, this.clienteAux);
     console.log(this.clienteAux.id, this.clienteAux.estado, this.clienteAux);
-    // mesa.estado = Estados.ocupada;
+    
     this.mesasService.updateTable('mesas',mesa.id,mesa);
     this.mostrarToast("El cliente puede tomar una mesa");
   }

@@ -24,7 +24,7 @@ export class Pedido {
         this.idCliente = idCliente;
         this.mesa = mesa;
         this.horaPedido = new Date();
-        this.estado = Estados.enPreparacion; //Si están todos los productos listos, cambiar a "listo para entregar"
+        this.estado = Estados.esperandoConfirmacionMozo; //Si están todos los productos listos, cambiar a "listo para entregar"
 
     }
 
