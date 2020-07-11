@@ -45,10 +45,10 @@
 | **Nombre** | Lionel Roberto | Paola | Rosa Elena |
 | **Módulos** | `QR: Ingreso al local` `Encuesta: Empleado` | `QR: Mesa` `Encuesta: Supervisor` | `QR: Propina` `Encuesta: Cliente` |
 | **Fecha de inicio de la tarea** | 06/06/2020 | 06/06/2020 | 06/06/2020 |
-| **Fecha de finalización de la tarea** | - | - | - |
+| **Fecha de finalización de la tarea** | 13/06/2020 | 13/06/2020 | 13/06/2020 |
 | **Branch** | [lherrerob](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/tree/lherrerob) | [ptorrealba](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/tree/ptorrealba) | [rmuruchi](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/tree/rmuruchi) |
 
-### Semana 4  (13/06/2020 al 27/06/2020)
+### Semana 4  (13/06/2020 al 10/07/2020)
 
 | | **Perfil Alfa** | **Perfil Beta** | **Perfil Gamma** |
 | --- | :---: | :---: | :---: |
@@ -56,10 +56,10 @@
 | **Nombre** | Lionel Roberto | Paola | Rosa Elena |
 | **Módulos** | `Gestión: Pedir platos y bebidas` | `Gestión: Tomar pedido` | `Gestión: Hacer reservas agendadas` |
 | **Fecha de inicio de la tarea** | 13/06/2020 | 13/06/2020 | 13/06/2020 |
-| **Fecha de finalización de la tarea** | - | - | - |
+| **Fecha de finalización de la tarea** | 10/07/2020 | 10/07/2020 | 10/07/2020 |
 | **Branch** | [lherrerob](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/tree/lherrerob) | [ptorrealba](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/tree/ptorrealba) | [rmuruchi](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/tree/rmuruchi) |
 
-### Semana 5  (20/06/2020 al 27/06/2020)
+### Semana 5  (20/06/2020 al 10/07/2020)
 
 | | **Perfil Alfa** | **Perfil Beta** | **Perfil Gamma** |
 | --- | :---: | :---: | :---: |
@@ -67,5 +67,72 @@
 | **Nombre** | Lionel Roberto | Paola | Rosa Elena |
 | **Módulos** | `Push Notification: Pedido platos y bebidas /cierre de cuenta` | `Push Notification: Pedir mesa` | `Push Notification: Hacer reservas agendadas` |
 | **Fecha de inicio de la tarea** | 20/06/2020 | 20/06/2020 | 20/06/2020 |
-| **Fecha de finalización de la tarea** | - | - | - |
+| **Fecha de finalización de la tarea** | 10/07/2020 | 10/07/2020 | 10/07/2020 |
 | **Branch** | [lherrerob](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/tree/lherrerob) | [ptorrealba](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/tree/ptorrealba) | [rmuruchi](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/tree/rmuruchi) |
+
+## Guía del usuario :calling:
+
+### Inicio de sesión
+
+El cliente que ingresa al local puede descargar la aplicación puede registrarse o iniciar sesión como un usuario anónimo.
+
+<p align="center">
+    <img src="coronaDelyApp\src\assets\screens_readme\Screenshot_20200710-215536.png" alt="drawing" width="350"/>
+</p>
+
+### Registro cliente  :pencil:
+
+El cliente puede registrarse utilizando el código QR de su DNI o introduciendo los datos de manera manual. Una vez verificado el correo electrónico
+y, luego de que el supervisor apruebe su ingreso, el cliente podrá ingresar a la aplicación.
+
+Cliente:
+<p align="center">
+    <img src="coronaDelyApp\src\assets\screens_readme\Screenshot_20200710-215543 (2).png" alt="drawing" width="350"/>
+</p>
+
+Cliente anónimo:
+<p align="center">
+    <img src="coronaDelyApp\src\assets\screens_readme\Screenshot_20200710-215555.png" alt="drawing" width="350"/>
+</p>
+
+### Lista de espera y asignación de mesa :watch:
+
+Una vez dentro de la aplicación podrá escanear el QR para ingresar a la lista de espera. Luego de que el metre le asigne una mesa, el cliente puede
+leer el código QR de la mesa para solicitar su pedido.
+
+<p align="center">
+    <img src="coronaDelyApp\src\assets\screens_readme\Screenshot_20200710-215617.png" alt="drawing" width="350"/>
+</p>
+
+### Menú principal
+
+Se podrá acceder al menú principal de la aplicación donde se puede realizar un pedido, una consulta al mozo, realizar la encuesta y finalmente pagar.
+
+<p align="center">
+    <img src="coronaDelyApp\src\assets\screens_readme\Screenshot_20200710-215911.png" alt="drawing" width="350"/>
+</p>
+
+### Pedido :money_with_wings:
+
+Puede ver y pedir los distintos productos que ofrece el restaurante.
+
+<p align="center">
+    <img src="coronaDelyApp\src\assets\screens_readme\Screenshot_20200710-215928.png" alt="drawing" width="350"/>
+</p>
+
+### Consultas :email:
+
+En caso de tener alguna duda, el cliente puede consultar a un mozo que le responderá a la brevedad.
+
+<p align="center">
+    <img src="coronaDelyApp\src\assets\screens_readme\Screenshot_20200710-215950.png" alt="drawing" width="350"/>
+</p>
+
+### Encuestas :notebook:
+
+Además, el cliente puede completar la encuesta para dejar registrada su opinión sobre el local.
+
+<p align="center">
+    <img src="coronaDelyApp\src\assets\screens_readme\Screenshot_20200710-220008.png" alt="drawing" width="350"/>
+</p>
+
