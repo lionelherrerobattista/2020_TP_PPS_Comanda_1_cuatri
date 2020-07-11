@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Pregunta, Encuesta, TipoEncuesta } from 'src/app/clases/encuesta';
 import { EncuestaService } from 'src/app/servicios/encuesta.service';
 import { Usuario } from 'src/app/clases/usuario';
@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 })
 export class EncuestaClienteComponent implements OnInit {
 
+  @Input()usuario:Usuario;
   preguntas:Pregunta[];
   limpieza:number;
   predisposicion:string;
@@ -27,6 +28,7 @@ export class EncuestaClienteComponent implements OnInit {
 
   ) { 
     this.preguntas = [];
+    
   }
 
   ngOnInit() {
@@ -48,6 +50,10 @@ export class EncuestaClienteComponent implements OnInit {
       respuestaCuatro = "sí";
     } else {
       respuestaCuatro = "no";
+    }
+
+    if(this.comentariosAdicionales == undefined){
+      this.comentariosAdicionales = '';
     }
 
     //Cargar las preguntas
@@ -88,7 +94,7 @@ export class EncuestaClienteComponent implements OnInit {
   }
 
   redirigirCliente(){
-    this.router.navigate(['/home']);
+    this.router.navigate(['/home', this.usuario.id]);
   }
 
 }

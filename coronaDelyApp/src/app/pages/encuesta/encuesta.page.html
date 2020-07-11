@@ -3,12 +3,12 @@
         <ion-button slot="start" fill="clear" (click)="inicio()"> 
             <ion-icon name="arrow-back"></ion-icon>
         </ion-button>
-      <ion-title>Encuesta {{object}}</ion-title>  
+      <ion-title>Encuesta</ion-title>  
     </ion-toolbar>
   </ion-header>
 
 
-<ion-content>
-  <app-encuesta-empleado *ngIf="object == 'empleado'"></app-encuesta-empleado>
-  <app-encuesta-cliente *ngIf="object == 'cliente'"></app-encuesta-cliente>
+<ion-content *ngIf="usuario != undefined">
+  <app-encuesta-empleado *ngIf="usuario != undefined && usuario.perfil == 'empleado'" [empleado]="usuario"></app-encuesta-empleado>
+  <app-encuesta-cliente *ngIf="usuario != undefined && (usuario.perfil == 'cliente' || usuario.perfil == 'cliente anonimo')"[usuario]="usuario"></app-encuesta-cliente>
 </ion-content>

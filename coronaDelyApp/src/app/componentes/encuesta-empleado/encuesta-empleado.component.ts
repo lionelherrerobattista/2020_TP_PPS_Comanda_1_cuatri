@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Pregunta, Encuesta, TipoEncuesta } from 'src/app/clases/encuesta';
 import { EncuestaService } from 'src/app/servicios/encuesta.service';
 import { Usuario } from 'src/app/clases/usuario';
@@ -20,7 +20,7 @@ export class EncuestaEmpleadoComponent implements OnInit {
   orden:string;
   elementosDisponibles:boolean;
   comentariosAdicionales:string;
-  empleado:Usuario;
+  @Input()empleado:Usuario;
 
   constructor(
     private encuestaService:EncuestaService,
@@ -57,6 +57,10 @@ export class EncuestaEmpleadoComponent implements OnInit {
       respuestaCuatro = "sí";
     } else {
       respuestaCuatro = "no";
+    }
+
+    if(this.comentariosAdicionales == undefined){
+      this.comentariosAdicionales = '';
     }
 
     //Cargar las preguntas
