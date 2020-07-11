@@ -219,6 +219,10 @@ export class ClienteHomeComponent implements OnInit {
     // Primero verifico la mesa
     // this.verificarMesa(tableId,clienteId);
     this.mostrarModal(this.usuario);
+<<<<<<< HEAD
+=======
+    
+>>>>>>> f26873462243ab2b37ca4c781ea622856865a68e
   }
 
   async verificarMesa(tableId,clienteId){
