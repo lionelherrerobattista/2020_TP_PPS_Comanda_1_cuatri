@@ -17,6 +17,7 @@ import { ModalController, ToastController } from '@ionic/angular';
 import { Pedido } from 'src/app/clases/pedido';
 import { ServicioDeMesa } from 'src/app/clases/servicio-de-mesa';
 import { ServicioDeMesaService } from 'src/app/servicios/servicio-de-mesa.service';
+import { RouterLink, Router } from '@angular/router';
 // import { ModalPedidoClientePage } from 'src/app/pages/modal-pedido-cliente/modal-pedido-cliente.page';
 
 
@@ -28,7 +29,7 @@ import { ServicioDeMesaService } from 'src/app/servicios/servicio-de-mesa.servic
 })
 export class ClienteHomeComponent implements OnInit {
 
-  @Input()usuario: Usuario;
+  @Input()usuario;
   cliente:Cliente;
   tieneReserva:boolean;
   
@@ -47,8 +48,9 @@ export class ClienteHomeComponent implements OnInit {
     private pedidoService:PedidoService,
     private modalController:ModalController,
     public toastController: ToastController,
+    private router:Router,
   ) {
-    
+
   }
 
   ngOnInit(){
@@ -60,6 +62,7 @@ export class ClienteHomeComponent implements OnInit {
     this.usuarioService.getUser(this.usuario.id).subscribe( usuario => {
       this.cliente = <Cliente>usuario;
       console.log(this.cliente);
+
     })
     
     
@@ -136,6 +139,9 @@ export class ClienteHomeComponent implements OnInit {
             case Estados.atendido:
               this.mostrarEstadoPedido(tableId,this.usuario.id);
               break;
+            case Estados.atendido:
+              this.mostrarEstadoPedido(tableId,this.usuario.id);
+              break;
             case Estados.mesaAsignada:
               this.hacerPedido();
               break;
@@ -169,8 +175,13 @@ export class ClienteHomeComponent implements OnInit {
     let cliente = <Cliente>this.usuario;
       
     //Comprobar el estado
-    if (mesaActual.estado != Estados.disponible) {
-      this.notificacionService.mostrarToast(`Mesa N.° ${mesaActual.numero} ${mesaActual.estado}`, "danger", "top");
+    if (mesaActual.estado != Estados.disponible || mesaActual.id != cliente.mesaAsignada) {
+      if(mesaActual.id != cliente.mesaAsignada){
+        this.notificacionService.mostrarToast(`Mesa N.° ${mesaActual.numero} no es su mesa asignada`, "danger", "top");
+      } else {
+        this.notificacionService.mostrarToast(`Mesa N.° ${mesaActual.numero} ${mesaActual.estado}`, "danger", "top");
+      }
+      
     } else {
       this.dataService.setStatus(Elementos.Mesas, mesaId, Estados.ocupada);
       this.dataService.deleteDocument(Elementos.ListaDeEspera, usuarioId);
@@ -189,23 +200,25 @@ export class ClienteHomeComponent implements OnInit {
   ///El cliente confirma la recepción del pedido
   ///Cambia el estado del pedido
   confirmarRecepcion() {
-     
+
+    let cliente = <Cliente>this.usuario;
+     console.log(cliente.pedido.estado == Estados.entregado);
     // Comprobar que el mozo indicó que el cliente recibió el pedido
-    if(this.cliente.pedido.estado == Estados.entregado) {
-      this.cliente.estado = Estados.atendido;
-      this.cliente.pedido.estado = Estados.aceptadoPorCliente;
+    if(cliente.pedido.estado == Estados.entregado) {
+      cliente.estado = Estados.atendido;
+      cliente.pedido.estado = Estados.aceptadoPorCliente;
     
       //Actualizar el pedido en el cliente y en la lista pedidos
-      this.usuarioService.updateUser('usuarios', this.cliente.id, this.cliente);
-      this.pedidoService.updateOrder(this.cliente.pedido.id, this.cliente.pedido);
+      this.usuarioService.updateUser('usuarios', cliente.id, cliente);
+      this.pedidoService.updateOrder(cliente.pedido.id, cliente.pedido);
     }
     
   }
 
   mostrarEstadoPedido(tableId,clienteId){
     // Primero verifico la mesa
-    this.verificarMesa(tableId,clienteId);
-    
+    // this.verificarMesa(tableId,clienteId);
+    this.mostrarModal(this.usuario);
   }
 
   async verificarMesa(tableId,clienteId){
@@ -222,10 +235,11 @@ export class ClienteHomeComponent implements OnInit {
    
   }
   hacerPedido(){
-    console.log('voy a acer pedido');
+    
   }
   pedirCuenta(){ 
     this.mostrarModal(this.usuario);
+
   }
 
   async mostrarModal(cliente:Cliente) {
