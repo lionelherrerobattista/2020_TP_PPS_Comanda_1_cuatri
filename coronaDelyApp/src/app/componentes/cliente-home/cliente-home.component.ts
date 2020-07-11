@@ -15,6 +15,8 @@ import { Cliente } from 'src/app/clases/cliente';
 import { ModalDetallePedidoPage } from 'src/app/pages/modal-detalle-pedido/modal-detalle-pedido.page';
 import { ModalController, ToastController } from '@ionic/angular';
 import { Pedido } from 'src/app/clases/pedido';
+import { ServicioDeMesa } from 'src/app/clases/servicio-de-mesa';
+import { ServicioDeMesaService } from 'src/app/servicios/servicio-de-mesa.service';
 // import { ModalPedidoClientePage } from 'src/app/pages/modal-pedido-cliente/modal-pedido-cliente.page';
 
 
@@ -41,6 +43,7 @@ export class ClienteHomeComponent implements OnInit {
     private qrscannerService: QrScannerService,
     private mesaService: MesaService,
     private dataService: DataService,
+    private servicioDeMesaService: ServicioDeMesaService,
     private pedidoService:PedidoService,
     private modalController:ModalController,
     public toastController: ToastController,
@@ -55,18 +58,23 @@ export class ClienteHomeComponent implements OnInit {
 
     //A ver si funciona
     this.usuarioService.getUser(this.usuario.id).subscribe( usuario => {
-      this.cliente = <Cliente>this.usuario;
+      this.cliente = <Cliente>usuario;
       console.log(this.cliente);
     })
     
     
   }
-  filtrarPedidos(cliente) {
- 
-      this.listaParaMostrar = this.listaPedidos.filter(pedido => pedido.idCliente == cliente.id);
-      console.log( this.listaParaMostrar);  
-      // mostrarModal
-      this.mostrarModal(this.cliente);
+  filtrarPedidos(tableId,clienteId) {
+      console.log("tableId", tableId)
+      this.listaParaMostrar = this.listaPedidos.filter(pedido => (pedido.idCliente == clienteId) && (pedido.mesa.id==tableId));
+      if (this.listaParaMostrar.length>0){
+          console.log(this.listaParaMostrar.length)
+          this.mostrarModal(this.cliente);
+      }
+      else {
+        console.log(" *no hay pedidos")
+        // mostrar error de qr
+      }
   }
 
 
@@ -115,6 +123,7 @@ export class ClienteHomeComponent implements OnInit {
   }
  //QR para seleccionar la mesa
   scanQRMesa(){
+  
     // if(this.usuario.estado == Estados.puedeTomarMesa){
       if(this.qrscannerService.dispositivo == "mobile"){
         this.qrscannerService.scanQr().then(tableId => {
@@ -125,7 +134,7 @@ export class ClienteHomeComponent implements OnInit {
               this.asignarMesa(tableId, this.usuario.id);
               break;
             case Estados.atendido:
-              this.mostrarEstadoPedido(this.usuario);
+              this.mostrarEstadoPedido(tableId,this.usuario.id);
               break;
             case Estados.mesaAsignada:
               this.hacerPedido();
@@ -134,12 +143,14 @@ export class ClienteHomeComponent implements OnInit {
         });
       }
       else{
+        let tableId="CDbZryvuVqHpiHm3EzgB"; //MESA1
+        let clienteId="7jZ8daCBSgVDPxMSdZdDezHqaMZ2";
         switch(this.usuario.estado) {
           case Estados.puedeTomarMesa:
-            this.asignarMesa("oZMjb6EkSIyZ9yXAEWXY", this.usuario.id);
+            this.asignarMesa(tableId, this.usuario.id);
             break;
           case Estados.atendido: //usuario ptorrealba.utn@gmail.com
-            this.mostrarEstadoPedido("7jZ8daCBSgVDPxMSdZdDezHqaMZ2");
+            this.mostrarEstadoPedido(tableId,clienteId );
             break;
         }
         // paso el id de la mesa 1 para probar en web
@@ -191,11 +202,25 @@ export class ClienteHomeComponent implements OnInit {
     
   }
 
-  mostrarEstadoPedido(cliente){
-    console.log("clienteId",cliente)
-    this.filtrarPedidos(cliente);
+  mostrarEstadoPedido(tableId,clienteId){
+    // Primero verifico la mesa
+    this.verificarMesa(tableId,clienteId);
+    
   }
 
+  async verificarMesa(tableId,clienteId){
+      let mesaCliente= await this.servicioDeMesaService.getServicioDeMesaById(clienteId).pipe(first()).toPromise();
+      if (mesaCliente != undefined && mesaCliente.mesaId==tableId){
+        console.log("mesaCliente", mesaCliente)
+        this.filtrarPedidos(tableId,clienteId);
+      }
+      else {
+        let mesa = await this.mesaService.getTableById(tableId).pipe(first()).toPromise();
+        console.log("no hay pedidos")
+        this.mostrarToast(`Mesa N.° ${mesa.numero} no corresponde al cliente`);
+      }
+   
+  }
   hacerPedido(){
     console.log('voy a acer pedido');
   }

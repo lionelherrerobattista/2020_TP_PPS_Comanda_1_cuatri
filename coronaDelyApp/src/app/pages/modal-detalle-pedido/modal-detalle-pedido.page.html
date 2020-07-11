@@ -4,7 +4,7 @@
   <app-pedido-detalle [pedido]="pedido"></app-pedido-detalle>
   <h3 class="estado">Estado de Pedido: {{pedido.estado}}</h3>
   <div *ngIf="(perfil == 'cliente' || perfil == 'cliente anonimo') && 
-       (pedido.estado == 'entregado')">
+       (pedido.estado == 'aceptado por cliente')">
     <ion-label>
       Grado de Satisfacción (propina):
     </ion-label>

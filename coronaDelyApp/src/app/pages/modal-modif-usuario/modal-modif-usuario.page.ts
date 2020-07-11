@@ -3,6 +3,7 @@ import { Usuario } from 'src/app/clases/usuario';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { ModalController, ToastController } from '@ionic/angular';
 import { Estados } from 'src/app/clases/enums/estados';
+import { AuthService } from 'src/app/servicios/auth.service';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class ModalModifUsuarioPage implements OnInit {
     private usuarioService:UsuarioService,
     public modalController: ModalController,
     public toastController: ToastController,
+    private authServie: AuthService,
   ) { }
 
   ngOnInit() {

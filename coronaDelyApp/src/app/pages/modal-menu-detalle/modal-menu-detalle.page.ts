@@ -7,6 +7,7 @@ import { Mesa } from 'src/app/clases/mesa';
 import { Cliente } from 'src/app/clases/cliente';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { Elementos } from 'src/app/clases/enums/elementos';
+import { Estados } from 'src/app/clases/enums/estados';
 
 @Component({
   selector: 'app-modal-menu-detalle',
@@ -63,11 +64,13 @@ export class ModalMenuDetallePage implements OnInit {
             indice = this.cliente.pedido.productos.indexOf(productoPedido);
 
             this.cliente.pedido.productos[indice].cantidad += producto.cantidad;
+            this.cliente.pedido.productos[indice].estado = Estados.enPreparacion;
             productoCargado = true; 
           }
         }
 
         if(productoCargado == false) {
+          producto.estado = Estados.enPreparacion;
           this.cliente.pedido.productos.push(producto);
         }
         
@@ -76,6 +79,7 @@ export class ModalMenuDetallePage implements OnInit {
       //Vuelvo a calcular el precio
       precioTotal = Pedido.calcularPrecioTotalPedido(this.cliente.pedido);
 
+      this.cliente.pedido.estado = Estados.enPreparacion;
       this.cliente.pedido.precioTotal = precioTotal;
 
       await this.pedidoService.updateOrder(this.cliente.pedido.id, this.cliente.pedido);   
