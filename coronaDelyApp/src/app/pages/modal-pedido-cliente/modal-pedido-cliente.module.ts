@@ -3,12 +3,13 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
-import { ModalMenuDetallePage } from './modal-menu-detalle.page';
+import { ModalPedidoClientePage } from './modal-pedido-cliente.page';
+import { PedidoDetalleComponent } from 'src/app/componentes/pedido-detalle/pedido-detalle.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: ModalMenuDetallePage
+    component: ModalPedidoClientePage
   }
 ];
 
@@ -19,6 +20,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ModalMenuDetallePage]
+  declarations: [ModalPedidoClientePage]
 })
-export class ModalMenuDetallePageModule {}
+export class ModalPedidoClientePageModule {}

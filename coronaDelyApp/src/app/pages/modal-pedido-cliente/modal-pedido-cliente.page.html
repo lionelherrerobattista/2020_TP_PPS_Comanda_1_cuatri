@@ -1,0 +1,38 @@
+<div id="contenedor">
+
+    <app-pedido-detalle [pedido]="pedido"></app-pedido-detalle>
+    <div *ngIf="perfil == 'cliente' || perfil == 'cliente anonimo'">
+      <ion-label>
+        Grado de Satisfacción (propina):
+      </ion-label>
+      <ion-item id="range">
+       
+        <ion-range [(ngModel)]="gradoSatisfaccion" name="gradoSatisfaccion" min="0" max="100" color="secondary">
+          <ion-label slot="start">0</ion-label>
+          <ion-label slot="end">100</ion-label>
+        </ion-range>
+        <ion-label id="lbl-limpieza">$ {{gradoSatisfaccion}}</ion-label>
+      </ion-item>
+      
+    </div>
+    <ion-button color="primary"  *ngIf="!mostrarTotal && perfil != 'mozo'" (click)="calcularTotal()">Calcular total</ion-button>
+    <div class="div-total" *ngIf="perfil == 'mozo' && pedido.estado == 'confirmar pago'">
+      <ion-label   id="lbl-limpieza">Propina: $ {{pedido.propina}}</ion-label>
+    </div>
+    
+    
+    <div class="div-total" *ngIf="mostrarTotal || perfil == 'mozo'">
+      <ion-label id="total" >Total $ {{total}}</ion-label>
+    </div>
+      
+    
+    
+   
+    
+    <div id="div-botones">
+      <ion-button color="danger" (click)="cerrarModal()">Cancelar</ion-button>
+      <ion-button *ngIf="mostrarTotal && (perfil == 'cliente' || perfil == 'cliente anonimo')" color="success" (click)="pagarPedido()">Pagar Pedido</ion-button>
+    </div>
+  </div>
+    
+  
