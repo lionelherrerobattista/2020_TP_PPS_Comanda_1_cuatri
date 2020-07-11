@@ -27,16 +27,22 @@ export class UsuarioService {
   //   })
   // }
 
-  // Uso el async, si no, no me funciona. Esta función hace lo mismo que la original
+  //Registra un usuario.
+  //Si se registra, devuelve el usuario.
+  //Si no, devuelve una excepción que se tiene que manejar
   async saveUserWithLogin(user) {
-    let credenciales = await this.authService.createUser(user);
+    
+    return new Promise((resolve, reject) => {
+      this.authService.createUser(user).then( async credenciales => {
 
-    credenciales.user.sendEmailVerification();
-    user.id = credenciales.user.uid;
-
-    await this.saveUser(user);
-
-    return user;
+        credenciales.user.sendEmailVerification();
+        user.id = credenciales.user.uid;
+  
+        await this.saveUser(user);
+  
+        resolve(user);       
+      }).catch(error => reject(error));//Manejar esta excepción!!
+    });
   }
   
   saveUser(user) {    

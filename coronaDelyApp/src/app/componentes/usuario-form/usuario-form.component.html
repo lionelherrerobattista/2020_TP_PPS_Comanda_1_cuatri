@@ -32,7 +32,7 @@
   <!-- DNI -->
   <ion-item>
     <ion-label position="floating">DNI</ion-label>    
-    <ion-input [(ngModel)]='usuario.dni' type="text" formControlName="dni" ></ion-input>
+    <ion-input [(ngModel)]='usuario.dni' type="tel" formControlName="dni" maxlength='8' ></ion-input>
   </ion-item>
   <div class="validation-errors">
     <ng-container *ngFor="let validation of mensajesValidacion.dni">
@@ -46,7 +46,7 @@
 <!-- CUIL -->
   <ion-item  *ngIf="!esCliente">
     <ion-label position="floating">CUIL</ion-label>
-    <ion-input type="text" formControlName="cuil" ></ion-input>
+    <ion-input type="tel" formControlName="cuil" maxlength='11'></ion-input>
   </ion-item>
   <div class="validation-errors">
     <ng-container *ngFor="let validation of mensajesValidacion.cuil">
