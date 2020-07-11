@@ -204,7 +204,8 @@ export class ClienteHomeComponent implements OnInit {
 
   mostrarEstadoPedido(tableId,clienteId){
     // Primero verifico la mesa
-    this.verificarMesa(tableId,clienteId);
+    // this.verificarMesa(tableId,clienteId);
+    this.mostrarModal(this.usuario);
     
   }
 
