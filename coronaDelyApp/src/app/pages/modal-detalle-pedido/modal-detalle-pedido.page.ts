@@ -102,4 +102,25 @@ export class ModalDetallePedidoPage implements OnInit {
 
   }
 
+  async confirmarPedido(){
+
+    console.log(this.cliente.pedido.estado);
+
+    // Comprobar que el mozo indicó que el cliente recibió el pedido
+    if(this.cliente.pedido.estado == Estados.entregado) {
+      this.cliente.estado = Estados.atendido;
+      this.cliente.pedido.estado = Estados.aceptadoPorCliente;
+
+      //Actualizar el pedido en el cliente y en la lista pedidos
+      await this.usuarioService.updateUser('usuarios', this.cliente.id, this.cliente);
+      await this.pedidoService.updateOrder(this.cliente.pedido.id, this.cliente.pedido);
+
+      this.mostrarToast('Confirmó el pedido');
+    }
+
+
+
+    this.cerrarModal();
+  }
+
 }
