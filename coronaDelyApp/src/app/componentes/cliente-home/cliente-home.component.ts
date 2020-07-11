@@ -217,7 +217,7 @@ export class ClienteHomeComponent implements OnInit {
       else {
         let mesa = await this.mesaService.getTableById(tableId).pipe(first()).toPromise();
         console.log("no hay pedidos")
-        this.notificacionService.mostrarToast(`Mesa N.° ${mesa.numero}`, TipoDeNotificacion.info, "top");
+        this.mostrarToast(`Mesa N.° ${mesa.numero} no corresponde al cliente`);
       }
    
   }
