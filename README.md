@@ -77,7 +77,7 @@
 El cliente que ingresa al local puede descargar la aplicación puede registrarse o iniciar sesión como un usuario anónimo.
 
 <p align="center">
-    <img src="coronaDelyApp\src\assets\screens_readme\Screenshot_20200710-215536.png" alt="drawing" width="400"/>
+    <img src="coronaDelyApp\src\assets\screens_readme\Screenshot_20200710-215536.png" alt="drawing" width="350"/>
 </p>
 
 ### Registro cliente
@@ -86,39 +86,53 @@ El cliente puede registrarse utilizando el código QR de su DNI o introduciendo 
 y, luego de que el supervisor apruebe su ingreso, el cliente podrá ingresar a la aplicación.
 
 Cliente:
-![Alt text](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/blob/lherrerob/coronaDelyApp/src/assets/screens_readme/Screenshot_20200710-215543%20(2).png?raw=true)
+<p align="center">
+    <img src="coronaDelyApp\src\assets\screens_readme\Screenshot_20200710-215543 (2).png" alt="drawing" width="350"/>
+</p>
 
 Cliente anónimo:
-![Alt text](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/blob/lherrerob/coronaDelyApp/src/assets/screens_readme/Screenshot_20200710-215555.png?raw=true)
+<p align="center">
+    <img src="coronaDelyApp\src\assets\screens_readme\Screenshot_20200710-215555.png" alt="drawing" width="350"/>
+</p>
 
 ### Lista de espera y asignación de mesa
 
 Una vez dentro de la aplicación podrá escanear el QR para ingresar a la lista de espera. Luego de que el metre le asigne una mesa, el cliente puede
 leer el código QR de la mesa para solicitar su pedido.
 
-![Alt text](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/blob/lherrerob/coronaDelyApp/src/assets/screens_readme/Screenshot_20200710-215617.png?raw=true)
-
+<p align="center">
+    <img src="coronaDelyApp\src\assets\screens_readme\Screenshot_20200710-215617.png" alt="drawing" width="350"/>
+</p>
 
 ### Menú principal
 
 Se podrá acceder al menú principal de la aplicación donde se puede realizar un pedido, una consulta al mozo, realizar la encuesta y finalmente pagar.
 
-![Alt text](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/blob/lherrerob/coronaDelyApp/src/assets/screens_readme/Screenshot_20200710-215911.png?raw=true)
+<p align="center">
+    <img src="coronaDelyApp\src\assets\screens_readme\Screenshot_20200710-215911.png" alt="drawing" width="350"/>
+</p>
 
 ### Pedido
 
 Puede ver y pedir los distintos productos que ofrece el restaurante.
 
-![Alt text](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/blob/lherrerob/coronaDelyApp/src/assets/screens_readme/Screenshot_20200710-215928.png?raw=true)
+<p align="center">
+    <img src="coronaDelyApp\src\assets\screens_readme\Screenshot_20200710-215928.png" alt="drawing" width="350"/>
+</p>
 
 ### Consultas
 
 En caso de tener alguna duda, el cliente puede consultar a un mozo que le responderá a la brevedad.
 
-![Alt text](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/blob/lherrerob/coronaDelyApp/src/assets/screens_readme/Screenshot_20200710-215950.png?raw=true)
+<p align="center">
+    <img src="coronaDelyApp\src\assets\screens_readme\Screenshot_20200710-215950.png" alt="drawing" width="350"/>
+</p>
 
 ### Encuestas
 
 Además, el cliente puede completar la encuesta para dejar registrada su opinión sobre el local.
 
-![Alt text](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/blob/lherrerob/coronaDelyApp/src/assets/screens_readme/Screenshot_20200710-220008.png?raw=true)
+<p align="center">
+    <img src="coronaDelyApp\src\assets\screens_readme\Screenshot_20200710-220008.png" alt="drawing" width="350"/>
+</p>
+
