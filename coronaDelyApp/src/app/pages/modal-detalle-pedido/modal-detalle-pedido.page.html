@@ -1,7 +1,10 @@
 <div id="contenedor">
 
+  
   <app-pedido-detalle [pedido]="pedido"></app-pedido-detalle>
-  <div *ngIf="perfil == 'cliente' || perfil == 'cliente anonimo'">
+  <h3 class="estado">Estado de Pedido: {{pedido.estado}}</h3>
+  <div *ngIf="(perfil == 'cliente' || perfil == 'cliente anonimo') && 
+       (pedido.estado == 'entregado')">
     <ion-label>
       Grado de Satisfacción (propina):
     </ion-label>

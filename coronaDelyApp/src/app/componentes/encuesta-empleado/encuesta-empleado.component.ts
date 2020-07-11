@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Pregunta, Encuesta, TipoEncuesta } from 'src/app/clases/encuesta';
 import { EncuestaService } from 'src/app/servicios/encuesta.service';
 import { Usuario } from 'src/app/clases/usuario';
@@ -20,7 +20,7 @@ export class EncuestaEmpleadoComponent implements OnInit {
   orden:string;
   elementosDisponibles:boolean;
   comentariosAdicionales:string;
-  empleado:Usuario;
+  @Input()empleado:Usuario;
 
   constructor(
     private encuestaService:EncuestaService,
@@ -59,6 +59,10 @@ export class EncuestaEmpleadoComponent implements OnInit {
       respuestaCuatro = "no";
     }
 
+    if(this.comentariosAdicionales == undefined){
+      this.comentariosAdicionales = '';
+    }
+
     //Cargar las preguntas
     preguntaUno = {
       pregunta: "Nivel de limpieza",
@@ -88,7 +92,7 @@ export class EncuestaEmpleadoComponent implements OnInit {
     this.preguntas.push(preguntaCuatro);
     this.preguntas.push(preguntaCinco);
     
-    encuesta = new Encuesta(this.preguntas, this.empleado, TipoEncuesta.empleado);
+    encuesta = new Encuesta(this.preguntas, TipoEncuesta.empleado,  this.empleado);
 
     //Guardar encuesta en firebase
     this.encuestaService.createEncuesta(encuesta).then( referecia => {
