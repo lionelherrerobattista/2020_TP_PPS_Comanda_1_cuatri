@@ -55,7 +55,7 @@ export class ClienteHomeComponent implements OnInit {
 
     //A ver si funciona
     this.usuarioService.getUser(this.usuario.id).subscribe( usuario => {
-      this.cliente = <Cliente>this.usuario;
+      this.cliente = <Cliente>usuario;
       console.log(this.cliente);
     })
     
