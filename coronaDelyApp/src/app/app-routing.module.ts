@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
@@ -16,8 +17,6 @@ const routes: Routes = [
 
   { path: 'inicio', loadChildren: './pages/home/home.module#HomePageModule' },
   // { path: 'menu', loadChildren: './pages/menu/menu.module#MenuPageModule' }
-
-  
  
   // accesos cliente
   { path: 'delivery', loadChildren: './pages/delivery/delivery.module#DeliveryPageModule' },
@@ -28,14 +27,9 @@ const routes: Routes = [
   { path: 'consulta/:object', loadChildren: './pages/consulta/consulta.module#ConsultaPageModule'},
   { path: 'consulta/:tipoUsuario/:id', loadChildren: './pages/consulta/consulta.module#ConsultaPageModule'},
   { path: 'modal-consulta', loadChildren: './pages/modal-consulta/modal-consulta.module#ModalConsultaPageModule' },
-  { path: 'modal-detalle-pedido', loadChildren: './pages/modal-detalle-pedido/modal-detalle-pedido.module#ModalDetallePedidoPageModule' },  { path: 'modal-modif-mesa', loadChildren: './pages/modal-modif-mesa/modal-modif-mesa.module#ModalModifMesaPageModule' },
+  { path: 'modal-detalle-pedido', loadChildren: './pages/modal-detalle-pedido/modal-detalle-pedido.module#ModalDetallePedidoPageModule' },
+  { path: 'modal-modif-mesa', loadChildren: './pages/modal-modif-mesa/modal-modif-mesa.module#ModalModifMesaPageModule' },
   { path: 'modal-pedido-cliente', loadChildren: './pages/modal-pedido-cliente/modal-pedido-cliente.module#ModalPedidoClientePageModule' },
-
-
-
-
-
-
 
 ];
 
@@ -46,3 +40,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+

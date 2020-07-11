@@ -1,3 +1,5 @@
+import { Pedido } from './pedido';
+
 export class Usuario {
         id: string;
         email: string;
