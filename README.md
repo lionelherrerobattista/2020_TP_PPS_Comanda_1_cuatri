@@ -70,9 +70,9 @@
 | **Fecha de finalización de la tarea** | 10/07/2020 | 10/07/2020 | 10/07/2020 |
 | **Branch** | [lherrerob](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/tree/lherrerob) | [ptorrealba](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/tree/ptorrealba) | [rmuruchi](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/tree/rmuruchi) |
 
-## Guía del usuario
+## Guía del usuario :calling:
 
-### Login
+### Inicio de sesión
 
 El cliente que ingresa al local puede descargar la aplicación puede registrarse o iniciar sesión como un usuario anónimo.
 
@@ -80,7 +80,7 @@ El cliente que ingresa al local puede descargar la aplicación puede registrarse
     <img src="coronaDelyApp\src\assets\screens_readme\Screenshot_20200710-215536.png" alt="drawing" width="350"/>
 </p>
 
-### Registro cliente
+### Registro cliente  :pencil:
 
 El cliente puede registrarse utilizando el código QR de su DNI o introduciendo los datos de manera manual. Una vez verificado el correo electrónico
 y, luego de que el supervisor apruebe su ingreso, el cliente podrá ingresar a la aplicación.
@@ -95,7 +95,7 @@ Cliente anónimo:
     <img src="coronaDelyApp\src\assets\screens_readme\Screenshot_20200710-215555.png" alt="drawing" width="350"/>
 </p>
 
-### Lista de espera y asignación de mesa
+### Lista de espera y asignación de mesa :watch:
 
 Una vez dentro de la aplicación podrá escanear el QR para ingresar a la lista de espera. Luego de que el metre le asigne una mesa, el cliente puede
 leer el código QR de la mesa para solicitar su pedido.
@@ -112,7 +112,7 @@ Se podrá acceder al menú principal de la aplicación donde se puede realizar u
     <img src="coronaDelyApp\src\assets\screens_readme\Screenshot_20200710-215911.png" alt="drawing" width="350"/>
 </p>
 
-### Pedido
+### Pedido :money_with_wings:
 
 Puede ver y pedir los distintos productos que ofrece el restaurante.
 
@@ -120,7 +120,7 @@ Puede ver y pedir los distintos productos que ofrece el restaurante.
     <img src="coronaDelyApp\src\assets\screens_readme\Screenshot_20200710-215928.png" alt="drawing" width="350"/>
 </p>
 
-### Consultas
+### Consultas :email:
 
 En caso de tener alguna duda, el cliente puede consultar a un mozo que le responderá a la brevedad.
 
@@ -128,7 +128,7 @@ En caso de tener alguna duda, el cliente puede consultar a un mozo que le respon
     <img src="coronaDelyApp\src\assets\screens_readme\Screenshot_20200710-215950.png" alt="drawing" width="350"/>
 </p>
 
-### Encuestas
+### Encuestas :notebook:
 
 Además, el cliente puede completar la encuesta para dejar registrada su opinión sobre el local.
 
