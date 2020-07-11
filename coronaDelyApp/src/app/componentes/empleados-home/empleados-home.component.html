@@ -1,61 +1,70 @@
 <section class="ion-text-center ion-margin-bottom">
   <ion-grid>
-    <ion-row >
+    <ion-row > <!-- COCINERO/ BARTENDER-->
       <ion-col col-4 *ngIf="usuario?.perfil == 'cocinero' || usuario?.perfil == 'bartender'">
         <ion-card [routerLink]="['/pedido', usuario.id]" class="ion-text-center ion-padding" color="000">
           <ion-icon name="clipboard"></ion-icon>
           <h2 class="long-name">Preparar Pedidos</h2>
         </ion-card>
-      </ion-col>
-      
+      </ion-col>      
       <ion-col col-4 *ngIf="usuario?.perfil == 'cocinero' || usuario?.perfil== 'bartender'">
         <ion-card routerLink="/registro/producto" class="ion-text-center ion-padding" color="000">
           <ion-icon name="restaurant"></ion-icon>
           <h2 class="long-name">Alta Productos</h2>
         </ion-card>
       </ion-col>
+    </ion-row>
 
-      
+    <ion-row> <!-- METRE-->
       <ion-col col-4 *ngIf="usuario?.perfil == 'metre'">
-        <ion-card [routerLink]="['/listas', 'listaEsperaMetre']" class="ion-text-center ion-padding" color="000">
+        <ion-card [routerLink]="['/listas', 'listaEsperaMetre']" class="ion-text-center ion-padding" >
           <ion-icon name="man"></ion-icon>
           <h2 class="long-name">Clientes en Lista de Espera</h2>
         </ion-card>
       </ion-col> 
+      <ion-col col-4 *ngIf="usuario?.perfil == 'metre'">
+          <ion-card routerLink="/registro/mesa"  class="ion-text-center ion-padding" >
+            <ion-icon name="book"></ion-icon>
+            <h2 class="long-name">Alta Mesa</h2>
+          </ion-card>
+      </ion-col>
+    </ion-row>
 
+    <ion-row> <!-- MOZO-->
       <ion-col col-4 *ngIf="usuario?.perfil == 'mozo'">
-        <ion-card [routerLink]="['/consulta', usuario.perfil, usuario.id]" class="ion-text-center ion-padding" color="000">
+        <ion-card [routerLink]="['/consulta', usuario.perfil, usuario.id]" class="ion-text-center ion-padding" >
           <ion-icon name="man"></ion-icon>
           <h2 class="long-name">Responder Consultas</h2>
         </ion-card>
-      </ion-col> 
-    </ion-row>
-
-    <ion-row>
-      <ion-col col-4 *ngIf="usuario?.perfil == 'metre'">
-        <ion-card routerLink="/registro/mesa"  class="ion-text-center ion-padding" color="000">
-          <ion-icon name="book"></ion-icon>
-          <h2 class="long-name">Alta Mesa</h2>
-        </ion-card>
-      </ion-col>
-  
+      </ion-col>     
       <ion-col col-4 *ngIf="usuario?.perfil == 'mozo'">
-        <ion-card routerLink="/registro/mesa"  class="ion-text-center ion-padding" color="000">
+        <ion-card routerLink="/registro/mesa"  class="ion-text-center ion-padding" >
           <ion-icon name="book"></ion-icon>
           <h2 class="long-name">Alta Mesa</h2>
-        </ion-card>
-  
-        <ion-card [routerLink]="['/listas', 'listaPedidos']" class="ion-text-center ion-padding" color="000">
+        </ion-card>  
+      </ion-col>
+    </ion-row>
+    <ion-row> <!-- MOZO-->
+      <ion-col col-4 *ngIf="usuario?.perfil == 'mozo'">
+        <ion-card [routerLink]="['/listas', 'listaPedidos']" class="ion-text-center ion-padding" >
           <ion-icon name="clipboard"></ion-icon>
           <h2 class="long-name">Lista Pedidos</h2>
         </ion-card>
-
-        <ion-card routerLink="/consultas" class="ion-text-center ion-padding" color="000">
+      </ion-col>
+      <!-- <ion-col col-4 *ngIf="usuario?.perfil == 'mozo'">
+        <ion-card routerLink="/consultas" class="ion-text-center ion-padding" >
           <ion-icon name="chatboxes"></ion-icon>
           <h2 class="long-name">Consultas</h2>
         </ion-card>
-      </ion-col>    
-    </ion-row>
-    
+      </ion-col>  -->
+    </ion-row>  
+    <ion-row>
+        <ion-col col-4 *ngIf="usuario?.perfil == 'metre'">
+            <ion-card [routerLink]="['/listas', 'mesas']"  class="ion-text-center ion-padding" >
+              <ion-icon name="man"></ion-icon>
+              <h2 class="long-name">Listado de Mesas</h2>
+            </ion-card>
+        </ion-col>   
+    </ion-row>  
   </ion-grid>
 </section>

@@ -16,11 +16,15 @@ export class Encuesta {
     id?:string;
     preguntas:Pregunta[];
     tipo:TipoEncuesta;
-    usuario:Usuario;
+    usuario?:Usuario;
 
-    constructor(preguntas:Pregunta[], usuario:Usuario, tipo:TipoEncuesta) {
+    constructor(preguntas:Pregunta[], tipo:TipoEncuesta, usuario?:Usuario) {
         this.preguntas = preguntas;
-        this.usuario = usuario;
+        
+        if(this.usuario != undefined) {
+            this.usuario = usuario;
+        }
+        
         this.tipo = tipo;
 
     }

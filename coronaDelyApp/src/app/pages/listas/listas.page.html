@@ -3,7 +3,7 @@
         <ion-button slot="start" fill="clear" (click)="inicio()"> 
             <ion-icon name="arrow-back"></ion-icon>
         </ion-button>
-      <ion-title>Lista de {{object}}</ion-title>  
+      <ion-title>{{object}}</ion-title>  
     </ion-toolbar>
   </ion-header>
 
@@ -13,4 +13,5 @@
   <app-producto-lista *ngIf="object == 'producto'"></app-producto-lista> 
   <app-metre-lista-espera *ngIf="object == 'listaEsperaMetre'"></app-metre-lista-espera>
   <app-mozo-lista-pedidos *ngIf="object == 'listaPedidos'"></app-mozo-lista-pedidos>
+  <app-metre-lista-mesas *ngIf="object == 'mesas'"></app-metre-lista-mesas>
 </ion-content>
