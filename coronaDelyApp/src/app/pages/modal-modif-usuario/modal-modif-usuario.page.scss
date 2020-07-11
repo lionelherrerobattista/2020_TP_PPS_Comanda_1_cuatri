@@ -10,6 +10,12 @@ main{
     flex-direction: column;
 }
 
+img {
+    width: 150px;
+    height: auto;
+    border-radius: 5px;
+}
+
 .form-cliente{
     display: flex;
     flex-direction: column;
