@@ -56,7 +56,7 @@
 
       
       <ion-col col-3 *ngIf="(usuario?.estado == 'sinAtender' || usuario?.estado == 'finalizado')">
-        <ion-card  routerLink="/reservar" class="ion-text-center ion-padding" color="000">
+        <ion-card  [routerLink]="['/reserva', usuario.id]" class="ion-text-center ion-padding" color="000">
           <ion-icon name="bookmarks"></ion-icon>          
           <h2 class="long-name">Hacer Reserva</h2>
         </ion-card>
@@ -70,13 +70,6 @@
           <h2 class="long-name">Realizar Pedido (delivery)</h2>
         </ion-card>
       </ion-col>   
-      <!-- <ion-col col-6  *ngIf="(usuario?.estado == 'atendido' || usuario?.estado == 'esperandoOrden'
-                               || usuario?.estado == 'finalizado' || usuario?.estado == 'pagando')">
-          <ion-card routerLink="/hacer-encuesta-cliente" class="ion-text-center ion-padding" color="000">
-            <ion-icon name="bookmarks"></ion-icon>          
-            <h2 class="long-name">Realizar Encuesta</h2>
-          </ion-card>
-        </ion-col> -->
         <ion-col col-6 *ngIf="usuario?.estado != 'pagando'">
           <ion-card routerLink="/juego" class="ion-text-center ion-padding" color="000">
             <ion-icon name="timer"></ion-icon>          

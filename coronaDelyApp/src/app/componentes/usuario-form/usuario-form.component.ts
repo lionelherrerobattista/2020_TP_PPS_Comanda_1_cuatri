@@ -11,6 +11,7 @@ import { FormControl,ValidatorFn, FormGroup, FormBuilder, Validators } from '@an
 import { FcmService } from 'src/app/servicios/fcm.service';
 import { Pedido } from 'src/app/clases/pedido';
 import { ToastController } from '@ionic/angular';
+import { ToastService } from 'src/app/servicios/toast.service';
 
 @Component({
   selector: 'app-usuario-form',
@@ -34,7 +35,7 @@ export class UsuarioFormComponent implements OnInit {
     private camaraService: CamaraService,
     private qrscannerService: QrScannerService,
     private fcm:FcmService,
-    public toastController: ToastController,
+    private toastService:ToastService,
   ) { 
     this.usuario = new Usuario();
     this.limpiarInputs();
@@ -120,7 +121,7 @@ export class UsuarioFormComponent implements OnInit {
 
       console.error(retorno)
 
-      this.mostrarToast('Usuario Registrado')
+      this.toastService.mostrarToast('Usuario Registrado', 'success')
 
       //Redireccionar
       if(this.esCliente){
@@ -132,7 +133,7 @@ export class UsuarioFormComponent implements OnInit {
 
     }, error => {    
       console.error(error.message)
-      this.mostrarToast('¡El correo electrónico ya existe!');
+      this.toastService.mostrarToast('¡El correo electrónico ya existe!', 'danger');
     });
   }
   
@@ -212,12 +213,5 @@ export class UsuarioFormComponent implements OnInit {
     return titleCaseStr;
   }
   
-    ///Funciones que llaman al toast y al modal
-    async mostrarToast(mensaje:string) {
-      const toast = await this.toastController.create({
-        message: mensaje,
-        duration: 2000
-      });
-      toast.present();
-    }
+    
 }

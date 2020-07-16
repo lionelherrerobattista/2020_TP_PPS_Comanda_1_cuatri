@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: 'registro', loadChildren: './pages/registro/registro.module#RegistroPageModule' },
   { path: 'registro/:object', loadChildren: './pages/registro/registro.module#RegistroPageModule' },
   { path: 'listas/:object', loadChildren: './pages/listas/listas.module#ListasPageModule' },
-  { path: 'reservar', loadChildren: './pages/reserva/reserva.module#ReservaPageModule' },
+  { path: 'reserva/:idCliente', loadChildren: './pages/reserva/reserva.module#ReservaPageModule' },
   { path: 'pedido', loadChildren: './pages/pedido/pedido.module#PedidoPageModule' },
   { path: 'inicio', loadChildren: './pages/home/home.module#HomePageModule' },
   { path: 'delivery', loadChildren: './pages/delivery/delivery.module#DeliveryPageModule' },
