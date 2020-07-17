@@ -10,10 +10,20 @@
 <ion-content>  
   <form #form="ngForm">
     <ion-item>
-      <ion-label for="fecha" class="label" position="floating">Fecha y Hora</ion-label>
-      <ion-datetime [(ngModel)]="fecha" name="fecha" [min]="diaMinimo.toISOString().substring(0, 10)" [max]="diaMaximo.toISOString().substring(0, 10)" displayFormat="D MMM HH:mm"
-        hourValues="08,09,10,11,12,13,14,15,16,17,18,19,20,21,22,23,00,01"
-         minuteValues="0,15,30,45" required></ion-datetime>
+      <ion-label for="fecha" class="label" position="floating">Fecha</ion-label>
+      <ion-datetime [(ngModel)]="fecha" name="fecha" [min]="diaMinimo.toISOString().substring(0, 10)" [max]="diaMaximo.toISOString().substring(0, 10)" displayFormat="D MMM"
+      [monthShortNames]="mesesAbreviados"
+      (ionChange)="calcularHora()" required></ion-datetime>    
+    </ion-item>
+    <ion-item *ngIf="!esMismoDia">
+      <ion-label for="hora" class="label" position="floating">Hora</ion-label>
+      <ion-datetime [(ngModel)]="hora" name="hora" [min]="diaMinimo.toISOString().substring(0, 10)" [max]="diaMaximo.toISOString().substring(0, 10)" displayFormat="HH:mm"
+      hourValues="08,09,10,11,12,13,14,15,16,17,18,19,20,21,22,23,00,01" minuteValues="0,15,30,45" required></ion-datetime>
+    </ion-item>
+    <ion-item *ngIf="esMismoDia">
+      <ion-label for="hora" class="label" position="floating">Hora</ion-label>
+      <ion-datetime [(ngModel)]="hora" name="hora" [min]="diaMinimo.toISOString().substring(0, 10)" [max]="diaMaximo.toISOString().substring(0, 10)" displayFormat="HH:mm"
+      [hourValues]="horasReservaDiaCorriente" minuteValues="0,15,30,45" required></ion-datetime>
     </ion-item>
     <ion-item>
       <ion-label for="cantidadComensales" class="label" position="floating">Cantidad de Comensales</ion-label>

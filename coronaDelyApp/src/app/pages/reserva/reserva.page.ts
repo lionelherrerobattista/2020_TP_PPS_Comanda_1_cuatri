@@ -25,8 +25,12 @@ export class ReservaPage implements OnInit {
   form: NgForm;
   diaMinimo:Date;
   diaMaximo:Date;
+  mesesAbreviados:string[];
   fecha:string;
+  hora:string;
   cantidadComensales:number;
+  esMismoDia:boolean;
+  horasReservaDiaCorriente:string[];
 
   constructor(
     private loadingService: LoadingService,
@@ -36,7 +40,12 @@ export class ReservaPage implements OnInit {
     private activatedRoute:ActivatedRoute,
     private mesaService:MesaService,
 
-  ) { }
+  ) { 
+    this.horasReservaDiaCorriente = [];
+    this.mesesAbreviados = ["ene", "feb", "mar", "abr", "may", "jun",
+      "jul", "ago", "sep", "oct", "nov", "dic"];
+    this.esMismoDia = false;
+  }
 
   ngOnInit() {
 
@@ -50,7 +59,6 @@ export class ReservaPage implements OnInit {
       let userId = params.get('idCliente');
   
       if(userId != null) {
-        console.log(userId);
         this.usuarioService.getUser(userId)
           .subscribe(user => { 
             this.usuario=user;     
@@ -59,33 +67,72 @@ export class ReservaPage implements OnInit {
     });
   }
 
+  ///Calcula la hora que tiene que mostrar en el ion-datetime
+  calcularHora() {
+    let fechaActual:Date = new Date();
+    let fechaSeleccionada:Date = new Date(this.fecha);
+    
+    fechaActual.setHours(0,0,0,0);
+    fechaSeleccionada.setHours(0,0,0,0);
+
+    //Calcular horarios disponibles para el mismo día
+    if(fechaSeleccionada.getTime() === fechaActual.getTime()) {
+
+      let horaActual = new Date();
+      let hora = horaActual.getHours();
+
+      if(hora < 8) {
+        hora= 8;
+      }
+
+      while(hora <= 24){
+
+        hora+=1
+        this.horasReservaDiaCorriente.push(hora.toString())
+      }
+      this.esMismoDia = true;
+    } else {
+      this.esMismoDia = false;
+    } 
+  }
+
+  ///Crea la reserva y la guarda en la BD
   async reservarMesa() {
     let mesa:Mesa;
     let reserva:Reserva;
     let fechaReservada;
     let listaMesas:Mesa[];
+    let auxHora:Date;
 
     reserva = new Reserva();
     reserva.cliente = <Cliente>this.usuario;
-    reserva.fecha = new Date(this.fecha).valueOf();
-    reserva.cantidadComensales;
+
+    //Guardar fecha
+    reserva.fecha = new Date(this.fecha);
+    auxHora= new Date(this.hora);
+    reserva.fecha.setHours(auxHora.getHours(),auxHora.getMinutes(), 0, 0);
+
+    reserva.cantidadComensales = this.cantidadComensales;
+
     this.loadingService.showLoading("Guardando Reserva...");
   
-    // verificar si hay mesas disponibles en la fecha y hora seleccionadas
+    // verificar si hay mesas disponibles
     listaMesas = await this.mesaService.getAllTables(Elementos.Mesas).pipe(first()).toPromise();
 
     for(let auxMesa of listaMesas) {
       fechaReservada = false;
 
-      if(auxMesa.reservas.length > 0) {
+      if(auxMesa.nroComensales < this.cantidadComensales) {
+        fechaReservada=true;
+
+      } else if(auxMesa.reservas.length > 0) {
+        //Verificar fecha disponible
         for(let auxReserva of auxMesa.reservas) {
           if( auxReserva.fecha == reserva.fecha) {
             fechaReservada=true;
             break;
           }
         }
-      } else if(auxMesa.nroComensales < this.cantidadComensales) {
-        fechaReservada=true;
       }
 
       if(!fechaReservada){
@@ -96,7 +143,6 @@ export class ReservaPage implements OnInit {
 
     if(fechaReservada) {
       this.toastService.mostrarToast("No hay mesas disponibles", "danger");
-      console.error('No encontró mesa');
       this.loadingService.closeLoading();
     } else {
       reserva.mesa = mesa;
