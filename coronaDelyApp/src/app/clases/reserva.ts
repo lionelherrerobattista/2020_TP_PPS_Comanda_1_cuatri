@@ -4,6 +4,7 @@ import { Cliente } from './cliente';
 export enum EstadoReserva {
     aConfirmar = "a confirmar",
     confirmada = "confirmada",
+    utilizada = "utilizada", //cuando el cliente se sienta en la mesa
     cancelada = "cancelada",
 }
 

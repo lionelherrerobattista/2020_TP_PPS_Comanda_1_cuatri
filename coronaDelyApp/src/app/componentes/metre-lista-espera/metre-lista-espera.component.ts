@@ -97,9 +97,8 @@ export class MetreListaEsperaComponent implements OnInit {
 
     //Asignar mesa al cliente
     this.aceptacion=true;
-
-
   }
+  
   asignarMesa(mesa:Mesa) {
     this.clienteAux.estado = Estados.puedeTomarMesa ;
     this.clienteAux.mesaAsignada = mesa.id;
