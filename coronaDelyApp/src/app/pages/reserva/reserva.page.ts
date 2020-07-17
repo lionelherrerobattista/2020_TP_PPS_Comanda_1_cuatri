@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/servicios/auth.service';
 import { LoadingService } from 'src/app/servicios/loading.service';
-import { Reserva } from 'src/app/clases/reserva';
+import { Reserva, EstadoReserva } from 'src/app/clases/reserva';
 import { NgForm } from '@angular/forms';
 import { ReservaService } from 'src/app/servicios/reserva.service';
 import { Elementos } from 'src/app/clases/enums/elementos';
@@ -128,7 +128,7 @@ export class ReservaPage implements OnInit {
       } else if(auxMesa.reservas.length > 0) {
         //Verificar fecha disponible
         for(let auxReserva of auxMesa.reservas) {
-          if( auxReserva.fecha == reserva.fecha) {
+          if(auxReserva.fecha == reserva.fecha && reserva.estado != EstadoReserva.cancelada) {
             fechaReservada=true;
             break;
           }

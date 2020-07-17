@@ -8,6 +8,8 @@ import { ModalModifUsuarioPage } from 'src/app/pages/modal-modif-usuario/modal-m
 import { Estados } from 'src/app/clases/enums/estados';
 import { MesaService } from 'src/app/servicios/mesa.service';
 import { Mesa } from 'src/app/clases/mesa';
+import { EstadoReserva } from 'src/app/clases/reserva';
+import { Elementos } from 'src/app/clases/enums/elementos';
 
 
 @Component({
@@ -36,8 +38,6 @@ export class MetreListaEsperaComponent implements OnInit {
   ) { 
     this.listaClientes = [];
     this.listaMesas=[];
-    this.filtro = 'cliente';
-    this.filtroMesa = 'mesas';
     this.aceptacion=false;
     this.filtro = 'clientes';
     
@@ -45,13 +45,44 @@ export class MetreListaEsperaComponent implements OnInit {
   }
 
   ngOnInit() {
+    let horaActual;
+    let mesaReservada:boolean;
+
     this.usuarioService.getUsuariosFiltrados(this.filtro).subscribe( usuarios => {
       this.listaClientes = usuarios.filter(cliente => cliente.estado == Estados.enEspera);
-      console.log(this.listaClientes);
-    })
-    this.mesasService.getAllTables(this.filtroMesa).subscribe(mesas => {     
-     this.listaMesas = mesas.filter(mesa => mesa.estado == Estados.disponible);
-     console.log(this.listaMesas);
+      
+    });
+
+    this.mesasService.getAllTables(Elementos.Mesas).subscribe(mesas => {     
+
+      horaActual = Math.round(new Date().getTime()/1000) //en segundos Unix para comparar
+      this.listaMesas = [];
+      
+      //Comprobar que la mesa no esté reservada
+      //Si está reservada marcar "ocupada" 40 min antes
+      for(let mesa of mesas){
+        mesaReservada= false;
+        
+        if(mesa.estado == Estados.disponible) {
+          for(let reserva of mesa.reservas) {
+                     
+            if(reserva.estado == EstadoReserva.confirmada &&
+              ( horaActual >= ( reserva.fecha.seconds - 2400) //40 min antes de la reserva
+               && horaActual <= (reserva.fecha.seconds + 2400))) { //y 40 min despues
+              console.log("hay reserva");
+              mesa.estado = Estados.ocupada;
+              mesaReservada=true;
+              break;
+            }
+          }
+        }
+        
+        if(mesaReservada) {
+          this.mesasService.updateTable(Elementos.Mesas, mesa.id, mesa);
+        } else {
+          this.listaMesas.push(mesa);
+        }
+      }
     });
     
   }
@@ -63,18 +94,17 @@ export class MetreListaEsperaComponent implements OnInit {
     cliente.estado = Estados.puedeTomarMesa ;
     this.clienteAux.estado=cliente.estado;
     this.clienteAux.id=cliente.id;
-   // this.usuarioService.updateUser('usuarios', cliente.id, cliente);
-    //this.mostrarToast("El cliente puede tomar una mesa");
+
     //Asignar mesa al cliente
     this.aceptacion=true;
-    console.log(this.clienteAux.id, this.clienteAux.estado, this.clienteAux);
+
 
   }
   asignarMesa(mesa:Mesa) {
     this.clienteAux.estado = Estados.puedeTomarMesa ;
     this.clienteAux.mesaAsignada = mesa.id;
     this.usuarioService.updateUser('usuarios', this.clienteAux.id, this.clienteAux);
-    console.log(this.clienteAux.id, this.clienteAux.estado, this.clienteAux);
+    
     
     this.mesasService.updateTable('mesas',mesa.id,mesa);
     this.mostrarToast("El cliente puede tomar una mesa");

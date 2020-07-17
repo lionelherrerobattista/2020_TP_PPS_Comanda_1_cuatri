@@ -19,14 +19,6 @@ export class UsuarioService {
     private dataService: DataService
   ) { }
 
-  // Esta es la función original
-  // saveUserWithLogin(user) {
-  //   return this.authService.createUser(user).then(createdUser => {
-  //     user.id = createdUser.user.uid;
-  //     this.saveUser(user);
-  //   })
-  // }
-
   //Registra un usuario.
   //Si se registra, devuelve el usuario.
   //Si no, devuelve una excepción que se tiene que manejar
