@@ -20,4 +20,29 @@ export class Reserva {
         this.estado = EstadoReserva.aConfirmar;
     }
 
+    //Verifica que la reserva esté dentro del horario correspondiente
+    //Devuelve: true si está dentro del horario permitido
+    //          si no false
+    
+    /**
+     * Verifica si la reserva está dentro del horario
+     * @param reserva la reserva que se quiere verificar
+     * @returns true si está dentro del horario,
+     * si excedió el horario de la reserva
+     */
+    static verificarHorarioReserva(reserva:Reserva):boolean{
+        let limiteMinReserva= reserva.fecha.seconds - 2400; //40 minutos antes
+        let limiteMaxReserva= reserva.fecha.seconds + 2400; //40 minutos despues
+        let enHorario= false;
+        let horaActual = Math.round(new Date().getTime()/1000) //en SEGUNDOS Unix para comparar con firebase
+              
+        if(reserva.estado == EstadoReserva.confirmada &&
+            (horaActual >= limiteMinReserva && horaActual <= limiteMaxReserva)) { 
+            
+            enHorario=true;
+        }
+        
+        return enHorario;
+    }
+
 }

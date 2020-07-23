@@ -39,13 +39,11 @@ export class MetreListaEsperaComponent implements OnInit {
     this.listaClientes = [];
     this.listaMesas=[];
     this.aceptacion=false;
-    this.filtro = 'clientes';
-    
-    
+    this.filtro = 'clientes';   
   }
 
   ngOnInit() {
-    let horaActual;
+   
     let mesaReservada:boolean;
 
     this.usuarioService.getUsuariosFiltrados(this.filtro).subscribe( usuarios => {
@@ -55,31 +53,27 @@ export class MetreListaEsperaComponent implements OnInit {
 
     this.mesasService.getAllTables(Elementos.Mesas).subscribe(mesas => {     
 
-      horaActual = Math.round(new Date().getTime()/1000) //en segundos Unix para comparar
       this.listaMesas = [];
       
       //Comprobar que la mesa no esté reservada
-      //Si está reservada marcar "ocupada" 40 min antes
       for(let mesa of mesas){
-        mesaReservada= false;
+        mesaReservada = false;
         
-        if(mesa.estado == Estados.disponible) {
-          for(let reserva of mesa.reservas) {
-                     
-            if(reserva.estado == EstadoReserva.confirmada &&
-              ( horaActual >= ( reserva.fecha.seconds - 2400) //40 min antes de la reserva
-               && horaActual <= (reserva.fecha.seconds + 2400))) { //y 40 min despues
-              console.log("hay reserva");
-              mesa.estado = Estados.ocupada;
-              mesaReservada=true;
-              break;
-            }
-          }
+        if(mesa.estado != Estados.ocupada){
+          mesaReservada = Mesa.verificarReserva(mesa);
         }
         
         if(mesaReservada) {
+          mesa.estado = Estados.reservada;
           this.mesasService.updateTable(Elementos.Mesas, mesa.id, mesa);
         } else {
+          
+          if(mesa.estado == Estados.reservada)
+          {
+            //Pasó el tiempo de la reserva, libero la mesa
+            mesa.estado = Estados.disponible;
+            this.mesasService.updateTable(Elementos.Mesas, mesa.id, mesa);
+          }
           this.listaMesas.push(mesa);
         }
       }
@@ -142,8 +136,6 @@ export class MetreListaEsperaComponent implements OnInit {
     }
   }
 
-  
-
   ///Funciones que llaman al toast y al modal
   async mostrarToast(mensaje:string) {
     const toast = await this.toastController.create({
@@ -163,7 +155,4 @@ export class MetreListaEsperaComponent implements OnInit {
 
     return await modal.present();
   }
-
-  
-
 }

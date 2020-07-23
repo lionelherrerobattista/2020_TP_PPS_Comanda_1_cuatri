@@ -55,7 +55,7 @@
       </ion-col>
 
       
-      <ion-col col-3 *ngIf="(usuario?.estado == 'sinAtender' || usuario?.estado == 'finalizado')">
+      <ion-col col-3 *ngIf="(usuario?.estado == 'finalizado' || usuario?.estado == 'aprobado')">
         <ion-card  [routerLink]="['/reserva', usuario.id]" class="ion-text-center ion-padding" color="000">
           <ion-icon name="bookmarks"></ion-icon>          
           <h2 class="long-name">Hacer Reserva</h2>

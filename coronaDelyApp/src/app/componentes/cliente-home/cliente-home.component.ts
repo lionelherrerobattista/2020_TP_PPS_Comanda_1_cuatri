@@ -68,20 +68,16 @@ export class ClienteHomeComponent implements OnInit {
     
   }
   filtrarPedidos(tableId,clienteId) {
-      console.log("tableId", tableId)
+      
       this.listaParaMostrar = this.listaPedidos.filter(pedido => (pedido.idCliente == clienteId) && (pedido.mesa.id==tableId));
       if (this.listaParaMostrar.length>0){
-          console.log(this.listaParaMostrar.length)
+          
           this.mostrarModal(this.cliente);
       }
       else {
-        console.log(" *no hay pedidos")
-        // mostrar error de qr
+        
       }
   }
-
-
-
 
   irAListaEspera() {
     this.usuarioService.setDocument(Elementos.ListaDeEspera, this.usuario.id.toString(),
@@ -138,10 +134,7 @@ export class ClienteHomeComponent implements OnInit {
               break;
             case Estados.atendido:
               this.mostrarEstadoPedido(tableId,this.usuario.id);
-              break;
-            case Estados.mesaAsignada:
-              this.hacerPedido();
-              break;
+              break;            
           }
         });
       }
@@ -209,8 +202,7 @@ export class ClienteHomeComponent implements OnInit {
   }
 
   mostrarEstadoPedido(tableId,clienteId){
-    // Primero verifico la mesa
-    // this.verificarMesa(tableId,clienteId);
+
     this.mostrarModal(this.usuario);
   }
 
@@ -227,9 +219,7 @@ export class ClienteHomeComponent implements OnInit {
       }
    
   }
-  hacerPedido(){
-    
-  }
+
   pedirCuenta(){ 
     this.mostrarModal(this.usuario);
 
@@ -247,14 +237,14 @@ export class ClienteHomeComponent implements OnInit {
     return await modal.present();
   }
 
-    ///Funciones que llaman al toast y al alert
-    async mostrarToast(mensaje:string) {
-      const toast = await this.toastController.create({
-        message: mensaje,
-        duration: 2000
-      });
-      toast.present();
-    }
+  ///Funciones que llaman al toast y al alert
+  async mostrarToast(mensaje:string) {
+    const toast = await this.toastController.create({
+      message: mensaje,
+      duration: 2000
+    });
+    toast.present();
+  }
   
   
 }
