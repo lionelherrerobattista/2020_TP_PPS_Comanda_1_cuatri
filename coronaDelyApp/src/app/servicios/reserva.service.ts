@@ -54,20 +54,25 @@ export class ReservaService {
   async actualizarReserva(reserva:Reserva){
     let cliente:Cliente;
     let mesa:Mesa;
-    
-    //Guardar en reservas
+    let indice;
+
+    //Actualizar en reservas
     this.dataService.update(Elementos.Reserva, reserva.id, Object.assign({}, reserva));
 
-    //Guardar en cliente
+    reserva= await this.getReserva(reserva.id).pipe(first()).toPromise();//para tomar los otros datos que pueden faltar (cliente/mesa)
+
+    //Actualizar en cliente
     cliente = <Cliente>await this.usuarioService.getUser(reserva.cliente.id).pipe(first()).toPromise();
     cliente.reserva = Object.assign({}, reserva);
+    console.log(cliente)
     delete cliente.reserva.cliente
     this.usuarioService.updateUser(Elementos.Usuarios, cliente.id, cliente);
     
-    //Guardar en mesa
+    //Actualizar en mesa
     mesa = await this.mesaService.getTableById(reserva.mesa.id).pipe(first()).toPromise();
+    indice = mesa.reservas.findIndex(auxReserva => auxReserva.id == reserva.id);
+    mesa.reservas[indice] = Object.assign({}, reserva);
     delete reserva.mesa
-    mesa.reservas.push(Object.assign({}, reserva));
     this.mesaService.updateTable(Elementos.Mesas, mesa.id, mesa);
   }
 

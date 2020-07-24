@@ -61,6 +61,14 @@
           <h2 class="long-name">Hacer Reserva</h2>
         </ion-card>
       </ion-col>
+
+      <ion-col col-3 *ngIf="(usuario?.reserva != undefined) 
+                        && (usuario?.estado == 'finalizado' || usuario?.estado == 'aprobado' || usuario?.estado == 'puedeTomarMesa')">
+        <ion-card  (click)="consultarReserva()" class="ion-text-center ion-padding" color="000">
+          <ion-icon name="bookmarks"></ion-icon>          
+          <h2 class="long-name">Consultar Reserva</h2>
+        </ion-card>
+      </ion-col>
     </ion-row>
 
     <ion-row>

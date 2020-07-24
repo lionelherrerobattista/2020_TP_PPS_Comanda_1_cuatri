@@ -18,6 +18,7 @@ import { Pedido } from 'src/app/clases/pedido';
 import { ServicioDeMesa } from 'src/app/clases/servicio-de-mesa';
 import { ServicioDeMesaService } from 'src/app/servicios/servicio-de-mesa.service';
 import { RouterLink, Router } from '@angular/router';
+import { ModalDetalleReservaPage } from 'src/app/pages/modal-detalle-reserva/modal-detalle-reserva.page';
 // import { ModalPedidoClientePage } from 'src/app/pages/modal-pedido-cliente/modal-pedido-cliente.page';
 
 
@@ -225,12 +226,30 @@ export class ClienteHomeComponent implements OnInit {
 
   }
 
+  consultarReserva(){
+
+    let cliente = <Cliente>this.usuario;
+
+    this.mostrarModalReserva(cliente);
+
+  }
+
   async mostrarModal(cliente:Cliente) {
     const modal = await this.modalController.create({
       component: ModalDetallePedidoPage,
       componentProps: {
         pedido: cliente.pedido,
         perfil: cliente.perfil,
+        cliente: cliente,
+      }
+    });
+    return await modal.present();
+  }
+
+  async mostrarModalReserva(cliente:Cliente) {
+    const modal = await this.modalController.create({
+      component: ModalDetalleReservaPage,
+      componentProps: {
         cliente: cliente,
       }
     });
