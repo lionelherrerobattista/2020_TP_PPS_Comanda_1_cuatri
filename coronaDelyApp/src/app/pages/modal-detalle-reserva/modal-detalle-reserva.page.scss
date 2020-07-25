@@ -1,0 +1,32 @@
+#contenedor {
+    display: flex; 
+    flex-direction: column;
+    justify-content: space-between;
+    height: 80vh;
+    padding: 5vh 5vw 5vh 5vw;
+
+}
+
+#div-botones {
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+}
+
+.label {
+    font-weight: bold;
+    margin-right: 1vw;
+}
+
+.texto {
+    font-style: italic!important;
+}
+
+.item {
+    display: flex;
+    flex-direction: row;
+}
+
+ion-button{
+    margin-right: 5vw!important;
+}

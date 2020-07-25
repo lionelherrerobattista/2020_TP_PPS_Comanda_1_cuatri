@@ -4,6 +4,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { Cliente } from 'src/app/clases/cliente';
 import { Usuario } from 'src/app/clases/usuario';
+import { Estados } from 'src/app/clases/enums/estados';
+import { Perfiles } from 'src/app/clases/enums/perfiles';
 
 @Component({
   selector: 'app-pedido',
@@ -52,7 +54,12 @@ export class PedidoPage implements OnInit {
     this.pedidoTomado = false;
   }
   inicio(){
-    this.router.navigate([`/home`]);
+    if(this.usuario.perfil == Perfiles.clienteAnonimo) {
+      this.router.navigate([`/home`, this.usuario.id]);  
+    } else {
+      this.router.navigate([`/home`]);
+    }
+    
   }
 
 }

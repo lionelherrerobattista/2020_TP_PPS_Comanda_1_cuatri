@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/servicios/auth.service';
 import { TagPlaceholder } from '@angular/compiler/src/i18n/i18n_ast';
 import { ModalMenuDetallePage } from 'src/app/pages/modal-menu-detalle/modal-menu-detalle.page';
 import { Cliente } from 'src/app/clases/cliente';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -32,6 +33,7 @@ export class MenuComponent implements OnInit {
     private productoService: ProductoService,
     private alertController: AlertController,
     private modalController:ModalController,
+    private router:Router,
   ) { 
     
     this.productosMenu = [];
@@ -112,6 +114,7 @@ export class MenuComponent implements OnInit {
 
   visualizarPedido() {
     this.mostrarModal(this.menu);
+    this.router.navigate(['/home', this.cliente.id]);
   }
 
   async mostrarModal(datos) {

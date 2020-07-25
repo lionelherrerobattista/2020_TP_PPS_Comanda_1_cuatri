@@ -1,0 +1,24 @@
+<div id="contenedor">
+  <h1>Reservas pendientes de aprobacion</h1>
+  <h1 *ngIf="listaReservas?.length == 0">No hay reservas</h1>
+  <ion-list *ngIf="listaReservas?.length > 0">
+    <ion-item-sliding  *ngFor="let reserva of listaReservas">
+      <ion-item (click)="aceptarReserva(reserva)">
+        <ion-avatar *ngIf="reserva.cliente.foto != undefined" slot="start">
+          <img [src]="[reserva.cliente.foto]">
+        </ion-avatar>
+        <ion-label>
+          <h2>Nombre cliente: {{reserva.cliente.nombre}} {{reserva.cliente.apellido}}</h2>
+          <h3>DNI: {{reserva.cliente.dni}}</h3>
+          <h3>Comensales: {{reserva.cantidadComensales}}</h3>
+          <h3>Mesa N°{{reserva.mesa.numero}}</h3>
+          <h3>Fecha: {{reserva.fecha.toDate() | date:'dd/MM/yyyy HH:mm'}}</h3>
+        </ion-label>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option color="danger" (click)="cancelarReserva(reserva)">Cancelar</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+    
+  </ion-list>
+</div>

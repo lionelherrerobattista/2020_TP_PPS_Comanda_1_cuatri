@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Detalle de su reserva</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div id="contenedor">
+    <div class="item">
+      <p class='label'>Día:</p> <p class='texto'>{{cliente.reserva.fecha.toDate() | date:'dd/MM/yyyy HH:mm'}}</p>
+    </div>
+    <div class="item">
+      <p class='label'>Cliente: </p><p class='texto'>{{cliente.nombre | titlecase}} {{cliente.apellido | titlecase}}</p>
+    </div>
+    <div class="item">
+      <p class='label'>Mesa asignada: </p><p class='texto'>n°{{cliente.reserva.mesa.numero}}</p>  
+    </div>
+    <div class="item">
+      <p class='label'>Estado de la reserva: </p><p class='texto'>{{cliente.reserva.estado}}</p>  
+    </div>
+    <div class="item">
+      <p class='label'>Cantidad de comensales: </p><p class='texto'>{{cliente.reserva.cantidadComensales}}</p>  
+    </div>
+    
+    <div id="div-botones">
+      <ion-button color="danger" *ngIf="cliente.reserva.estado != 'cancelada'" (click)="cancelarReserva()">Cancelar reserva</ion-button>
+      <ion-button color="success" (click)="cerrarModal()">Cerrar</ion-button>
+    </div>
+    
+  </div>
+
+
+
+</ion-content>

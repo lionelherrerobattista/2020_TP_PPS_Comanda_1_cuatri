@@ -56,7 +56,7 @@ export class MozoListaPedidosComponent implements OnInit {
   servir(pedido:Pedido){
 
     if(pedido.estado == Estados.enPreparacion){
-      this.mostrarToast('El pedido todavía no está listo.');      
+      this.mostrarModal(pedido);      
     } else {
       this.mostrarModal(pedido);
     }

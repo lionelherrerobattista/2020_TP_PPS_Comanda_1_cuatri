@@ -5,6 +5,7 @@ export enum  Estados {
     sinAtender = 'sinAtender',
     enEspera = 'enEspera', //en lista de espera
     puedeTomarMesa = 'puedeTomarMesa',
+    paraConfirmarPedido = 'para confirmar pedido',//el cliente necesita confirmar recepcion
     atendido = 'atendido', //comiendo
     pagando = 'pagando', //comiendo
     mesaAsignada = 'mesaAsignada',
@@ -25,6 +26,7 @@ export enum  Estados {
     // pedido
     entregado = 'entregado', //se lo da al cliente y espera que lo acepte
     listoParaEntregar = 'listo para entregar',
+    esperandoConfirmacionMozo= 'esperando confirmacion mozo',
     enPreparacion = 'en preparacion',
     aceptadoPorCliente = 'aceptado por cliente',
     confirmarPago= 'confirmar pago',
