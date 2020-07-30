@@ -55,14 +55,14 @@
       </ion-col>
 
       
-      <ion-col col-3 *ngIf="(usuario?.estado == 'finalizado' || usuario?.estado == 'aprobado')">
+      <ion-col col-3 *ngIf="(usuario?.perfil == 'cliente') && (usuario?.estado == 'finalizado' || usuario?.estado == 'aprobado')">
         <ion-card  [routerLink]="['/reserva', usuario.id]" class="ion-text-center ion-padding" color="000">
           <ion-icon name="bookmarks"></ion-icon>          
           <h2 class="long-name">Hacer Reserva</h2>
         </ion-card>
       </ion-col>
 
-      <ion-col col-3 *ngIf="(usuario?.reserva != undefined) 
+      <ion-col col-3 *ngIf="(usuario?.perfil == 'cliente') && (usuario?.reserva != undefined) 
                         && (usuario?.estado == 'finalizado' || usuario?.estado == 'aprobado' || usuario?.estado == 'puedeTomarMesa')">
         <ion-card  (click)="consultarReserva()" class="ion-text-center ion-padding" color="000">
           <ion-icon name="bookmarks"></ion-icon>          

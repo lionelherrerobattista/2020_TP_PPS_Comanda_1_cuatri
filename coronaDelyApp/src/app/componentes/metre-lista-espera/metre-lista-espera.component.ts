@@ -24,6 +24,7 @@ export class MetreListaEsperaComponent implements OnInit {
   filtro:string;
   filtroMesa:string;
   aceptacion: boolean;
+  listaVacia:boolean;
   
   clienteEstadoAux:Estados;
   clienteIdAux:string;
@@ -40,6 +41,7 @@ export class MetreListaEsperaComponent implements OnInit {
     this.listaMesas=[];
     this.aceptacion=false;
     this.filtro = 'clientes';   
+    this.listaVacia = true;
   }
 
   ngOnInit() {
@@ -48,6 +50,12 @@ export class MetreListaEsperaComponent implements OnInit {
 
     this.usuarioService.getUsuariosFiltrados(this.filtro).subscribe( usuarios => {
       this.listaClientes = usuarios.filter(cliente => cliente.estado == Estados.enEspera);
+
+      if(this.listaClientes.length > 0) {
+        this.listaVacia = false;
+      } else {
+        this.listaVacia = true;
+      }
       
     });
 
@@ -66,7 +74,7 @@ export class MetreListaEsperaComponent implements OnInit {
         if(mesaReservada) {
           mesa.estado = Estados.reservada;
           this.mesasService.updateTable(Elementos.Mesas, mesa.id, mesa);
-        } else {
+        } else if (mesa.estado != Estados.ocupada){
           
           if(mesa.estado == Estados.reservada)
           {
@@ -101,6 +109,7 @@ export class MetreListaEsperaComponent implements OnInit {
     
     this.mesasService.updateTable('mesas',mesa.id,mesa);
     this.mostrarToast("El cliente puede tomar una mesa");
+    this.aceptacion = false;
   }
 
   async rechazarCliente(cliente:Usuario) {

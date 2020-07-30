@@ -22,11 +22,7 @@ export class EmpleadosHomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // if(this.usuario.perfil == 'bartender' || this.usuario.perfil == 'cocinero') {
-    //     this.pedidoService.getAllOrders().subscribe(pedidos => {
-    //       this.mostrarToast('Se ha añadido un nuevo pedido');
-    //     });
-    // } 
+
   }
 
 

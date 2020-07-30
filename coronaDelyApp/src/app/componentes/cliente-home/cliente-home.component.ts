@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { QrScannerService } from 'src/app/servicios/qrscanner.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { AuthService } from 'src/app/servicios/auth.service';
-import { Usuario } from 'src/app/clases/usuario';
 import { Estados } from 'src/app/clases/enums/estados';
 import { NotificacionesService } from 'src/app/servicios/notificaciones.service';
 import { MesaService } from 'src/app/servicios/mesa.service';
@@ -15,11 +14,10 @@ import { Cliente } from 'src/app/clases/cliente';
 import { ModalDetallePedidoPage } from 'src/app/pages/modal-detalle-pedido/modal-detalle-pedido.page';
 import { ModalController, ToastController } from '@ionic/angular';
 import { Pedido } from 'src/app/clases/pedido';
-import { ServicioDeMesa } from 'src/app/clases/servicio-de-mesa';
 import { ServicioDeMesaService } from 'src/app/servicios/servicio-de-mesa.service';
-import { RouterLink, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ModalDetalleReservaPage } from 'src/app/pages/modal-detalle-reserva/modal-detalle-reserva.page';
-// import { ModalPedidoClientePage } from 'src/app/pages/modal-pedido-cliente/modal-pedido-cliente.page';
+import { ToastService } from 'src/app/servicios/toast.service';
 
 
 
@@ -49,7 +47,7 @@ export class ClienteHomeComponent implements OnInit {
     private pedidoService:PedidoService,
     private modalController:ModalController,
     public toastController: ToastController,
-    private router:Router,
+    private toastService: ToastService,
   ) {
 
   }
@@ -62,12 +60,9 @@ export class ClienteHomeComponent implements OnInit {
     //A ver si funciona
     this.usuarioService.getUser(this.usuario.id).subscribe( usuario => {
       this.cliente = <Cliente>usuario;
-      console.log(this.cliente);
-
-    })
-    
-    
+    })   
   }
+
   filtrarPedidos(tableId,clienteId) {
       
       this.listaParaMostrar = this.listaPedidos.filter(pedido => (pedido.idCliente == clienteId) && (pedido.mesa.id==tableId));
@@ -108,16 +103,17 @@ export class ClienteHomeComponent implements OnInit {
 
   //QR para ir a lista de Espera
   scanQr() {
-    console.log("dispositivo", this.qrscannerService.dispositivo)
     if(this.qrscannerService.dispositivo == "mobile"){
       this.qrscannerService.scanQr().then(response => {
         if (response == Elementos.ListaDeEspera) {
           this.irAListaEspera();
+          this.toastService.mostrarToast('En lista de espera. Se le asignará una mesa pronto', 'success');
+        } else {
+          this.toastService.mostrarToast('Código QR incorrecto', 'danger');
         }
       });
     }
     else{ // probando desde web siempre va a lista de espera
-      console.log("para web, voy a lista de espera")
       this.irAListaEspera();
     }
   }
@@ -210,12 +206,10 @@ export class ClienteHomeComponent implements OnInit {
   async verificarMesa(tableId,clienteId){
       let mesaCliente= await this.servicioDeMesaService.getServicioDeMesaById(clienteId).pipe(first()).toPromise();
       if (mesaCliente != undefined && mesaCliente.mesaId==tableId){
-        console.log("mesaCliente", mesaCliente)
         this.filtrarPedidos(tableId,clienteId);
       }
       else {
         let mesa = await this.mesaService.getTableById(tableId).pipe(first()).toPromise();
-        console.log("no hay pedidos")
         this.mostrarToast(`Mesa N.° ${mesa.numero} no corresponde al cliente`);
       }
    
@@ -223,15 +217,12 @@ export class ClienteHomeComponent implements OnInit {
 
   pedirCuenta(){ 
     this.mostrarModal(this.usuario);
-
   }
 
   consultarReserva(){
-
     let cliente = <Cliente>this.usuario;
 
     this.mostrarModalReserva(cliente);
-
   }
 
   async mostrarModal(cliente:Cliente) {
