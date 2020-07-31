@@ -6,6 +6,9 @@ import { QrScannerService } from 'src/app/servicios/qrscanner.service';
 import { ProductoService } from 'src/app/servicios/producto.service';
 import { NotificacionesService } from 'src/app/servicios/notificaciones.service';
 import { LoadingController } from '@ionic/angular';
+import { Usuario } from 'src/app/clases/usuario';
+import { UsuarioService } from 'src/app/servicios/usuario.service';
+import { AuthService } from 'src/app/servicios/auth.service';
 
 @Component({
   selector: 'app-producto-form',
@@ -16,10 +19,13 @@ export class ProductoFormComponent implements OnInit {
 
   private dispositivo="mobile";//cambiar para probar en web
 
+   
   @Input() idProducto: string = "";
+  public usuario:Usuario;
   private producto:Producto;
   private imagenes: Array<any>;
   private esModificacion: boolean;
+  public perfilEmpleado:String;
 
 
 
@@ -29,20 +35,27 @@ export class ProductoFormComponent implements OnInit {
     private productoService: ProductoService,
     private qrscannerService: QrScannerService,
     private router: Router,
+    private authService:AuthService,
+    private usuarioService:UsuarioService,
     private loadingController: LoadingController,
   ) { 
     this.producto = new Producto();
     this.esModificacion = false;
-    this.imagenes = new Array<object>();    
+    this.imagenes = new Array<object>();
+    
 
   }
 
   ngOnInit() {
+        this.obtenerUsuario();
+        this.presentLoading();
+  
+
+
     if (this.idProducto) {
       this.esModificacion = true;
       // this.productoService.getProduct(this.idProducto).then(prod => {
         this.productoService.getProduct(this.idProducto).subscribe(prod => {
-        // this.producto = prod.data() as Producto;
         this.producto = prod[0];
         this.producto.fotos.forEach(photo => {
           this.cargarFoto(photo);
@@ -50,6 +63,17 @@ export class ProductoFormComponent implements OnInit {
       });
     }
   }
+
+
+  obtenerUsuario(){
+    let user = this.authService.getCurrentUser();
+   
+    this.usuarioService.getUserById(user.uid)
+    .subscribe(userData => {  
+      this.perfilEmpleado=userData[0].perfil;         
+    })  
+  }
+
 
   async cargarFoto(imgName) {
     if (this.dispositivo=="web"){
