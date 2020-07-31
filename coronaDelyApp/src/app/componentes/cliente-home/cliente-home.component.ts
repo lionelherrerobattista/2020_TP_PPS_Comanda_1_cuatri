@@ -18,6 +18,9 @@ import { ServicioDeMesaService } from 'src/app/servicios/servicio-de-mesa.servic
 import { Router } from '@angular/router';
 import { ModalDetalleReservaPage } from 'src/app/pages/modal-detalle-reserva/modal-detalle-reserva.page';
 import { ToastService } from 'src/app/servicios/toast.service';
+import { Perfiles } from 'src/app/clases/enums/perfiles';
+import { ReservaService } from 'src/app/servicios/reserva.service';
+import { Reserva } from 'src/app/clases/reserva';
 
 
 
@@ -29,8 +32,9 @@ import { ToastService } from 'src/app/servicios/toast.service';
 export class ClienteHomeComponent implements OnInit {
 
   @Input()usuario;
-  cliente:Cliente;
+  // cliente:Cliente;
   tieneReserva:boolean;
+  reserva:Reserva;
   
   listaPedidos:Pedido[];
   listaParaMostrar:Pedido[];
@@ -48,6 +52,7 @@ export class ClienteHomeComponent implements OnInit {
     private modalController:ModalController,
     public toastController: ToastController,
     private toastService: ToastService,
+    private reservaService: ReservaService,
   ) {
 
   }
@@ -57,23 +62,24 @@ export class ClienteHomeComponent implements OnInit {
       this.listaPedidos = pedidos;      
     });
 
+   
     //A ver si funciona
-    this.usuarioService.getUser(this.usuario.id).subscribe( usuario => {
-      this.cliente = <Cliente>usuario;
-    })   
+    // this.usuarioService.getUser(this.usuario.id).subscribe( usuario => {
+    //   this.cliente = <Cliente>usuario;
+    // })   
   }
 
-  filtrarPedidos(tableId,clienteId) {
+  // filtrarPedidos(tableId,clienteId) {
       
-      this.listaParaMostrar = this.listaPedidos.filter(pedido => (pedido.idCliente == clienteId) && (pedido.mesa.id==tableId));
-      if (this.listaParaMostrar.length>0){
+  //     this.listaParaMostrar = this.listaPedidos.filter(pedido => (pedido.idCliente == clienteId) && (pedido.mesa.id==tableId));
+  //     if (this.listaParaMostrar.length>0){
           
-          this.mostrarModal(this.cliente);
-      }
-      else {
+  //         this.mostrarModal(this.cliente);
+  //     }
+  //     else {
         
-      }
-  }
+  //     }
+  // }
 
   irAListaEspera() {
     this.usuarioService.setDocument(Elementos.ListaDeEspera, this.usuario.id.toString(),
@@ -130,7 +136,7 @@ export class ClienteHomeComponent implements OnInit {
               this.asignarMesa(tableId, this.usuario.id);
               break;
             case Estados.atendido:
-              this.mostrarEstadoPedido(tableId,this.usuario.id);
+              this.mostrarEstadoPedido();
               break;            
           }
         });
@@ -143,7 +149,7 @@ export class ClienteHomeComponent implements OnInit {
             this.asignarMesa(tableId, this.usuario.id);
             break;
           case Estados.atendido: //usuario ptorrealba.utn@gmail.com
-            this.mostrarEstadoPedido(tableId,clienteId );
+            this.mostrarEstadoPedido();
             break;
         }
       }
@@ -198,22 +204,22 @@ export class ClienteHomeComponent implements OnInit {
     
   }
 
-  mostrarEstadoPedido(tableId,clienteId){
+  mostrarEstadoPedido(){
 
     this.mostrarModal(this.usuario);
   }
 
-  async verificarMesa(tableId,clienteId){
-      let mesaCliente= await this.servicioDeMesaService.getServicioDeMesaById(clienteId).pipe(first()).toPromise();
-      if (mesaCliente != undefined && mesaCliente.mesaId==tableId){
-        this.filtrarPedidos(tableId,clienteId);
-      }
-      else {
-        let mesa = await this.mesaService.getTableById(tableId).pipe(first()).toPromise();
-        this.mostrarToast(`Mesa N.° ${mesa.numero} no corresponde al cliente`);
-      }
+  // async verificarMesa(tableId,clienteId){
+  //     let mesaCliente= await this.servicioDeMesaService.getServicioDeMesaById(clienteId).pipe(first()).toPromise();
+  //     if (mesaCliente != undefined && mesaCliente.mesaId==tableId){
+  //       this.filtrarPedidos(tableId,clienteId);
+  //     }
+  //     else {
+  //       let mesa = await this.mesaService.getTableById(tableId).pipe(first()).toPromise();
+  //       this.mostrarToast(`Mesa N.° ${mesa.numero} no corresponde al cliente`);
+  //     }
    
-  }
+  // }
 
   pedirCuenta(){ 
     this.mostrarModal(this.usuario);

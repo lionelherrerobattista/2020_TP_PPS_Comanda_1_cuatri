@@ -63,10 +63,11 @@ export class MetreListaEsperaComponent implements OnInit {
 
       this.listaMesas = [];
       
-      //Comprobar que la mesa no esté reservada
+      
       for(let mesa of mesas){
         mesaReservada = false;
         
+        //Comprobar que la mesa no esté reservada
         if(mesa.estado != Estados.ocupada){
           mesaReservada = Mesa.verificarReserva(mesa);
         }
@@ -85,8 +86,29 @@ export class MetreListaEsperaComponent implements OnInit {
           this.listaMesas.push(mesa);
         }
       }
-    });
+    }); 
+  }
+
+  verificarEstadoMesa(mesa:Mesa){
+    let mesaReservada = false;
+        
+    if(mesa.estado != Estados.ocupada){
+      mesaReservada = Mesa.verificarReserva(mesa);
+    }
     
+    if(mesaReservada) {
+      mesa.estado = Estados.reservada;
+      this.mesasService.updateTable(Elementos.Mesas, mesa.id, mesa);
+    } else if (mesa.estado != Estados.ocupada){
+      
+      if(mesa.estado == Estados.reservada)
+      {
+        //Pasó el tiempo de la reserva, libero la mesa
+        mesa.estado = Estados.disponible;
+        this.mesasService.updateTable(Elementos.Mesas, mesa.id, mesa);
+      }
+      this.listaMesas.push(mesa);
+    }
   }
 
   ///Modifica el estado del cliente para que pueda tomar una mesa
