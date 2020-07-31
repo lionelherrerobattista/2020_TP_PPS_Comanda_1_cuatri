@@ -1,17 +1,18 @@
 <ion-header>
-    <ion-toolbar color="titulo">
-        <ion-button slot="start" fill="clear" (click)="inicio()"> 
-            <ion-icon name="arrow-back"></ion-icon>
-        </ion-button>
-      <ion-title>{{object}}</ion-title>  
-    </ion-toolbar>
-  </ion-header>
+  <ion-toolbar color="titulo">
+      <ion-button slot="start" fill="clear" (click)="inicio()"> 
+          <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    <ion-title>Lista de {{object}}</ion-title>  
+  </ion-toolbar>
+</ion-header>
 
 <ion-content>
-  <app-usuario-lista *ngIf="object == 'usuario'"></app-usuario-lista>
-  <app-supervisor-lista-espera *ngIf="object == 'listaEspera'"></app-supervisor-lista-espera>
+  <app-usuario-lista *ngIf="object == 'usuarios'"></app-usuario-lista>
+  <app-supervisor-lista-espera *ngIf="object == 'confirmacion'"></app-supervisor-lista-espera>
+  <app-supervisor-lista-reservas *ngIf="object == 'reservas'"></app-supervisor-lista-reservas>
   <app-producto-lista *ngIf="object == 'producto'"></app-producto-lista> 
-  <app-metre-lista-espera *ngIf="object == 'listaEsperaMetre'"></app-metre-lista-espera>
-  <app-mozo-lista-pedidos *ngIf="object == 'listaPedidos'"></app-mozo-lista-pedidos>
+  <app-metre-lista-espera *ngIf="object == 'espera'"></app-metre-lista-espera>
+  <app-mozo-lista-pedidos *ngIf="object == 'pedidos'"></app-mozo-lista-pedidos>
   <app-metre-lista-mesas *ngIf="object == 'mesas'"></app-metre-lista-mesas>
 </ion-content>

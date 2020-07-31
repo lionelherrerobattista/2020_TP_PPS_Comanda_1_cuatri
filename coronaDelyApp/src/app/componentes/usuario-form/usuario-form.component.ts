@@ -10,6 +10,8 @@ import { Perfiles } from 'src/app/clases/enums/perfiles';
 import { FormControl,ValidatorFn, FormGroup, FormBuilder, Validators } from '@angular/forms'; 
 import { FcmService } from 'src/app/servicios/fcm.service';
 import { Pedido } from 'src/app/clases/pedido';
+import { ToastController } from '@ionic/angular';
+import { ToastService } from 'src/app/servicios/toast.service';
 
 @Component({
   selector: 'app-usuario-form',
@@ -33,6 +35,7 @@ export class UsuarioFormComponent implements OnInit {
     private camaraService: CamaraService,
     private qrscannerService: QrScannerService,
     private fcm:FcmService,
+    private toastService:ToastService,
   ) { 
     this.usuario = new Usuario();
     this.limpiarInputs();
@@ -113,17 +116,28 @@ export class UsuarioFormComponent implements OnInit {
       console.log(token)
       this.usuario.token = token;
     }
-    
-    await this.userService.saveUserWithLogin(this.usuario);
+   
+    this.userService.saveUserWithLogin(this.usuario).then( retorno => {
 
-    //Redireccionar
-    if(this.esCliente){
-      this.router.navigate(['/login']);
-    }
-    else{
-      this.router.navigate(['/home']);
-    }
-  }  
+      console.error(retorno)
+
+      this.toastService.mostrarToast('Usuario Registrado', 'success')
+
+      //Redireccionar
+      if(this.esCliente){
+        this.router.navigate(['/login']);
+      }
+      else{
+        this.router.navigate(['/home']);
+      }
+
+    }, error => {    
+      console.error(error.message)
+      this.toastService.mostrarToast('¡El correo electrónico ya existe!', 'danger');
+    });
+  }
+  
+
   formUsuario(formValues) {
     console.log("formValues",formValues)
     this.usuario.nombre = formValues.nombre.trim();
@@ -198,5 +212,6 @@ export class UsuarioFormComponent implements OnInit {
 
     return titleCaseStr;
   }
-
+  
+    
 }

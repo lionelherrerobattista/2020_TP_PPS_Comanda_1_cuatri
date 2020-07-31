@@ -29,6 +29,7 @@ import { ModalDetallePedidoPageModule } from './pages/modal-detalle-pedido/modal
 
 
 import { FirebaseX } from "@ionic-native/firebase-x/ngx";
+import { ModalDetalleReservaPageModule } from './pages/modal-detalle-reserva/modal-detalle-reserva.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -45,6 +46,7 @@ import { FirebaseX } from "@ionic-native/firebase-x/ngx";
     ModalConsultaPageModule,
     ModalMenuDetallePageModule,
     ModalDetallePedidoPageModule,
+    ModalDetalleReservaPageModule,
     HttpClientModule
     
   ],

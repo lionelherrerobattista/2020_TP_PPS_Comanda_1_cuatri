@@ -8,6 +8,8 @@ import { ModalModifUsuarioPage } from 'src/app/pages/modal-modif-usuario/modal-m
 import { Estados } from 'src/app/clases/enums/estados';
 import { MesaService } from 'src/app/servicios/mesa.service';
 import { Mesa } from 'src/app/clases/mesa';
+import { EstadoReserva } from 'src/app/clases/reserva';
+import { Elementos } from 'src/app/clases/enums/elementos';
 
 
 @Component({
@@ -22,6 +24,7 @@ export class MetreListaEsperaComponent implements OnInit {
   filtro:string;
   filtroMesa:string;
   aceptacion: boolean;
+  listaVacia:boolean;
   
   clienteEstadoAux:Estados;
   clienteIdAux:string;
@@ -36,24 +39,76 @@ export class MetreListaEsperaComponent implements OnInit {
   ) { 
     this.listaClientes = [];
     this.listaMesas=[];
-    this.filtro = 'cliente';
-    this.filtroMesa = 'mesas';
     this.aceptacion=false;
-    this.filtro = 'clientes';
-    
-    
+    this.filtro = 'clientes';   
+    this.listaVacia = true;
   }
 
   ngOnInit() {
+   
+    let mesaReservada:boolean;
+
     this.usuarioService.getUsuariosFiltrados(this.filtro).subscribe( usuarios => {
       this.listaClientes = usuarios.filter(cliente => cliente.estado == Estados.enEspera);
-      console.log(this.listaClientes);
-    })
-    this.mesasService.getAllTables(this.filtroMesa).subscribe(mesas => {     
-     this.listaMesas = mesas.filter(mesa => mesa.estado == Estados.disponible);
-     console.log(this.listaMesas);
+
+      if(this.listaClientes.length > 0) {
+        this.listaVacia = false;
+      } else {
+        this.listaVacia = true;
+      }
+      
     });
+
+    this.mesasService.getAllTables(Elementos.Mesas).subscribe(mesas => {     
+
+      this.listaMesas = [];
+      
+      
+      for(let mesa of mesas){
+        mesaReservada = false;
+        
+        //Comprobar que la mesa no esté reservada
+        if(mesa.estado != Estados.ocupada){
+          mesaReservada = Mesa.verificarReserva(mesa);
+        }
+        
+        if(mesaReservada) {
+          mesa.estado = Estados.reservada;
+          this.mesasService.updateTable(Elementos.Mesas, mesa.id, mesa);
+        } else if (mesa.estado != Estados.ocupada){
+          
+          if(mesa.estado == Estados.reservada)
+          {
+            //Pasó el tiempo de la reserva, libero la mesa
+            mesa.estado = Estados.disponible;
+            this.mesasService.updateTable(Elementos.Mesas, mesa.id, mesa);
+          }
+          this.listaMesas.push(mesa);
+        }
+      }
+    }); 
+  }
+
+  verificarEstadoMesa(mesa:Mesa){
+    let mesaReservada = false;
+        
+    if(mesa.estado != Estados.ocupada){
+      mesaReservada = Mesa.verificarReserva(mesa);
+    }
     
+    if(mesaReservada) {
+      mesa.estado = Estados.reservada;
+      this.mesasService.updateTable(Elementos.Mesas, mesa.id, mesa);
+    } else if (mesa.estado != Estados.ocupada){
+      
+      if(mesa.estado == Estados.reservada)
+      {
+        //Pasó el tiempo de la reserva, libero la mesa
+        mesa.estado = Estados.disponible;
+        this.mesasService.updateTable(Elementos.Mesas, mesa.id, mesa);
+      }
+      this.listaMesas.push(mesa);
+    }
   }
 
   ///Modifica el estado del cliente para que pueda tomar una mesa
@@ -63,20 +118,20 @@ export class MetreListaEsperaComponent implements OnInit {
     cliente.estado = Estados.puedeTomarMesa ;
     this.clienteAux.estado=cliente.estado;
     this.clienteAux.id=cliente.id;
-   // this.usuarioService.updateUser('usuarios', cliente.id, cliente);
-    //this.mostrarToast("El cliente puede tomar una mesa");
+
     //Asignar mesa al cliente
     this.aceptacion=true;
-    console.log(this.clienteAux.id, this.clienteAux.estado, this.clienteAux);
-
   }
+  
   asignarMesa(mesa:Mesa) {
     this.clienteAux.estado = Estados.puedeTomarMesa ;
+    this.clienteAux.mesaAsignada = mesa.id;
     this.usuarioService.updateUser('usuarios', this.clienteAux.id, this.clienteAux);
-    console.log(this.clienteAux.id, this.clienteAux.estado, this.clienteAux);
-    mesa.estado = Estados.ocupada;
+    
+    
     this.mesasService.updateTable('mesas',mesa.id,mesa);
     this.mostrarToast("El cliente puede tomar una mesa");
+    this.aceptacion = false;
   }
 
   async rechazarCliente(cliente:Usuario) {
@@ -112,8 +167,6 @@ export class MetreListaEsperaComponent implements OnInit {
     }
   }
 
-  
-
   ///Funciones que llaman al toast y al modal
   async mostrarToast(mensaje:string) {
     const toast = await this.toastController.create({
@@ -133,7 +186,5 @@ export class MetreListaEsperaComponent implements OnInit {
 
     return await modal.present();
   }
-
-  
-
 }
+

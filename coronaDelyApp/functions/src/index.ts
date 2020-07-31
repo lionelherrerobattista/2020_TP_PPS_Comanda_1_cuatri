@@ -61,6 +61,46 @@ exports.notificacionNuevoCliente = functions.firestore
         return 'Nuevo usuario';
     });
 
+//Envía una push notification cada vez que se crea una nueva reserva
+    exports.notificacionNuevaReserva = functions.firestore
+    .document('reservas/{idReserva}')
+    .onCreate(async event => {
+        // const data = event.data();
+
+            //contenido de la notificacion
+            const payload = {
+                notification: {
+                    title:'Nueva reserva',
+                    body:  `Se creó una nueva reserva` ,
+                    icon: 'https://firebasestorage.googleapis.com/v0/b/coronadelyapp.appspot.com/o/icon.png?alt=media&token=e46394bd-a2c8-4b75-8dcb-0fb58316928b'
+                }
+            }
+
+            // Buscar los token de quienes reciben el mensaje:
+            //ref al documento padre
+            const db = admin.firestore();
+            const devicesRef = db.collection('usuarios').where('perfil', '==', 'supervisor');
+
+            //tomar los tokens y enviar las notificaciones
+            const devices = await devicesRef.get();
+
+            const tokens:string[] = [];//los tokens de los dispositivos
+
+            //iterar los documentos y cargar el array
+            devices.forEach(resultado => {
+                const token = resultado.data().token;
+
+                console.log(token);
+
+                if(token != '' && token != undefined) {
+                    tokens.push(token);
+                }
+            });
+
+            return admin.messaging().sendToDevice(tokens, payload);
+
+    });
+
 //Envía una notificación cuando el cliente ingresa en la lista de espera
 exports.notificacionListaDeEspera = functions.firestore
     .document('usuarios/{idUsuario}')

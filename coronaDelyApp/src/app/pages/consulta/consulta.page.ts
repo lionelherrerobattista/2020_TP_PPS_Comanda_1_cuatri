@@ -40,6 +40,11 @@ export class ConsultaPage implements OnInit {
   }
 
   inicio(){
-    this.router.navigate([`/home`]);
+    if(this.tipoUsuario != 'cliente anonimo') {
+      this.router.navigate([`/home`]);      
+    } else {
+      this.router.navigate([`/home`, this.id]);
+    }
+    
   }
 }

@@ -9,7 +9,7 @@ import { Platform } from '@ionic/angular';
 })
 export class FcmService {  
 
-  dispositivo = 'web';//cambiar a web si se quiere probar en internet
+  dispositivo = 'mobile';//cambiar a web si se quiere probar en internet
 
 
   constructor(

@@ -28,6 +28,7 @@ export class EncuestaClienteComponent implements OnInit {
 
   ) { 
     this.preguntas = [];
+    this.limpieza = 0;
     
   }
 

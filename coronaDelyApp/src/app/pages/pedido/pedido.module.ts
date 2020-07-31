@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { PedidoPage } from './pedido.page';
 import { EmpleadoPrepararPedidoComponent } from 'src/app/componentes/empleado-preparar-pedido/empleado-preparar-pedido.component';
+import { CartaComponent } from 'src/app/componentes/carta/carta.component';
 
 const routes: Routes = [
   {

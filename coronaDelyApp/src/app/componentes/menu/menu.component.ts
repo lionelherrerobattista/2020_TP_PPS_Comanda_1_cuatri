@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/servicios/auth.service';
 import { TagPlaceholder } from '@angular/compiler/src/i18n/i18n_ast';
 import { ModalMenuDetallePage } from 'src/app/pages/modal-menu-detalle/modal-menu-detalle.page';
 import { Cliente } from 'src/app/clases/cliente';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -22,16 +23,22 @@ export class MenuComponent implements OnInit {
   menu:Producto[];
   @Input()cliente:Cliente;
 
+  // slideOpts = {
+  //   slidesPerView: 1,
+  //   spaceBetween: 10,
+  //   centeredSlides: true
+  // };
+
   slideOpts = {
-    slidesPerView: 1,
-    spaceBetween: 10,
-    centeredSlides: true
+    initialSlide: 1,
+    speed: 400
   };
 
   constructor(
     private productoService: ProductoService,
     private alertController: AlertController,
     private modalController:ModalController,
+    private router:Router,
   ) { 
     
     this.productosMenu = [];
@@ -72,12 +79,27 @@ export class MenuComponent implements OnInit {
 
     message += (producto.fotos.length > 0) ? 
                     // `<img src="${await this.camaraService.getImageByName('productos', producto.fotos[0])}" style="bmenu-radius: 2px">` : 
-                    `<img src="${producto.fotos[0]}" style="bmenu-radius: 2px">` : 
-                      "" + 
+                    // `<img src="${producto.fotos[0]}" style="bmenu-radius: 2px">` : 
+                      
+                      `
+                      <ion-slides pager="true" [options]="slideOpts" *ngFor="let foto of producto">
+                        <ion-slide>
+                        <img src="${producto.fotos[0]}">
+                        </ion-slide>
+                        <ion-slide>
+                        <img src="${producto.fotos[1]}">
+                        </ion-slide>
+                        <ion-slide>
+                        <img src="${producto.fotos[2]}"> 
+                        </ion-slide>
+                      </ion-slides>
+                        
+                      ` : + ''
+                      +
                   "</div>"
 
     const alert = await this.alertController.create({
-      header: producto.nombre,
+      header: producto.nombre[0].toUpperCase() + producto.nombre.substring(1),
       subHeader: `$${producto.precio}`,
       message: message,
       inputs: [
@@ -89,19 +111,19 @@ export class MenuComponent implements OnInit {
       ],
       buttons: [
         {
+          text: 'Cancelar',
+          handler: () => {
+            alert.dismiss(false);
+            return false;
+          }
+        },
+        {
           text: 'Agregar al pedido', // FALTA AGREGAR AL PEDIDO
           handler: (input) => {
             alert.dismiss(input);
             return false;
           }
         },
-        {
-          text: 'Cancelar',
-          handler: () => {
-            alert.dismiss(false);
-            return false;
-          }
-        }
       ]
     });
     alert.present();
@@ -112,6 +134,7 @@ export class MenuComponent implements OnInit {
 
   visualizarPedido() {
     this.mostrarModal(this.menu);
+    this.router.navigate(['/home', this.cliente.id]);
   }
 
   async mostrarModal(datos) {

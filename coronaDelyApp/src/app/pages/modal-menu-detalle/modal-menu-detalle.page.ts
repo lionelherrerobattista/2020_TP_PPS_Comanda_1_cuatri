@@ -7,6 +7,8 @@ import { Mesa } from 'src/app/clases/mesa';
 import { Cliente } from 'src/app/clases/cliente';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { Elementos } from 'src/app/clases/enums/elementos';
+import { Estados } from 'src/app/clases/enums/estados';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-modal-menu-detalle',
@@ -45,11 +47,20 @@ export class ModalMenuDetallePage implements OnInit {
     let productoCargado;
     let indice;
     let precioTotal;
+    let referencia;
 
-    if(this.cliente.pedido == undefined) {
-      this.cliente.pedido = Object.assign({}, pedido);
+    if(isNullOrUndefined(this.cliente.pedido)) {
+      
       pedido = new Pedido(this.productos, this.cliente.id, this.mesa);
-      await this.pedidoService.createPedido(pedido);
+      
+      console.log('creo un nuevo pedido');
+      referencia = await this.pedidoService.createPedido(pedido);
+
+      pedido.id = referencia.id;
+      this.cliente.pedido = Object.assign({}, pedido);
+
+
+
       
     } else {
       //Agregar el producto a la lista ya creada
@@ -58,16 +69,19 @@ export class ModalMenuDetallePage implements OnInit {
 
         for(let productoPedido of this.cliente.pedido.productos) {
 
+          console.log(productoPedido)
           if(producto.id == productoPedido.id) {
 
             indice = this.cliente.pedido.productos.indexOf(productoPedido);
 
             this.cliente.pedido.productos[indice].cantidad += producto.cantidad;
+            this.cliente.pedido.productos[indice].estado = Estados.enPreparacion;
             productoCargado = true; 
           }
         }
 
         if(productoCargado == false) {
+          producto.estado = Estados.enPreparacion;
           this.cliente.pedido.productos.push(producto);
         }
         
@@ -76,6 +90,7 @@ export class ModalMenuDetallePage implements OnInit {
       //Vuelvo a calcular el precio
       precioTotal = Pedido.calcularPrecioTotalPedido(this.cliente.pedido);
 
+      this.cliente.pedido.estado = Estados.esperandoConfirmacionMozo;
       this.cliente.pedido.precioTotal = precioTotal;
 
       await this.pedidoService.updateOrder(this.cliente.pedido.id, this.cliente.pedido);   

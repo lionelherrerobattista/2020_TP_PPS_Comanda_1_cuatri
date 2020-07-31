@@ -15,7 +15,7 @@ export class CamaraService {
   }
 
   deleteImage(collection, imageName) {
-    return firebase.storage().ref(`${collection}/${imageName}`).delete();
+    return firebase.storage().refFromURL(imageName).delete();
   }
   // toma la foto
   // async tomarFoto(collection, imageName) {

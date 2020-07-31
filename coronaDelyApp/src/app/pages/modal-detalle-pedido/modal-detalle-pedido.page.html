@@ -1,7 +1,10 @@
 <div id="contenedor">
 
+  
   <app-pedido-detalle [pedido]="pedido"></app-pedido-detalle>
-  <div *ngIf="perfil == 'cliente' || perfil == 'cliente anonimo'">
+  <h3 class="estado">Estado de Pedido: {{pedido.estado}}</h3>
+  <div *ngIf="(perfil == 'cliente' || perfil == 'cliente anonimo') && 
+       (pedido.estado == 'aceptado por cliente')">
     <ion-label>
       Grado de Satisfacción (propina):
     </ion-label>
@@ -34,6 +37,9 @@
     <ion-button *ngIf="perfil == 'mozo' && pedido.estado == 'listo para entregar'" color="success" (click)="entregarPedido()">Entregar Pedido</ion-button>
     <ion-button *ngIf="perfil == 'mozo' && pedido.estado == 'confirmar pago'" color="success" (click)="confirmarPago()">Confirmar Pago</ion-button>
     <ion-button *ngIf="mostrarTotal && (perfil == 'cliente' || perfil == 'cliente anonimo')" color="success" (click)="pagarPedido()">Pagar Pedido</ion-button>
+    <ion-button *ngIf="mostrarTotal && pedido.estado == 'aceptado por cliente' && (perfil == 'cliente' || perfil == 'cliente anonimo')" color="success" (click)="pagarPedido()">Pagar Pedido</ion-button>
+    <ion-button *ngIf="pedido.estado == 'entregado' && (perfil == 'cliente' || perfil == 'cliente anonimo')" color="success" (click)="confirmarPedido()">Confirmar Recepción</ion-button>
+    <ion-button *ngIf="(pedido.estado == 'enPreparacion' || pedido.estado == 'listo para entregar') && (perfil == 'cliente' || perfil == 'cliente anonimo')" color="success" (click)="cerrarModal()">Cerrar</ion-button>
   </div>
 </div>
   
