@@ -14,12 +14,8 @@ import { Cliente } from 'src/app/clases/cliente';
 import { ModalDetallePedidoPage } from 'src/app/pages/modal-detalle-pedido/modal-detalle-pedido.page';
 import { ModalController, ToastController } from '@ionic/angular';
 import { Pedido } from 'src/app/clases/pedido';
-import { ServicioDeMesaService } from 'src/app/servicios/servicio-de-mesa.service';
-import { Router } from '@angular/router';
 import { ModalDetalleReservaPage } from 'src/app/pages/modal-detalle-reserva/modal-detalle-reserva.page';
 import { ToastService } from 'src/app/servicios/toast.service';
-import { Perfiles } from 'src/app/clases/enums/perfiles';
-import { ReservaService } from 'src/app/servicios/reserva.service';
 import { Reserva } from 'src/app/clases/reserva';
 
 
@@ -32,10 +28,8 @@ import { Reserva } from 'src/app/clases/reserva';
 export class ClienteHomeComponent implements OnInit {
 
   @Input()usuario;
-  // cliente:Cliente;
   tieneReserva:boolean;
   reserva:Reserva;
-  
   listaPedidos:Pedido[];
   listaParaMostrar:Pedido[];
   filtro:string;
@@ -47,12 +41,10 @@ export class ClienteHomeComponent implements OnInit {
     private qrscannerService: QrScannerService,
     private mesaService: MesaService,
     private dataService: DataService,
-    private servicioDeMesaService: ServicioDeMesaService,
     private pedidoService:PedidoService,
     private modalController:ModalController,
     public toastController: ToastController,
     private toastService: ToastService,
-    private reservaService: ReservaService,
   ) {
 
   }
@@ -62,24 +54,7 @@ export class ClienteHomeComponent implements OnInit {
       this.listaPedidos = pedidos;      
     });
 
-   
-    //A ver si funciona
-    // this.usuarioService.getUser(this.usuario.id).subscribe( usuario => {
-    //   this.cliente = <Cliente>usuario;
-    // })   
   }
-
-  // filtrarPedidos(tableId,clienteId) {
-      
-  //     this.listaParaMostrar = this.listaPedidos.filter(pedido => (pedido.idCliente == clienteId) && (pedido.mesa.id==tableId));
-  //     if (this.listaParaMostrar.length>0){
-          
-  //         this.mostrarModal(this.cliente);
-  //     }
-  //     else {
-        
-  //     }
-  // }
 
   irAListaEspera() {
     this.usuarioService.setDocument(Elementos.ListaDeEspera, this.usuario.id.toString(),
@@ -125,8 +100,7 @@ export class ClienteHomeComponent implements OnInit {
   }
  //QR para seleccionar la mesa
   scanQRMesa(){
-  
-    // if(this.usuario.estado == Estados.puedeTomarMesa){
+
       if(this.qrscannerService.dispositivo == "mobile"){
         this.qrscannerService.scanQr().then(tableId => {
           
@@ -188,26 +162,6 @@ export class ClienteHomeComponent implements OnInit {
 
       }
     } 
-    // if (mesaActual.estado != Estados.disponible || mesaActual.id != cliente.mesaAsignada) {
-    //   if(mesaActual.id != cliente.mesaAsignada){
-    //     this.notificacionService.mostrarToast(`Mesa N.° ${mesaActual.numero} no es su mesa asignada`, "danger", "top");
-    //   } else {
-    //     this.notificacionService.mostrarToast(`Mesa N.° ${mesaActual.numero} ${mesaActual.estado}`, "danger", "top");
-    //   }
-      
-    // } else {
-    //   this.dataService.setStatus(Elementos.Mesas, mesaId, Estados.ocupada);
-    //   this.dataService.deleteDocument(Elementos.ListaDeEspera, usuarioId);
-    //   var mesaService = { mesaId: mesaId, usuarioId: usuarioId };
-    //   this.dataService.setData(Elementos.ServicioDeMesa, usuarioId, mesaService);
-
-    //   //Guardar datos de mesa asignada en el cliente
-    //   cliente.mesa = mesaActual;
-    //   cliente.estado = Estados.atendido;
-    //   this.usuarioService.updateUser(Elementos.Usuarios, cliente.id, cliente);
-      
-    //   this.notificacionService.mostrarToast(`Mesa N.° ${mesaActual.numero} asignada`, "success", "top");
-    // } 
   }
 
   ///El cliente confirma la recepción del pedido
@@ -231,21 +185,8 @@ export class ClienteHomeComponent implements OnInit {
   }
 
   mostrarEstadoPedido(){
-
     this.mostrarModal(this.usuario);
   }
-
-  // async verificarMesa(tableId,clienteId){
-  //     let mesaCliente= await this.servicioDeMesaService.getServicioDeMesaById(clienteId).pipe(first()).toPromise();
-  //     if (mesaCliente != undefined && mesaCliente.mesaId==tableId){
-  //       this.filtrarPedidos(tableId,clienteId);
-  //     }
-  //     else {
-  //       let mesa = await this.mesaService.getTableById(tableId).pipe(first()).toPromise();
-  //       this.mostrarToast(`Mesa N.° ${mesa.numero} no corresponde al cliente`);
-  //     }
-   
-  // }
 
   pedirCuenta(){ 
     this.mostrarModal(this.usuario);
