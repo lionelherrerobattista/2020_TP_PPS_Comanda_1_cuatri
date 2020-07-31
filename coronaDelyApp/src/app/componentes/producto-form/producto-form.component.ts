@@ -22,10 +22,10 @@ export class ProductoFormComponent implements OnInit {
    
   @Input() idProducto: string = "";
   public usuario:Usuario;
-  private producto:Producto;
-  private imagenes: Array<any>;
-  private esModificacion: boolean;
-  public perfilEmpleado:String;
+  public producto:Producto;
+  public imagenes: Array<any>;
+  public esModificacion: boolean;
+  public perfilEmpleado:string;
 
   constructor(
     private camaraService: CamaraService,
