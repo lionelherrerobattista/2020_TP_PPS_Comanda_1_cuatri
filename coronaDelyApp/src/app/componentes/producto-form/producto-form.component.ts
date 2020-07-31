@@ -27,8 +27,6 @@ export class ProductoFormComponent implements OnInit {
   private esModificacion: boolean;
   public perfilEmpleado:String;
 
-
-
   constructor(
     private camaraService: CamaraService,
     private notificationService: NotificacionesService,
@@ -54,7 +52,7 @@ export class ProductoFormComponent implements OnInit {
 
     if (this.idProducto) {
       this.esModificacion = true;
-      // this.productoService.getProduct(this.idProducto).then(prod => {
+      
         this.productoService.getProduct(this.idProducto).subscribe(prod => {
         this.producto = prod[0];
         this.producto.fotos.forEach(photo => {
@@ -83,7 +81,7 @@ export class ProductoFormComponent implements OnInit {
     }else // si es mobile
     { 
       let imgUrl = await this.camaraService.getImageByName('productos', imgName);
-      this.imagenes.push({ "url": imgUrl, "nombre": imgName });
+      this.imagenes.push(imgUrl);
     }
     
   }
@@ -91,12 +89,13 @@ export class ProductoFormComponent implements OnInit {
   eliminarFoto(imgName) {
     this.camaraService.deleteImage('productos', imgName).then(
       resp => {
-        this.imagenes = this.imagenes.filter(x => x.nombre != imgName);
+        this.imagenes = this.imagenes.filter(x => x != imgName);
       },
       err => {
         this.notificationService.mostrarToast("Error al eliminar la foto.", "danger", "bottom");
       })
   }
+
   registro(){ 
     console.log("producto", this.producto)
     this.producto.fotos = this.imagenes;
