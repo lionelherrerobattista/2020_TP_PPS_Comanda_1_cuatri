@@ -43,7 +43,6 @@ export class ModalDetallePedidoPage implements OnInit {
   async entregarPedido() {
     this.cliente = await this.usuarioService.getUser(this.pedido.idCliente).pipe(first()).toPromise();
     this.cliente.pedido.estado = Estados.entregado;
-    this.cliente.estado = Estados.paraConfirmarPedido;
 
     await this.pedidoService.updateOrder(this.cliente.pedido.id, this.cliente.pedido);
     await this.usuarioService.updateUser(Elementos.Usuarios, this.cliente.id, this.cliente);
@@ -81,27 +80,6 @@ export class ModalDetallePedidoPage implements OnInit {
 
   }
 
-  async confirmarPedido(){
-
-    console.log(this.cliente.pedido.estado);
-      
-    // Comprobar que el mozo indicó que el cliente recibió el pedido
-    if(this.cliente.pedido.estado == Estados.entregado) {
-      this.cliente.estado = Estados.atendido;
-      this.cliente.pedido.estado = Estados.aceptadoPorCliente;
-    
-      //Actualizar el pedido en el cliente y en la lista pedidos
-      await this.usuarioService.updateUser('usuarios', this.cliente.id, this.cliente);
-      await this.pedidoService.updateOrder(this.cliente.pedido.id, this.cliente.pedido);
-
-      this.mostrarToast('Confirmó el pedido');
-    }
-
-    
-    
-    this.cerrarModal();
-  }
-
   async cerrarModal() {
     await this.modalController.dismiss();
   }
@@ -124,14 +102,23 @@ export class ModalDetallePedidoPage implements OnInit {
 
   }
 
-  async enviarAPreparacion(){
-    this.cliente = await this.usuarioService.getUser(this.pedido.idCliente).pipe(first()).toPromise();
-    this.cliente.pedido.estado = Estados.enPreparacion;
+  async confirmarPedido(){
 
-    await this.pedidoService.updateOrder(this.cliente.pedido.id, this.cliente.pedido);
-    await this.usuarioService.updateUser(Elementos.Usuarios, this.cliente.id, this.cliente);
+    console.log(this.cliente.pedido.estado);
 
-    this.mostrarToast('Pedido en preparación');
+    // Comprobar que el mozo indicó que el cliente recibió el pedido
+    if(this.cliente.pedido.estado == Estados.entregado) {
+      this.cliente.estado = Estados.atendido;
+      this.cliente.pedido.estado = Estados.aceptadoPorCliente;
+
+      //Actualizar el pedido en el cliente y en la lista pedidos
+      await this.usuarioService.updateUser('usuarios', this.cliente.id, this.cliente);
+      await this.pedidoService.updateOrder(this.cliente.pedido.id, this.cliente.pedido);
+
+      this.mostrarToast('Confirmó el pedido');
+    }
+
+
 
     this.cerrarModal();
   }
