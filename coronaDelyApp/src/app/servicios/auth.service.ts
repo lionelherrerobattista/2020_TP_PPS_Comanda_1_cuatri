@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { auth } from 'firebase';
-
 
 @Injectable({
   providedIn: 'root'
@@ -17,15 +15,12 @@ export class AuthService {
 
   ///Login del usuario registrado con email y password
   logIn(email: string, password: string):Promise<firebase.auth.UserCredential> {
-   console.log("auth-login")
+  
     return new Promise((resolve, reject) => {
-
-      
+   
       this.AFauth.auth.signInWithEmailAndPassword(email, password)
        .then(respuesta => {  
-
-          
-          
+    
           resolve(respuesta);
         }).catch(error => {reject(error)});
     })    
@@ -38,7 +33,7 @@ export class AuthService {
   }
 
   getCurrentUser() {
-      console.log("auth-getCurrentUser", this.AFauth.auth.currentUser)
+      
       return this.AFauth.auth.currentUser;
     
   }

@@ -17,7 +17,7 @@
 
     <ion-row> <!-- METRE-->
       <ion-col col-4 *ngIf="usuario?.perfil == 'metre'">
-        <ion-card [routerLink]="['/listas', 'listaEsperaMetre']" class="ion-text-center ion-padding" >
+        <ion-card [routerLink]="['/listas', 'espera']" class="ion-text-center ion-padding" >
           <ion-icon name="man"></ion-icon>
           <h2 class="long-name">Clientes en Lista de Espera</h2>
         </ion-card>
@@ -46,7 +46,7 @@
     </ion-row>
     <ion-row> <!-- MOZO-->
       <ion-col col-4 *ngIf="usuario?.perfil == 'mozo'">
-        <ion-card [routerLink]="['/listas', 'listaPedidos']" class="ion-text-center ion-padding" >
+        <ion-card [routerLink]="['/listas', 'pedidos']" class="ion-text-center ion-padding" >
           <ion-icon name="clipboard"></ion-icon>
           <h2 class="long-name">Lista Pedidos</h2>
         </ion-card>

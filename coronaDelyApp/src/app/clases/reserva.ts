@@ -20,10 +20,6 @@ export class Reserva {
         this.estado = EstadoReserva.aConfirmar;
     }
 
-    //Verifica que la reserva esté dentro del horario correspondiente
-    //Devuelve: true si está dentro del horario permitido
-    //          si no false
-    
     /**
      * Verifica si la reserva está dentro del horario
      * @param reserva la reserva que se quiere verificar
@@ -41,8 +37,29 @@ export class Reserva {
             
             enHorario=true;
         }
+
+        console.log("En horario: " + enHorario);
         
         return enHorario;
+    }
+
+    /**
+     * Verifica si se superó el tiempo máximo de la reserva
+     * @param reserva Reserva del cliente
+     * @returns true si se excedió, de lo contrario, false
+     */
+    static verificarReservaVencida(reserva:Reserva):boolean {
+        let vencioReserva = false;
+        let horaActual = Math.round(new Date().getTime()/1000) //en SEGUNDOS Unix para comparar con firebase
+        let limiteMaxReserva= reserva.fecha.seconds + 2400; //40 minutos despues
+
+        if(reserva.estado == EstadoReserva.confirmada &&
+           horaActual > limiteMaxReserva) { 
+            
+            vencioReserva=true;
+        }
+
+        return vencioReserva;
     }
 
 }

@@ -1,8 +1,10 @@
 <div id="div-filtro-estados">
     <ion-label position="floating">Estado a mostrar:</ion-label>
     <ion-select [(ngModel)]="filtro" (ionChange)="filtrarLista()" name="filtro" placeholder="Seleccione estado" required>
+      <ion-select-option value="mesas">Todas</ion-select-option>
       <ion-select-option value="ocupada">Ocupada</ion-select-option>
       <ion-select-option value="disponible">Disponible</ion-select-option>
+      <ion-select-option value="reservada">Reservada</ion-select-option>
     </ion-select>
   </div>
   

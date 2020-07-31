@@ -23,10 +23,15 @@ export class MenuComponent implements OnInit {
   menu:Producto[];
   @Input()cliente:Cliente;
 
+  // slideOpts = {
+  //   slidesPerView: 1,
+  //   spaceBetween: 10,
+  //   centeredSlides: true
+  // };
+
   slideOpts = {
-    slidesPerView: 1,
-    spaceBetween: 10,
-    centeredSlides: true
+    initialSlide: 1,
+    speed: 400
   };
 
   constructor(
@@ -74,12 +79,27 @@ export class MenuComponent implements OnInit {
 
     message += (producto.fotos.length > 0) ? 
                     // `<img src="${await this.camaraService.getImageByName('productos', producto.fotos[0])}" style="bmenu-radius: 2px">` : 
-                    `<img src="${producto.fotos[0]}" style="bmenu-radius: 2px">` : 
-                      "" + 
+                    // `<img src="${producto.fotos[0]}" style="bmenu-radius: 2px">` : 
+                      
+                      `
+                      <ion-slides pager="true" [options]="slideOpts" *ngFor="let foto of producto">
+                        <ion-slide>
+                        <img src="${producto.fotos[0]}">
+                        </ion-slide>
+                        <ion-slide>
+                        <img src="${producto.fotos[1]}">
+                        </ion-slide>
+                        <ion-slide>
+                        <img src="${producto.fotos[2]}"> 
+                        </ion-slide>
+                      </ion-slides>
+                        
+                      ` : + ''
+                      +
                   "</div>"
 
     const alert = await this.alertController.create({
-      header: producto.nombre,
+      header: producto.nombre[0].toUpperCase() + producto.nombre.substring(1),
       subHeader: `$${producto.precio}`,
       message: message,
       inputs: [
@@ -91,19 +111,19 @@ export class MenuComponent implements OnInit {
       ],
       buttons: [
         {
+          text: 'Cancelar',
+          handler: () => {
+            alert.dismiss(false);
+            return false;
+          }
+        },
+        {
           text: 'Agregar al pedido', // FALTA AGREGAR AL PEDIDO
           handler: (input) => {
             alert.dismiss(input);
             return false;
           }
         },
-        {
-          text: 'Cancelar',
-          handler: () => {
-            alert.dismiss(false);
-            return false;
-          }
-        }
       ]
     });
     alert.present();

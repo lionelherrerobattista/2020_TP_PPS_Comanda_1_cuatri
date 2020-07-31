@@ -1,12 +1,13 @@
 <div id="contenedor">
-  <h1>Consulta del cliente consulta:</h1>
+  <h3>Consulta del cliente:</h3>
   
   <ion-item *ngIf="consulta != undefined">
+    <ion-label position="stacked">Consulta:</ion-label>
     <ion-textarea disabled readonly>{{consulta.textoConsulta}}</ion-textarea>
   </ion-item>
   <ion-label class="ion-text-right" *ngIf="consulta != undefined">Estado de la consulta: {{consulta.estado}}</ion-label>
   
-  <h1>Respuesta:</h1>
+  <h3>Respuesta:</h3>
   <ion-item>
     <ion-label position="stacked">Respuesta:</ion-label>
     <ion-textarea [(ngModel)]="consulta.respuesta"></ion-textarea>

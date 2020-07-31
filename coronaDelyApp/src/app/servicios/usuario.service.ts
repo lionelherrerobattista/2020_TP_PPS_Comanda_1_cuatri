@@ -51,7 +51,8 @@ export class UsuarioService {
   }
 
   getUser(userId):Observable<Usuario>{
-    return this.dataService.getOne('usuarios', userId);
+    return this.db.collection('usuarios').doc<Usuario>(userId).valueChanges();   
+  
   }
 
   getUserById(userId) {
