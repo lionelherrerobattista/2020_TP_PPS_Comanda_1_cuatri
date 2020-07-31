@@ -4,6 +4,7 @@ import { DataService } from './data.service';
 import { Observable } from 'rxjs';
 import { Mesa } from '../clases/mesa';
 import { map } from 'rxjs/operators';
+import { Elementos } from '../clases/enums/elementos';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +16,14 @@ export class MesaService {
     private dataService: DataService
   ) { }
 
-  saveTable(table){
-    return this.dataService.add('mesas', table);
+  async saveTable(mesa){
+    mesa.id=this.db.createId();   
+    this.db.collection(Elementos.Mesas).doc(mesa.id).set(Object.assign({}, mesa))
+  
+  // saveTable(table){
+  //   this.db.collection('mesas').doc(table.id).set(Object.assign({}, table));
+    // return this.dataService.add('mesas', table);
+    // return this.dataService.collection(tipo).add(Object.assign({}, item));
   }
 
   deleteDocument(collection:string, mesa: any) {

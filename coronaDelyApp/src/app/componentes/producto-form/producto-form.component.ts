@@ -5,6 +5,7 @@ import { CamaraService } from 'src/app/servicios/camara.service';
 import { QrScannerService } from 'src/app/servicios/qrscanner.service';
 import { ProductoService } from 'src/app/servicios/producto.service';
 import { NotificacionesService } from 'src/app/servicios/notificaciones.service';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-producto-form',
@@ -20,12 +21,15 @@ export class ProductoFormComponent implements OnInit {
   private imagenes: Array<any>;
   private esModificacion: boolean;
 
+
+
   constructor(
     private camaraService: CamaraService,
     private notificationService: NotificacionesService,
     private productoService: ProductoService,
     private qrscannerService: QrScannerService,
-    private router: Router
+    private router: Router,
+    private loadingController: LoadingController,
   ) { 
     this.producto = new Producto();
     this.esModificacion = false;
@@ -100,5 +104,15 @@ export class ProductoFormComponent implements OnInit {
   scannearQR(){
     let data = this.qrscannerService.scanQr();
     // alert(data);
+  }
+
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      duration: 2000,
+      message: "Espere un momento..."
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
   }
 }
