@@ -83,10 +83,10 @@ export class ProductoFormComponent implements OnInit {
       });
     }
     else { // Se da de alta el producto
-      this.productoService.saveProduct(this.producto).then(item => {
+        this.productoService.saveProduct(this.producto);
         this.notificationService.mostrarToast("Producto creado", "success", "middle");
         this.router.navigateByUrl('/listado/productos');
-      });
+    
     }
   }  
 

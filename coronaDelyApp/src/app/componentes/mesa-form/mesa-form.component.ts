@@ -43,10 +43,11 @@ export class MesaFormComponent implements OnInit {
   });
  }
   registrar(){ 
-   
+     
      this.mesa.estado="disponible";
      this.mesa.numero= this.listaMesas.length+1;
      this.mesaService.saveTable(this.mesa);
+     this.presentLoading();
      this.toastService.mostrarToast('Mesa Registrada correctamente', 'success')
 
      this.router.navigateByUrl('/home');    
@@ -73,8 +74,9 @@ export class MesaFormComponent implements OnInit {
     // this.camaraService.tomarFoto('mesas', Date.now());
     this.camaraService.tomarFoto('mesas', Date.now()).then( urlFoto => {
          this.mesa.foto = urlFoto;
+         this.presentLoading();
     });   
-    this.presentLoading();
+ 
     // alert( this.mesa.foto);
   }
 
