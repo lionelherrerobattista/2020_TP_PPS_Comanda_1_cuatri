@@ -1,29 +1,27 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AuxiliarModule } from '../../componentes/auxiliar/auxiliar.component';
 import { Routes, RouterModule } from '@angular/router';
+
 import { IonicModule } from '@ionic/angular';
-import { PedidoPage } from './pedido.page';
-import { EmpleadoPrepararPedidoComponent } from 'src/app/componentes/empleado-preparar-pedido/empleado-preparar-pedido.component';
+
+import { CartaComandaPage } from './carta-comanda.page';
 import { CartaComponent } from 'src/app/componentes/carta/carta.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: PedidoPage
+    component: CartaComandaPage
   }
 ];
 
 @NgModule({
   imports: [
     CommonModule,
-    AuxiliarModule,
     FormsModule,
     IonicModule,
-    AuxiliarModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [PedidoPage, EmpleadoPrepararPedidoComponent]
+  declarations: [CartaComandaPage, CartaComponent]
 })
-export class PedidoPageModule {}
+export class CartaComandaPageModule {}

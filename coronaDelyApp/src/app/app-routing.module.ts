@@ -23,7 +23,9 @@ const routes: Routes = [
   { path: 'modal-consulta', loadChildren: './pages/modal-consulta/modal-consulta.module#ModalConsultaPageModule' },
   { path: 'modal-detalle-pedido', loadChildren: './pages/modal-detalle-pedido/modal-detalle-pedido.module#ModalDetallePedidoPageModule' },
   { path: 'modal-modif-mesa', loadChildren: './pages/modal-modif-mesa/modal-modif-mesa.module#ModalModifMesaPageModule' },
-  { path: 'modal-pedido-cliente', loadChildren: './pages/modal-pedido-cliente/modal-pedido-cliente.module#ModalPedidoClientePageModule' },  { path: 'modal-detalle-reserva', loadChildren: './pages/modal-detalle-reserva/modal-detalle-reserva.module#ModalDetalleReservaPageModule' },
+  { path: 'modal-pedido-cliente', loadChildren: './pages/modal-pedido-cliente/modal-pedido-cliente.module#ModalPedidoClientePageModule' },
+  { path: 'modal-detalle-reserva', loadChildren: './pages/modal-detalle-reserva/modal-detalle-reserva.module#ModalDetalleReservaPageModule' },
+  { path: 'carta-comanda/:idUsuario', loadChildren: './pages/carta-comanda/carta-comanda.module#CartaComandaPageModule' },
 
 
 ];

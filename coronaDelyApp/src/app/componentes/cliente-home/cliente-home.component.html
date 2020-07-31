@@ -47,6 +47,12 @@
           <h2 class="long-name">Realizar Encuesta</h2>
         </ion-card>
       </ion-col>  
+      <ion-col col-3 *ngIf="usuario?.estado == 'aprobado' || usuario?.estado == 'puedeTomarMesa' ">
+        <ion-card [routerLink]="['/carta-comanda', usuario.id]" class="ion-text-center ion-padding" color="000">
+          <ion-icon name="clipboard"></ion-icon>          
+          <h2 class="long-name">Carta</h2>
+        </ion-card>
+      </ion-col> 
       <ion-col col-3 *ngIf="usuario?.pedido != undefined && usuario?.pedido.estado == 'entregado'">
         <ion-card (click)="confirmarRecepcion()"class="ion-text-center ion-padding" color="000">
           <ion-icon name="checkbox-outline"></ion-icon>          
