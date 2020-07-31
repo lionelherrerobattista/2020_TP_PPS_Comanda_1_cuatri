@@ -162,26 +162,52 @@ export class ClienteHomeComponent implements OnInit {
     let cliente = <Cliente>this.usuario;
       
     //Comprobar el estado
-    if (mesaActual.estado != Estados.disponible || mesaActual.id != cliente.mesaAsignada) {
+    
+    if (mesaActual.id != cliente.mesaAsignada) {
       if(mesaActual.id != cliente.mesaAsignada){
         this.notificacionService.mostrarToast(`Mesa N.° ${mesaActual.numero} no es su mesa asignada`, "danger", "top");
-      } else {
-        this.notificacionService.mostrarToast(`Mesa N.° ${mesaActual.numero} ${mesaActual.estado}`, "danger", "top");
       }
       
     } else {
-      this.dataService.setStatus(Elementos.Mesas, mesaId, Estados.ocupada);
-      this.dataService.deleteDocument(Elementos.ListaDeEspera, usuarioId);
-      var mesaService = { mesaId: mesaId, usuarioId: usuarioId };
-      this.dataService.setData(Elementos.ServicioDeMesa, usuarioId, mesaService);
 
-      //Guardar datos de mesa asignada en el cliente
-      cliente.mesa = mesaActual;
-      cliente.estado = Estados.atendido;
-      this.usuarioService.updateUser(Elementos.Usuarios, cliente.id, cliente);
-      
-      this.notificacionService.mostrarToast(`Mesa N.° ${mesaActual.numero} asignada`, "success", "top");
+      if(mesaActual.estado == Estados.ocupada) {
+        this.notificacionService.mostrarToast(`Mesa N.° ${mesaActual.numero} ${mesaActual.estado}`, "danger", "top");
+      } else {
+
+        this.dataService.setStatus(Elementos.Mesas, mesaId, Estados.ocupada);
+        this.dataService.deleteDocument(Elementos.ListaDeEspera, usuarioId);
+        var mesaService = { mesaId: mesaId, usuarioId: usuarioId };
+        this.dataService.setData(Elementos.ServicioDeMesa, usuarioId, mesaService);
+
+        //Guardar datos de mesa asignada en el cliente
+        cliente.mesa = mesaActual;
+        cliente.estado = Estados.atendido;
+        this.usuarioService.updateUser(Elementos.Usuarios, cliente.id, cliente);
+        
+        this.notificacionService.mostrarToast(`Mesa N.° ${mesaActual.numero} asignada`, "success", "top");
+
+      }
     } 
+    // if (mesaActual.estado != Estados.disponible || mesaActual.id != cliente.mesaAsignada) {
+    //   if(mesaActual.id != cliente.mesaAsignada){
+    //     this.notificacionService.mostrarToast(`Mesa N.° ${mesaActual.numero} no es su mesa asignada`, "danger", "top");
+    //   } else {
+    //     this.notificacionService.mostrarToast(`Mesa N.° ${mesaActual.numero} ${mesaActual.estado}`, "danger", "top");
+    //   }
+      
+    // } else {
+    //   this.dataService.setStatus(Elementos.Mesas, mesaId, Estados.ocupada);
+    //   this.dataService.deleteDocument(Elementos.ListaDeEspera, usuarioId);
+    //   var mesaService = { mesaId: mesaId, usuarioId: usuarioId };
+    //   this.dataService.setData(Elementos.ServicioDeMesa, usuarioId, mesaService);
+
+    //   //Guardar datos de mesa asignada en el cliente
+    //   cliente.mesa = mesaActual;
+    //   cliente.estado = Estados.atendido;
+    //   this.usuarioService.updateUser(Elementos.Usuarios, cliente.id, cliente);
+      
+    //   this.notificacionService.mostrarToast(`Mesa N.° ${mesaActual.numero} asignada`, "success", "top");
+    // } 
   }
 
   ///El cliente confirma la recepción del pedido
