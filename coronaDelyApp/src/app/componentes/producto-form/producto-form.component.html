@@ -44,11 +44,11 @@
         <ion-card class="card">
           <ion-card-content>
             <ion-fab vertical="top" horizontal="end">
-              <ion-fab-button class="delete-btn" size="small" color="danger" (click)="eliminarFoto(imagen.nombre)">
+              <ion-fab-button class="delete-btn" size="small" color="danger" (click)="eliminarFoto(imagen)">
                 <ion-icon name="trash"></ion-icon>
               </ion-fab-button>
             </ion-fab>
-            <img src="{{imagen.url}}">
+            <img [src]="imagen">
           </ion-card-content>
         </ion-card>
       </ion-col>

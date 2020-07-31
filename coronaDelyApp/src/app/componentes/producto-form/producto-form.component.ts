@@ -17,9 +17,9 @@ export class ProductoFormComponent implements OnInit {
   private dispositivo="mobile";//cambiar para probar en web
 
   @Input() idProducto: string = "";
-  private producto:Producto;
-  private imagenes: Array<any>;
-  private esModificacion: boolean;
+  public producto:Producto;
+  public imagenes: Array<any>;
+  public esModificacion: boolean;
 
 
 
@@ -40,9 +40,9 @@ export class ProductoFormComponent implements OnInit {
   ngOnInit() {
     if (this.idProducto) {
       this.esModificacion = true;
-      // this.productoService.getProduct(this.idProducto).then(prod => {
+      
         this.productoService.getProduct(this.idProducto).subscribe(prod => {
-        // this.producto = prod.data() as Producto;
+        
         this.producto = prod[0];
         this.producto.fotos.forEach(photo => {
           this.cargarFoto(photo);
@@ -59,7 +59,7 @@ export class ProductoFormComponent implements OnInit {
     }else // si es mobile
     { 
       let imgUrl = await this.camaraService.getImageByName('productos', imgName);
-      this.imagenes.push({ "url": imgUrl, "nombre": imgName });
+      this.imagenes.push(imgUrl);
     }
     
   }
@@ -67,12 +67,13 @@ export class ProductoFormComponent implements OnInit {
   eliminarFoto(imgName) {
     this.camaraService.deleteImage('productos', imgName).then(
       resp => {
-        this.imagenes = this.imagenes.filter(x => x.nombre != imgName);
+        this.imagenes = this.imagenes.filter(x => x != imgName);
       },
       err => {
         this.notificationService.mostrarToast("Error al eliminar la foto.", "danger", "bottom");
       })
   }
+
   registro(){ 
     console.log("producto", this.producto)
     this.producto.fotos = this.imagenes;
