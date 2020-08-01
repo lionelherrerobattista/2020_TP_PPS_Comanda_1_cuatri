@@ -1,6 +1,7 @@
 <div id="contenedor">
   <h1>Consultas por responder:</h1>
-  <ion-list> 
+  <div id="lista-consultas">
+    <ion-list> 
       <ion-item (click)="responderConsulta(consulta)" *ngFor="let consulta of listaConsultas">
         <ion-label>
           <h2>Mesa: {{consulta.nroMesa}}</h2>
@@ -9,4 +10,5 @@
         </ion-label>
       </ion-item> 
   </ion-list>
+  </div>
 </div>

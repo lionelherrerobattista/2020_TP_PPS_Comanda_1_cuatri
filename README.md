@@ -70,6 +70,18 @@
 | **Fecha de finalización de la tarea** | 10/07/2020 | 10/07/2020 | 10/07/2020 |
 | **Branch** | [lherrerob](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/tree/lherrerob) | [ptorrealba](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/tree/ptorrealba) | [rmuruchi](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/tree/rmuruchi) |
 
+### Semana 6  (10/07/2020 al 31/07/2020)
+
+| | **Perfil Alfa** | **Perfil Beta** | **Perfil Gamma** |
+| --- | :---: | :---: | :---: |
+| **Apellido** | Herrero Battista | Torrealba | Muruchi Laura |
+| **Nombre** | Lionel Roberto | Paola | Rosa Elena |
+| **Módulos** | `Reserva` | `Alta producto y mesa` | `Reserva` |
+| **Fecha de inicio de la tarea** | 10/07/2020 | 10/07/2020 | 10/07/2020 |
+| **Fecha de finalización de la tarea** | 31/07/2020 | 31/07/2020 | 31/07/2020 |
+| **Branch** | [lherrerob](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/tree/lherrerob) | [ptorrealba](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/tree/ptorrealba) | [rmuruchi](https://github.com/lionelherrerobattista/2020_TP_PPS_Comanda_1_cuatri/tree/rmuruchi) |
+
+
 ## Guía del usuario :calling:
 
 ### Inicio de sesión

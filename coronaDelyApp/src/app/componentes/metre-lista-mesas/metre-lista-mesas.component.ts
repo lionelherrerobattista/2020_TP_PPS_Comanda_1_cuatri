@@ -5,6 +5,8 @@ import { ModalController } from '@ionic/angular';
 import { Mesa } from 'src/app/clases/mesa';
 import { MesaService } from 'src/app/servicios/mesa.service';
 import { ModalModifMesaPage } from 'src/app/pages/modal-modif-mesa/modal-modif-mesa.page';
+import { Estados } from 'src/app/clases/enums/estados';
+import { Elementos } from 'src/app/clases/enums/elementos';
 
 @Component({
   selector: 'app-metre-lista-mesas',
@@ -26,21 +28,60 @@ export class MetreListaMesasComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.mesaService.getMesasFiltrados(this.filtro).subscribe( mesas => {
+    this.mesaService.getAllTables('mesas').subscribe(mesas => {
+      this.comprobarEstadosDeMesas(mesas);
       this.listaMesas = mesas;
       console.log(this.listaMesas);
-    })
+    });
   }
 
   filtrarLista() {
-    this.mesaService.getMesasFiltrados(this.filtro).subscribe( mesasFiltrados => {
-      console.log(mesasFiltrados)
-      this.listaMesas = mesasFiltrados;
-    })
+
+    if(this.filtro == 'mesas') {
+      this.mesaService.getAllTables('mesas').subscribe(mesas => {
+        this.comprobarEstadosDeMesas(mesas);
+        this.listaMesas = mesas;
+        console.log(this.listaMesas);
+      });
+    } else {
+      this.mesaService.getMesasFiltrados(this.filtro).subscribe( mesasFiltrados => {
+        this.comprobarEstadosDeMesas(mesasFiltrados);
+        console.log(mesasFiltrados)
+        this.listaMesas = mesasFiltrados;
+      });
+    }
+    
   }
 
   modificarMesa(mesa) {
     this.mostrarModal(mesa);
+  }
+
+  comprobarEstadosDeMesas(mesas:Mesa[]) {
+
+    let mesaReservada;
+
+    for(let mesa of mesas){
+      mesaReservada = false;
+      
+      //Comprobar que la mesa no esté reservada
+      if(mesa.estado != Estados.ocupada){
+        mesaReservada = Mesa.verificarReserva(mesa);
+      }
+      
+      if(mesaReservada) {
+        mesa.estado = Estados.reservada;
+        this.mesaService.updateTable(Elementos.Mesas, mesa.id, mesa);
+      } else if (mesa.estado != Estados.ocupada){
+        
+        if(mesa.estado == Estados.reservada)
+        {
+          //Pasó el tiempo de la reserva, libero la mesa
+          mesa.estado = Estados.disponible;
+          this.mesaService.updateTable(Elementos.Mesas, mesa.id, mesa);
+        }
+      }
+    }
   }
 
   async eliminarMesa(mesa:Mesa) {

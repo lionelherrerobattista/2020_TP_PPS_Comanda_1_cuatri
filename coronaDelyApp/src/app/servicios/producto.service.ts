@@ -3,6 +3,8 @@ import { DataService } from './data.service';
 import { Producto } from '../clases/producto';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Elementos } from '../clases/enums/elementos';
 
 @Injectable({
   providedIn: 'root'
@@ -10,15 +12,17 @@ import { map } from 'rxjs/operators';
 export class ProductoService {
 
   constructor(
-    private dataService: DataService
+    private dataService: DataService,
+    private db: AngularFirestore
   ) { }
 
   modifyProduct(productId, product) {
     return this.dataService.update('productos', productId, product);
   }
   saveProduct(producto){
-    console.log("guardo producto", producto)
-    return this.dataService.setData('productos', `${producto.nombre}_${producto.descripcion}`.toLowerCase(), producto);
+    producto.id=this.db.createId();   
+    this.db.collection(Elementos.Productos).doc(producto.id).set(Object.assign({}, producto))
+    // return this.dataService.setData('productos', `${producto.nombre}_${producto.descripcion}`.toLowerCase(), producto);
     
   }
 

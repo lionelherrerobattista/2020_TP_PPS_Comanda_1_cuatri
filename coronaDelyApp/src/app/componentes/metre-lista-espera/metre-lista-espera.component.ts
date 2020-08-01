@@ -63,10 +63,11 @@ export class MetreListaEsperaComponent implements OnInit {
 
       this.listaMesas = [];
       
-      //Comprobar que la mesa no esté reservada
+      
       for(let mesa of mesas){
         mesaReservada = false;
         
+        //Comprobar que la mesa no esté reservada
         if(mesa.estado != Estados.ocupada){
           mesaReservada = Mesa.verificarReserva(mesa);
         }
@@ -85,8 +86,29 @@ export class MetreListaEsperaComponent implements OnInit {
           this.listaMesas.push(mesa);
         }
       }
-    });
+    }); 
+  }
+
+  verificarEstadoMesa(mesa:Mesa){
+    let mesaReservada = false;
+        
+    if(mesa.estado != Estados.ocupada){
+      mesaReservada = Mesa.verificarReserva(mesa);
+    }
     
+    if(mesaReservada) {
+      mesa.estado = Estados.reservada;
+      this.mesasService.updateTable(Elementos.Mesas, mesa.id, mesa);
+    } else if (mesa.estado != Estados.ocupada){
+      
+      if(mesa.estado == Estados.reservada)
+      {
+        //Pasó el tiempo de la reserva, libero la mesa
+        mesa.estado = Estados.disponible;
+        this.mesasService.updateTable(Elementos.Mesas, mesa.id, mesa);
+      }
+      this.listaMesas.push(mesa);
+    }
   }
 
   ///Modifica el estado del cliente para que pueda tomar una mesa
@@ -105,16 +127,13 @@ export class MetreListaEsperaComponent implements OnInit {
     this.clienteAux.estado = Estados.puedeTomarMesa ;
     this.clienteAux.mesaAsignada = mesa.id;
     this.usuarioService.updateUser('usuarios', this.clienteAux.id, this.clienteAux);
-<<<<<<< HEAD
+
     console.log(this.clienteAux.id, this.clienteAux.estado, this.clienteAux);
-<<<<<<< HEAD
-=======
+
+
     
->>>>>>> 7c11141e011b0d9293f256dd29e4e2a8c24c7f4d
-    
-=======
     // mesa.estado = Estados.ocupada;
->>>>>>> f26873462243ab2b37ca4c781ea622856865a68e
+
     this.mesasService.updateTable('mesas',mesa.id,mesa);
     this.mostrarToast("El cliente puede tomar una mesa");
     this.aceptacion = false;
@@ -173,3 +192,4 @@ export class MetreListaEsperaComponent implements OnInit {
     return await modal.present();
   }
 }
+
