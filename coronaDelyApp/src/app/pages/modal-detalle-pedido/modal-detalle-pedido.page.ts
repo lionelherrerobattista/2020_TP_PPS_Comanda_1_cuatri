@@ -124,7 +124,7 @@ export class ModalDetallePedidoPage implements OnInit {
 
   }
 
-<<<<<<< HEAD
+
   async enviarAPreparacion(){
     this.cliente = await this.usuarioService.getUser(this.pedido.idCliente).pipe(first()).toPromise();
     this.cliente.pedido.estado = Estados.enPreparacion;
@@ -133,27 +133,8 @@ export class ModalDetallePedidoPage implements OnInit {
     await this.usuarioService.updateUser(Elementos.Usuarios, this.cliente.id, this.cliente);
 
     this.mostrarToast('Pedido en preparación');
-=======
-  async confirmarPedido(){
-
-    console.log(this.cliente.pedido.estado);
-
-    // Comprobar que el mozo indicó que el cliente recibió el pedido
-    if(this.cliente.pedido.estado == Estados.entregado) {
-      this.cliente.estado = Estados.atendido;
-      this.cliente.pedido.estado = Estados.aceptadoPorCliente;
-
-      //Actualizar el pedido en el cliente y en la lista pedidos
-      await this.usuarioService.updateUser('usuarios', this.cliente.id, this.cliente);
-      await this.pedidoService.updateOrder(this.cliente.pedido.id, this.cliente.pedido);
-
-      this.mostrarToast('Confirmó el pedido');
-    }
-
-
->>>>>>> f26873462243ab2b37ca4c781ea622856865a68e
-
-    this.cerrarModal();
   }
+
+  
 
 }

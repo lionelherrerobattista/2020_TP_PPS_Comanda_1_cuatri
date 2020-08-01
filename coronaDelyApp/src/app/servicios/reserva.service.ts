@@ -1,7 +1,14 @@
 import { Injectable } from '@angular/core';
-import { AuthService } from './auth.service';
-import { DataService } from './data.service';
 import { AngularFirestore, DocumentChangeAction } from "@angular/fire/firestore";
+import { UsuarioService } from './usuario.service';
+import { MesaService } from './mesa.service';
+import { Elementos } from '../clases/enums/elementos';
+import { Reserva } from '../clases/reserva';
+import { Mesa } from '../clases/mesa';
+import { first } from 'rxjs/operators';
+import { Cliente } from '../clases/cliente';
+import { Observable } from 'rxjs';
+import { DataService } from './data.service';
 
 
 @Injectable({
@@ -11,11 +18,73 @@ export class ReservaService {
 
   constructor(
     private db: AngularFirestore,
-    private authService: AuthService,
-    private dataService: DataService
+    private usuarioService:UsuarioService,
+    private mesaService:MesaService,
+    private dataService:DataService,
   ) { }
 
   setDocument(collection: string, id: string, object: object): void {
     this.db.collection(collection).doc(id).set(object);
+  }
+
+  async guardarReserva(reserva:Reserva){
+    let cliente:Cliente;
+    let mesa:Mesa;
+    
+    //Guardar en reservas
+    reserva.id = this.db.createId();
+    delete reserva.mesa.reservas;
+    delete reserva.cliente.reserva;
+    this.db.collection(Elementos.Reserva).doc(reserva.id).set(Object.assign({}, reserva))
+
+    //Guardar en cliente
+    cliente = <Cliente>await this.usuarioService.getUser(reserva.cliente.id).pipe(first()).toPromise();
+    cliente.reserva = Object.assign({}, reserva);
+    delete cliente.reserva.cliente
+    this.usuarioService.updateUser(Elementos.Usuarios, cliente.id, cliente);
+    
+    //Guardar en mesa
+    mesa = await this.mesaService.getTableById(reserva.mesa.id).pipe(first()).toPromise();
+    delete reserva.mesa
+    mesa.reservas.push(Object.assign({}, reserva));
+    this.mesaService.updateTable(Elementos.Mesas, mesa.id, mesa);
+
+  }
+
+  async actualizarReserva(reserva:Reserva){
+    let cliente:Cliente;
+    let mesa:Mesa;
+    let indice;
+
+    //Actualizar en reservas
+    this.dataService.update(Elementos.Reserva, reserva.id, Object.assign({}, reserva));
+
+    reserva= await this.getReserva(reserva.id).pipe(first()).toPromise();//para tomar los otros datos que pueden faltar (cliente/mesa)
+
+    //Actualizar en cliente
+    cliente = <Cliente>await this.usuarioService.getUser(reserva.cliente.id).pipe(first()).toPromise();
+    cliente.reserva = Object.assign({}, reserva);
+    console.log(cliente)
+    delete cliente.reserva.cliente
+    this.usuarioService.updateUser(Elementos.Usuarios, cliente.id, cliente);
+    
+    //Actualizar en mesa
+    mesa = await this.mesaService.getTableById(reserva.mesa.id).pipe(first()).toPromise();
+    indice = mesa.reservas.findIndex(auxReserva => auxReserva.id == reserva.id);
+    mesa.reservas[indice] = Object.assign({}, reserva);
+    delete reserva.mesa
+    this.mesaService.updateTable(Elementos.Mesas, mesa.id, mesa);
+  }
+
+  getReserva(idReserva):Observable<Reserva> {
+    return this.dataService.getOne(Elementos.Reserva, idReserva);   
+  }
+
+  getReservas() {
+    return this.dataService.getAll(Elementos.Reserva);
+  }
+
+  eliminarReserva(reserva:Reserva) {
+    return this.dataService.deleteDocument(Elementos.Reserva, reserva.id);
   }
 }

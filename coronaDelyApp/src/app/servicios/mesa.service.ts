@@ -41,7 +41,7 @@ export class MesaService {
     this.db.collection(collection).doc(id).set(object);
   }
   
-  getAllTables(collection){
+  getAllTables(collection):Observable<Mesa[]>{
     return this.dataService.getAll(collection);
   }
   
