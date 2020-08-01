@@ -39,13 +39,13 @@ export class MesaFormComponent implements OnInit {
  traerMesas(){
   this.mesaService.getAllTables('mesas').subscribe(mesas => {
     this.listaMesas = mesas;
+    this.mesa.numero=this.listaMesas.length+1;
     
   });
  }
   registrar(){ 
      
      this.mesa.estado="disponible";
-     this.mesa.numero= this.listaMesas.length+1;
      this.mesaService.saveTable(this.mesa);
      this.presentLoading();
      this.toastService.mostrarToast('Mesa Registrada correctamente', 'success')
